@@ -8,7 +8,7 @@
       <div class="card-body">
         <h5 class="card-title">{{book.title | uppercase}}</h5>
         <p class="card-text"><strong>Author</strong>: {{book.author}}</p>
-        <button class="btn btn-danger" [routerLink]="['/book',book.id]">See more</button>
+        <button class="btn btn-danger" [routerLink]="['./book_view',book.id_book]">See more</button>
       </div>
     </div>
   </div>
