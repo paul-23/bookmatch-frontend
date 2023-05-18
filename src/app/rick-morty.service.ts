@@ -42,6 +42,6 @@ function getRndom(){
   return randoms;
 }
 
-function createBook(cover_image: any, author: any, title: any, isbn: any, category: any){
+function createBook(cover_image: any, author: any, title: any, isbn: any, category: any, name_editorial: any){
 
 }
