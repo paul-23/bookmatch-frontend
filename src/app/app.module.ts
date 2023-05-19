@@ -13,6 +13,7 @@ import { AddBookComponent } from './add-book/add-book.component';
 import { UserBooksComponent } from './user-books/user-books.component';
 import { EditBooksComponent } from './edit-books/edit-books.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SearchResultsComponent } from './search-results/search-results.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { HttpClientModule } from '@angular/common/http';
     BookViewComponent,
     AddBookComponent,
     UserBooksComponent,
-    EditBooksComponent
+    EditBooksComponent,
+    SearchResultsComponent
   ],
   imports: [
     BrowserModule,
