@@ -1,1 +1,23 @@
-<p>book-view works!</p>
+<section class="container">
+  <div class="row">
+    <div class="col">
+      <img src="{{book.cover_image}}" alt="imagen de {{book.title}}">
+    </div>
+    <div class="col">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">{{book.title | uppercase }}</h5>
+          <p class="card-text">
+            <strong>Status</strong>: {{book.author}}
+            <br>
+            <strong>Species</strong>: {{book.isbn}}
+            <br>
+            <strong>Gender</strong>: {{book.category}}
+            <br>
+          </p>
+          <button class="btn btn-danger" (click)="onBack()">Back</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
