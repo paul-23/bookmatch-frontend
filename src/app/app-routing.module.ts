@@ -19,6 +19,10 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent},
   { path: 'profile_settings', component: ProfileSettingsComponent},
 
+  { path: 'user_books/:id', component: UserBooksComponent},
+  { path: 'profile_settings/:id', component: ProfileSettingsComponent},
+  { path: 'book_view/:id', component: BookViewComponent},
+  { path: 'edit_books/:id', component: EditBooksComponent},
   { path: 'book_view', component: BookViewComponent},
   { path: 'add_book', component: AddBookComponent},
   { path: 'user_books', component: UserBooksComponent},

@@ -1,1 +1,31 @@
-<p>profile-settings works!</p>
+<section class="container" *ngIf="user">
+  <div class="row">
+
+
+    <div class="col">
+    </div>
+
+    <div class="col">
+      <div class="form-group">
+        <label for="input_title">Title</label>
+        <input type="text" value="{{user.username}}" class="form-control" id="imput_title" aria-describedby="emailHelp" placeholder="Enter Title">
+      </div>
+
+      <div class="form-author">
+        <label for="input_author">Author</label>
+        <input type="text" value="{{user.email}}" class="form-control" id="input_author" placeholder="Enter Author">
+      </div>
+
+      <div class="form-profile_image">
+        <label for="input_prfile_image" class="form-label">Search Image</label>
+        <input class="form-control form-control-sm" id="input_profile_image" type="file">
+      </div>
+
+      <div>
+        <button id="submit_button" class="btn btn-danger"
+        [routerLink]="['/book_view',user.id_book]">Submit</button>
+      </div>
+
+    </div>
+  </div>
+</section>
