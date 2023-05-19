@@ -17,6 +17,10 @@ export class BookService {
     //+  getRndom().join());
   }
 
+  getUserByID(id: any){
+    return this.http.get(BASE+"user/"+id);
+  }
+
   getBookByID(id: any){
     return this.http.get(BASE+"book/"+id);
   }

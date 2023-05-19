@@ -1,23 +1,33 @@
-<section class="container">
+<section class="container" *ngIf="book">
   <div class="row">
+
+
     <div class="col">
-      <img src="{{book.cover_image}}" alt="imagen de {{book.title}}">
     </div>
+
     <div class="col">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">{{book.title | uppercase }}</h5>
           <p class="card-text">
-            <strong>Status</strong>: {{book.author}}
+            <strong>Author</strong>: {{book.author}}
             <br>
-            <strong>Species</strong>: {{book.isbn}}
+            <strong>ISBN</strong>: {{book.isbn}}
             <br>
-            <strong>Gender</strong>: {{book.category}}
+            <strong>Category</strong>: {{book.category}}
             <br>
           </p>
+          <img [src]="'data:image/jpg;base64,' + book.cover_image"
+          height="300px" width="300px" class="card-img-top" alt="imagen del libro"/>
           <button class="btn btn-danger" (click)="onBack()">Back</button>
         </div>
       </div>
+
+      <div>
+        <button id="edit_button" class="btn btn-danger"
+        [routerLink]="['/edit_books',book.id_book]">Edit</button>
+      </div>
+
     </div>
   </div>
 </section>
