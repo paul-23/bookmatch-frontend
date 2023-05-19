@@ -24,16 +24,16 @@ export class HomeComponent implements OnInit{
 
     var num = Math.floor(Math.random() * 9);
     var r_text = new Array (9);
-    r_text[0] = "Comparte tus historias, regala aventuras. ¡Haz que tus libros cobren vida en manos de otros amantes de la lectura!";
-    r_text[1] = "Compartir libros es abrir puertas a nuevos mundos. Únete a nuestra comunidad de intercambio y difunde el placer de la lectura.";
-    r_text[2] = "Compartir libros es multiplicar el conocimiento y la pasión. Únete a nosotros y deja que tus libros inspiren a otros lectores.";
-    r_text[3] = "Comparte el amor por la lectura, pasa tus libros a nuevos dueños y deja que las historias sigan viajando.";
-    r_text[4] = "Tu libro favorito puede ser el tesoro de alguien más. Ayúdanos a construir una comunidad de intercambio de libros y deja que tus tesoros literarios encuentren nuevos hogares.";
-    r_text[5] = "Comparte una página, inspira a alguien más. Únete a nuestra app de intercambio de libros y conviértete en un embajador de la lectura solidaria.";
-    r_text[6] = "El poder de un libro compartido es ilimitado. Únete a nuestra comunidad y descubre la alegría de ver tus libros tocar las vidas de otros lectores.";
-    r_text[7] = "Compartir libros es alimentar la imaginación colectiva. Únete a nosotros y sé parte del ciclo de la literatura, donde cada libro es un viajero incansable.";
-    r_text[8] = "Comparte tus libros y construye conexiones literarias duraderas. Juntos, creamos un mundo donde las palabras nunca dejan de fluir.";
-    r_text[9] = "La magia de un libro se multiplica cuando lo compartes. Únete a nuestra comunidad de intercambio y déjate sorprender por las historias que llegarán a tus manos.";
+    r_text[0] = "Share your stories, give adventures. Bring life to your books in hands of other reading lovers.";
+    r_text[1] = "Sharing books means opening doors to a new world. Join our exchange community and share the reading pleasure.";
+    r_text[2] = "Sharing books multiplies knowledge and passion. Join us and leave your books to inspire other readers.";
+    r_text[3] = "Share the love of reading, pass your books to new owners and leave your stories to continue travelling.";
+    r_text[4] = "Your favourite book could be someone else's treasure. Help us building a book exchange community and leave your literary treasures find new places.";
+    r_text[5] = "Share one page, inspire somebody else. Join to our book exchange app and become a solidary reading ambassador.";
+    r_text[6] = "The power of a shared book is unlimited. Join our community and discover the happiness of seeing your books touching other readers life.";
+    r_text[7] = "Sharing books means feeding colective imagination. Join us and become part of literature cycle, where each book is a tireless traveller.";
+    r_text[8] = "Share your books and build long-life literary connections. We create, together, a world where words never stop flowing.";
+    r_text[9] = "The charm of a book multiplies when you share it. Join our exchange community and let it surprise by the stories that will arrive to your hands.";
     return r_text[num];
   }
 
