@@ -11,6 +11,7 @@ import { BookViewComponent } from './book-view/book-view.component';
 import { AddBookComponent } from './add-book/add-book.component';
 import { UserBooksComponent } from './user-books/user-books.component';
 import { EditBooksComponent } from './edit-books/edit-books.component';
+import { AboutUsComponent } from './about-us/about-us.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent},
@@ -18,6 +19,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'profile_settings', component: ProfileSettingsComponent},
+  { path: 'about', component: AboutUsComponent},
 
   { path: 'book_view', component: BookViewComponent},
   { path: 'add_book', component: AddBookComponent},
