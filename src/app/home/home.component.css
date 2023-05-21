@@ -56,6 +56,12 @@ label {
   align-items: center;
 }
 
+.notfound {
+  margin-top: 30px;
+  margin-bottom: 150px;
+  text-align: center;
+}
+
 .card {
   border: none;
   padding-top: 10px;

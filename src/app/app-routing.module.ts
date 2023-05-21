@@ -14,6 +14,7 @@ import { EditBooksComponent } from './edit-books/edit-books.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 
 const routes: Routes = [
+  { path: '', component: HomeComponent},
   { path: 'home', component: HomeComponent},
   { path: 'books', component: BookComponent},
   { path: 'login', component: LoginComponent},
