@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 //const BASE = "https://rickandmortyapi.com/api/";
-const BASE = "localhost:8181/api/";
+const BASE = "http://localhost:8181/api/";
 const NUM_BOOKS = 8;
 
 @Injectable({
@@ -12,9 +12,13 @@ export class BookService {
 
   constructor(private http: HttpClient) { }
 
-  get8RndomBooks(){
-    return this.http.get(BASE+"book/"+
-      getRndom().join());
+  getBooks(){
+    return this.http.get(BASE+"books");
+    //+  getRndom().join());
+  }
+
+  getUserByID(id: any){
+    return this.http.get(BASE+"user/"+id);
   }
 
   getBookByID(id: any){
@@ -29,6 +33,9 @@ export class BookService {
     return this.http.get(BASE+"book/image/" + id)
   }
 
+  getBookByTitle(title: any){
+    return this.http.get(BASE+"book/title/" + title)
+  }
 }
 
 function getRndom(){
@@ -39,4 +46,6 @@ function getRndom(){
   return randoms;
 }
 
+function createBook(cover_image: any, author: any, title: any, isbn: any, category: any, name_editorial: any){
 
+}

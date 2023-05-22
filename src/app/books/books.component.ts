@@ -16,14 +16,16 @@ export class BookComponent implements OnInit {
     this.loadRndomBooks();
   }
 
+
   getRndom() {
     return Math.floor(Math.random() * 5 + 1);
   }
 
   loadRndomBooks() {
-    this.bookService.get8RndomBooks().subscribe(
+    this.bookService.getBooks().subscribe(
       (response) => {
         this.books = response;
+        console.log(this.books.author);
       },
       (error) => {
         console.log('Error al cargar datos');
