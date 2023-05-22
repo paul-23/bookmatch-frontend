@@ -29,6 +29,14 @@ export class BookService {
     return this.http.get(BASE+"book/title/"+title);
   }
 
+  getBookByAuthor(author: any){
+    return this.http.get(BASE+"book/author/"+author);
+  }
+
+  getBookByISBN(isbn: any){
+    return this.http.get(BASE+"book/isbn/"+isbn);
+  }
+
   getBookCover(id: any){
     return this.http.get(BASE+"book/image/" + id)
   }

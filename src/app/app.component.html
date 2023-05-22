@@ -24,6 +24,19 @@
           <li class="nav-item">
             <a class="nav-link" [routerLink]="['/add_book']">Add Book</a>
           </li>
+
+
+
+          <input type="text" id="search_input" [(ngModel)]="input_text" placeholder="Search...">
+
+
+          <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/search',input_text]">Search</a>
+          </li>
+
+
+
+
           <li class="nav-item">
             <a class="nav-link" routerLink="/login" routerLinkActive="active">Login</a>
           </li>
