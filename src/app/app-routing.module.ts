@@ -15,6 +15,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 
 const routes: Routes = [
+  { path: '', component: HomeComponent},
   { path: 'home', component: HomeComponent},
   { path: 'books', component: BookComponent},
   { path: 'login', component: LoginComponent},
