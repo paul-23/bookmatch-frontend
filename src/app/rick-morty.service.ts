@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 //const BASE = "https://rickandmortyapi.com/api/";
-const BASE = "http://localhost:8181/api/";
+const BASE = "https://api-bookmatch-production.up.railway.app/api/";
 const NUM_BOOKS = 8;
 
 @Injectable({
