@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 //const BASE = "https://rickandmortyapi.com/api/";
-const BASE = "http://localhost:8181/api/";
+//const BASE = "http://localhost:8181/api/";
+const BASE = "https://api-bookmatch-production.up.railway.app/api/";
 const NUM_BOOKS = 8;
 
 @Injectable({
@@ -14,6 +16,11 @@ export class BookService {
 
   getBooks(){
     return this.http.get(BASE+"books");
+    //+  getRndom().join());
+  }
+
+  getEditorials(){
+    return this.http.get(BASE+"editorials");
     //+  getRndom().join());
   }
 
@@ -44,6 +51,15 @@ export class BookService {
   getBookByTitle(title: any){
     return this.http.get(BASE+"book/title/" + title)
   }
+
+  createEditorial(editorial_name: string):Observable<any>{
+    const body = {
+      editorial_name: editorial_name
+    };
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    return this.http.post<any>(`${BASE}editorials`, body, { headers });
+  }
 }
 
 function getRndom(){
@@ -53,6 +69,8 @@ function getRndom(){
   }
   return randoms;
 }
+
+
 
 function createBook(cover_image: any, author: any, title: any, isbn: any, category: any, name_editorial: any){
 

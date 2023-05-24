@@ -164,3 +164,11 @@ a:hover {
 .password-input {
   padding-right: 30px;
 }
+
+button {
+  margin-top: 30px;
+}
+
+.modal {
+  z-index: 1999;
+}
