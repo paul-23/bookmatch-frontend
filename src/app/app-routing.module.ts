@@ -12,8 +12,10 @@ import { AddBookComponent } from './add-book/add-book.component';
 import { UserBooksComponent } from './user-books/user-books.component';
 import { EditBooksComponent } from './edit-books/edit-books.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { SearchResultsComponent } from './search-results/search-results.component';
 
 const routes: Routes = [
+  { path: '', component: HomeComponent},
   { path: 'home', component: HomeComponent},
   { path: 'books', component: BookComponent},
   { path: 'login', component: LoginComponent},
@@ -21,6 +23,7 @@ const routes: Routes = [
   { path: 'profile_settings', component: ProfileSettingsComponent},
   { path: 'about', component: AboutUsComponent},
 
+  { path: 'search/:id', component: SearchResultsComponent},
   { path: 'user_books/:id', component: UserBooksComponent},
   { path: 'profile_settings/:id', component: ProfileSettingsComponent},
   { path: 'book_view/:id', component: BookViewComponent},
