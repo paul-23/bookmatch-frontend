@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient,HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { BookService } from '../rick-morty.service';
 
@@ -13,6 +13,11 @@ export class BookComponent implements OnInit {
   constructor(private bookService: BookService) {}
 
   ngOnInit() {
+
+    const adminToken = sessionStorage.getItem('token');
+    console.log(adminToken);
+    let header = this.bookService.getHeader(adminToken);
+
     this.loadRndomBooks();
   }
 
@@ -25,7 +30,6 @@ export class BookComponent implements OnInit {
     this.bookService.getBooks().subscribe(
       (response) => {
         this.books = response;
-        console.log(this.books.author);
       },
       (error) => {
         console.log('Error al cargar datos');

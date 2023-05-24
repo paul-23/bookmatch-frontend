@@ -42,13 +42,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
     HttpClientModule,
     FormsModule
   ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
-      multi: true
-    }
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
