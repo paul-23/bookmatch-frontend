@@ -1,41 +1,44 @@
 <section class="container" *ngIf="book">
-  <div class="row">
+  <div class="site-wrap d-md-flex justify-content-center">
+    <div class="form-wrap">
+      <div class="form-inner">
+        <h1 class="title">Add a Book</h1>
+        <p class="caption mb-4">Share your book with the other members.</p>
 
+        <form action="#" class="pt-3">
+          <div class="form-floating">
+            <input type="text" value="{{book.title}}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Title">
+            <label for="input_title">Title</label>
+          </div>
 
-    <div class="col">
-    </div>
+          <div class="form-floating">
+            <input type="text" value="{{book.author}}" class="form-control" id="exampleInputPassword1" placeholder="Enter Author">
+            <label for="input_author">Author</label>
+          </div>
 
-    <div class="col">
-      <div class="form-group">
-        <label for="input_title">Title</label>
-        <input type="text" value="{{book.title}}" class="form-control" id="imput_title" aria-describedby="emailHelp" placeholder="Enter Title">
+          <div class="form-floating">
+            <input type="text" value="{{book.isbn}}" class="form-control" id="input_ISBN" placeholder="Enter ISBN">
+            <label for="input_ISBN">ISBN</label>
+          </div>
+
+          <div class="form-floating">
+            <input type="text" value="{{book.category}}" class="form-control" id="input_category" placeholder="Enter Category">
+            <label for="input_category">Category</label>
+          </div>
+
+          <div class="form-floating profile-image">
+            <label for="input_cover_image" class="form-label">Book cover image <span>(If blank, added based on the ISBN)</span></label>
+            <input class="form-control form-control-sm" id="input_cover_image" type="file">
+          </div>
+
+          <div class="d-grid mb-4">
+            <button type="submit" class="btn btn-primary" [routerLink]="['/book_view',book.id_book]">
+              Update book
+            </button>
+          </div>
+
+        </form>
       </div>
-
-      <div class="form-author">
-        <label for="input_author">Author</label>
-        <input type="text" value="{{book.author}}" class="form-control" id="input_author" placeholder="Enter Author">
-      </div>
-
-      <div class="form-ISBN">
-        <label for="input_ISBN">ISBN</label>
-        <input type="text" value="{{book.isbn}}" class="form-control" id="input_ISBN" placeholder="Enter ISBN">
-      </div>
-
-      <div class="form-category">
-        <label for="input_category">Category</label>
-        <input type="text" value="{{book.category}}" class="form-control" id="input_category" placeholder="Enter Category">
-      </div>
-
-      <div class="form-cover_image">
-        <label for="input_cover_image" class="form-label">Search Image</label>
-        <input class="form-control form-control-sm" id="input_cover_image" type="file">
-      </div>
-
-      <div>
-        <button id="submit_button" class="btn btn-danger"
-        [routerLink]="['/book_view',book.id_book]">Submit</button>
-      </div>
-
     </div>
   </div>
 </section>
