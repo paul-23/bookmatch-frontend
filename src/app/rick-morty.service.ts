@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 //const BASE = "https://rickandmortyapi.com/api/";
-const BASE = "localhost:8181/api/";
+const BASE = "https://api-bookmatch-production.up.railway.app/api/";
 const NUM_BOOKS = 8;
 
 @Injectable({
@@ -12,9 +13,18 @@ export class BookService {
 
   constructor(private http: HttpClient) { }
 
-  get8RndomBooks(){
-    return this.http.get(BASE+"book/"+
-      getRndom().join());
+  getBooks(){
+    return this.http.get(BASE+"books");
+    //+  getRndom().join());
+  }
+
+  getEditorials(){
+    return this.http.get(BASE+"editorials");
+    //+  getRndom().join());
+  }
+
+  getUserByID(id: any){
+    return this.http.get(BASE+"user/"+id);
   }
 
   getBookByID(id: any){
@@ -25,10 +35,35 @@ export class BookService {
     return this.http.get(BASE+"book/title/"+title);
   }
 
+  getBookByAuthor(author: any){
+    return this.http.get(BASE+"book/author/"+author);
+  }
+
+  getBookByISBN(isbn: any){
+    return this.http.get(BASE+"book/isbn/"+isbn);
+  }
+
   getBookCover(id: any){
     return this.http.get(BASE+"book/image/" + id)
   }
 
+  getBookByTitle(title: any){
+    return this.http.get(BASE+"book/title/" + title)
+  }
+
+  createEditorial(editorial_name: string):Observable<any>{
+    const body = {
+      editorial_name: editorial_name
+    };
+    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+    return this.http.post<any>(BASE+"editorials", body, { headers });
+  }
+
+  getHeader(adminToken: any){
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${adminToken}`);
+    return headers;
+  }
 }
 
 function getRndom(){
@@ -40,3 +75,7 @@ function getRndom(){
 }
 
 
+
+function createBook(cover_image: any, author: any, title: any, isbn: any, category: any, name_editorial: any){
+
+}

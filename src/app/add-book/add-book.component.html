@@ -1,1 +1,79 @@
-<p>add-book works!</p>
+<div class="site-wrap d-md-flex justify-content-center">
+  <div class="form-wrap">
+    <div class="form-inner">
+      <h1 class="title">Add a Book</h1>
+      <p class="caption mb-4">Share your book with the other members.</p>
+
+      <form action="#" class="pt-3">
+        <div class="form-floating">
+          <input type="text" id="input_title" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Title">
+          <label for="input_title">Title</label>
+        </div>
+
+        <div class="form-floating">
+          <input type="text" id="input_author" class="form-control" id="exampleInputPassword1" placeholder="Enter Author">
+          <label for="input_author">Author</label>
+        </div>
+
+        <div class="form-floating">
+          <input type="text" id="input_ISBN" class="form-control" id="input_ISBN" placeholder="Enter ISBN">
+          <label for="input_ISBN">ISBN</label>
+        </div>
+
+        <div class="form-floating">
+          <input type="text" id="input_category" class="form-control" id="input_category" placeholder="Enter Category">
+          <label for="input_category">Category</label>
+        </div>
+
+        <div class="form-floating profile-image">
+          <label for="formFileSm" class="form-label">Book cover image <span>(If blank, added based on the ISBN)</span></label>
+          <input class="form-control form-control-sm" id="formFileSm" type="file">
+        </div>
+
+
+        <div class="dropdown">
+          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown button
+          </button>
+          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+            <li *ngFor="let editorial of editorials; let i = index">
+              <a class="dropdown-item" href="#">{{editorial.name_editorial}}</a></li>
+          </ul>
+        </div>
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Open modal for @getbootstrap</button>
+
+        <div class="d-grid mb-4">
+          <button type="submit" class="btn btn-primary">
+            Add book
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New editorial</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Name:</label>
+            <textarea class="form-control" id="message-text"></textarea>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Send message</button>
+      </div>
+    </div>
+  </div>
+</div>
