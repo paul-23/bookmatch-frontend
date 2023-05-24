@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 //const BASE = "https://rickandmortyapi.com/api/";
-//const BASE = "http://localhost:8181/api/";
 const BASE = "https://api-bookmatch-production.up.railway.app/api/";
 const NUM_BOOKS = 8;
 
