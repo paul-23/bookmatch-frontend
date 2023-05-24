@@ -57,7 +57,12 @@ export class BookService {
     };
     const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
-    return this.http.post<any>(`${BASE}editorials`, body, { headers });
+    return this.http.post<any>(BASE+"editorials", body, { headers });
+  }
+
+  getHeader(adminToken: any){
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${adminToken}`);
+    return headers;
   }
 }
 

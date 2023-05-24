@@ -2,12 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { BookService } from '../rick-morty.service';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit{
+
 
   title = "";
 
@@ -16,6 +18,9 @@ export class HomeComponent implements OnInit{
   constructor(private bookService: BookService) {}
 
   ngOnInit() {
+    let token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY4NDgzNDI2NywiZXhwIjoxNjg0OTIwNjY3fQ.-sbRKQUnB9EApi3uxDacS0Dsu83d_ALbHZ3sqmM0_JoKi-030oniUh9HKIQANKOFoCanhuPrGCoR9o4SRQRq7A";
+
+    sessionStorage.setItem('token', token);
     this.title = this.getMessage();
     this.loadRndomBooks();
   }
