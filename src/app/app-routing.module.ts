@@ -13,6 +13,7 @@ import { UserBooksComponent } from './user-books/user-books.component';
 import { EditBooksComponent } from './edit-books/edit-books.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
+import { TokenStorageService } from './_services/token-storage.service';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},

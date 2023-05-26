@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { BookService } from '../rick-morty.service';
+import { TokenStorageService } from '../_services/token-storage.service';
 
 
 @Component({
@@ -15,12 +16,13 @@ export class HomeComponent implements OnInit{
 
   books: any;
 
-  constructor(private bookService: BookService) {}
+  constructor(private bookService: BookService, private tokenStorageService: TokenStorageService) {}
 
   ngOnInit() {
-    let token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY4NDgzNDI2NywiZXhwIjoxNjg0OTIwNjY3fQ.-sbRKQUnB9EApi3uxDacS0Dsu83d_ALbHZ3sqmM0_JoKi-030oniUh9HKIQANKOFoCanhuPrGCoR9o4SRQRq7A";
+    let token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY4NTAxMjAxOSwiZXhwIjoxNjg1MDk4NDE5fQ.eMfykDQnrPRir01GdDfFcyirgIVNG_9M8cD8hORWBYJ7n6HYefPDAhvIxWJqXffU1dik15qAvO_bQr6af9z2Ow";
 
     sessionStorage.setItem('token', token);
+    this.tokenStorageService.saveToken(token);
     this.title = this.getMessage();
     this.loadRndomBooks();
   }
