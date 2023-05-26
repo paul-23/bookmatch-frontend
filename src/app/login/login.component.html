@@ -4,13 +4,16 @@
       <h1 class="title">Login</h1>
       <p class="caption mb-4">Please enter your login details to sign in.</p>
 
-      <form action="#" class="pt-3">
+
+        <form (ngSubmit)="logIn()" class="pt-3">
         <div class="form-floating">
           <input
             type="email"
+            name="email"
             class="form-control"
             id="email"
             placeholder="info@example.com"
+            [(ngModel)]="email"
           />
           <label for="email">Email Address</label>
         </div>
@@ -19,9 +22,11 @@
           <input
             #passwordInput
             type="password"
+            name="password"
             class="form-control"
             id="password"
             placeholder="Password"
+            [(ngModel)]="password"
           />
           <label for="password">Password</label>
           <i class="password-icon" [class]="showPassword ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'" (click)="togglePasswordVisibility(passwordInput)"></i>
