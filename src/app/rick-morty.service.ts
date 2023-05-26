@@ -52,15 +52,14 @@ export class BookService {
     return this.http.get(BASE+"book/title/" + title)
   }
 
-  createEditorial(editorial_name: string):Observable<any>{
+  createEditorial(name_editorial: string): Observable<any> {
     const body = {
-      editorial_name: editorial_name
-      //editorial_name
+      name_editorial: name_editorial
     };
-    //const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
     const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
-    return this.http.post<any>(BASE+"editorials", body, { headers });
+    return this.http.post<any>(BASE + "editorials", body, { headers });
   }
 
   getHeader(adminToken: any){

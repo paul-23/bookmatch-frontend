@@ -13,25 +13,24 @@ export class AddBookComponent {
   showPopup = false;
   inputValue: string = "";
   constructor(private bookService: BookService) {}
-
-
-editorial: any;
+  name: any;
+  edit: any;
 
   ngOnInit() {
     this.loadEditorials();
-    this.createEditorial('Editorial Mas');
   }
 
-  createEditorial(editorialName: string): void {
+
+  createEditorial(): void {
+    const editorialName = this.edit;
     this.bookService.createEditorial(editorialName).subscribe(
       response => {
-        console.log(sessionStorage.getItem('token'));
         console.log('Post created successfully', response);
         // Handle the response or perform additional actions
       },
       error => {
         console.error('Error creating post', error);
-        // Handle the error appropriately
+        // Meter texto rojo o algo visual aqui
       }
     );
   }

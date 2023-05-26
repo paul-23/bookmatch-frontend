@@ -31,17 +31,18 @@
         </div>
 
 
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown button
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li *ngFor="let editorial of editorials; let i = index">
-              <a class="dropdown-item" href="#">{{editorial.name_editorial}}</a></li>
-          </ul>
-        </div>
 
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Open modal for @getbootstrap</button>
+
+
+
+        <input class="form-control" list="datalistOptions" id="inputOptions" placeholder="Type to search...">
+        <datalist id="datalistOptions">
+            <option *ngFor="let editorial of editorials; let i = index" value = "{{editorial.name_editorial}}"></option>
+        </datalist>
+
+
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Add new Editorial</button>
 
         <div class="d-grid mb-4">
           <button type="submit" class="btn btn-primary">
@@ -62,18 +63,22 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form (ngSubmit)="createEditorial()">
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Name:</label>
-            <textarea class="form-control" id="message-text"></textarea>
+
+            <input class="form-control" id="edit" [(ngModel)]="edit" name="first">
+
           </div>
-        </form>
-      </div>
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
+        <button type="button" class="btn btn-primary" id="create" type="submit">Create Editorial</button>
       </div>
+
+        </form>
+      </div>
+
     </div>
   </div>
 </div>
