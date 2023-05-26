@@ -16,9 +16,33 @@ export class AddBookComponent {
   name: any;
   edit: any;
 
+  title: any;
+  author: any;
+  isbn: any;
+  category: any;
+  image: any;
+  editorial: any;
+
   ngOnInit() {
     this.loadEditorials();
   }
+
+
+  createBook(): void {
+    const editorialName = this.edit;
+    this.bookService.createEditorial(editorialName).subscribe(
+      response => {
+        console.log('Post created successfully', response);
+        // Handle the response or perform additional actions
+      },
+      error => {
+        console.error('Error creating post', error);
+
+        // Meter texto rojo o algo visual aqui
+      }
+    );
+  }
+
 
 
   createEditorial(): void {
@@ -30,6 +54,7 @@ export class AddBookComponent {
       },
       error => {
         console.error('Error creating post', error);
+
         // Meter texto rojo o algo visual aqui
       }
     );

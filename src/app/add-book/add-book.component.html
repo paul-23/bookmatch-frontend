@@ -4,29 +4,37 @@
       <h1 class="title">Add a Book</h1>
       <p class="caption mb-4">Share your book with the other members.</p>
 
+
+
+
+
       <form action="#" class="pt-3">
         <div class="form-floating">
-          <input type="text" id="input_title" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Title">
+          <input type="text" id="input_title" class="form-control" id="exampleInputEmail1"
+          aria-describedby="emailHelp" placeholder="Enter Title" [(ngModel)]="title" name="titlename">
           <label for="input_title">Title</label>
         </div>
 
         <div class="form-floating">
-          <input type="text" id="input_author" class="form-control" id="exampleInputPassword1" placeholder="Enter Author">
+          <input type="text" id="input_author" class="form-control" id="exampleInputPassword1"
+          placeholder="Enter Author" [(ngModel)]="author" name="authorname">
           <label for="input_author">Author</label>
         </div>
 
         <div class="form-floating">
-          <input type="text" id="input_ISBN" class="form-control" id="input_ISBN" placeholder="Enter ISBN">
+          <input type="text" id="input_ISBN" class="form-control" id="input_ISBN"
+          placeholder="Enter ISBN" [(ngModel)]="isbn" name="isbnname">
           <label for="input_ISBN">ISBN</label>
         </div>
 
         <div class="form-floating">
-          <input type="text" id="input_category" class="form-control" id="input_category" placeholder="Enter Category">
+          <input type="text" id="input_category" class="form-control" id="input_category"
+          placeholder="Enter Category" [(ngModel)]="category" name="categoryname">
           <label for="input_category">Category</label>
         </div>
 
         <div class="form-floating profile-image">
-          <label for="formFileSm" class="form-label">Book cover image <span>(If blank, added based on the ISBN)</span></label>
+          <label for="formFileSm" class="form-label" [(ngModel)]="image" name="imagename">Book cover image <span>(If blank, added based on the ISBN)</span></label>
           <input class="form-control form-control-sm" id="formFileSm" type="file">
         </div>
 
@@ -35,7 +43,8 @@
 
 
 
-        <input class="form-control" list="datalistOptions" id="inputOptions" placeholder="Type to search...">
+        <input class="form-control" list="datalistOptions" id="inputOptions" placeholder="Type to search..."
+        [(ngModel)]="editorial">
         <datalist id="datalistOptions">
             <option *ngFor="let editorial of editorials; let i = index" value = "{{editorial.name_editorial}}"></option>
         </datalist>
@@ -80,5 +89,16 @@
       </div>
 
     </div>
+  </div>
+</div>
+
+
+<div class="toast">
+  <div class="toast-header">
+    <strong class="me-auto">Toast Header</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+  </div>
+  <div class="toast-body">
+    <p>Some text inside the toast body</p>
   </div>
 </div>
