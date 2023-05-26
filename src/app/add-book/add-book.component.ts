@@ -32,10 +32,10 @@ export class AddBookComponent {
     this.loadEditorials();
   }
 
-  createBook(){
+  createBook() {
     const formData = new FormData();
 
-    formData.append('book', new Blob([JSON.stringify({
+    const book = {
       author: 'JNKFASDASDJNIKLDFSJNKLFSD1',
       title: 'Título del Libro 1',
       isbn: '9788466360081',
@@ -47,13 +47,13 @@ export class AddBookComponent {
       editorial: {
         id_editorial: 1
       }
-    })], { type: 'application/json' }));
+    };
 
+    formData.append('book', new Blob([JSON.stringify(book)], { type: 'application/json' }));
+    formData.append('image', this.newBook.cover_image);
 
-    formData.append('image', this.newBook.cover_image as File);
     console.log(formData);
     this.bookService.createBook(formData);
-
   }
 
 onFileSelected(event: any) {
