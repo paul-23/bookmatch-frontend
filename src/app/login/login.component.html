@@ -1,4 +1,4 @@
-<div class="site-wrap d-md-flex justify-content-center">
+<div *ngIf="!userLogged" class="site-wrap d-md-flex justify-content-center">
   <div class="form-wrap">
     <div class="form-inner">
       <h1 class="title">Login</h1>
@@ -98,4 +98,10 @@
       </form>
     </div>
   </div>
+</div>
+
+<div *ngIf="userLogged">
+  <h1> You're already logged </h1>
+  <button (click)="logout()">Logout</button>
+  <button routerLink="/home">Home</button>
 </div>

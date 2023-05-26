@@ -19,10 +19,8 @@ export class HomeComponent implements OnInit{
   constructor(private bookService: BookService, private tokenStorageService: TokenStorageService) {}
 
   ngOnInit() {
-    let token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbkBleGFtcGxlLmNvbSIsImlhdCI6MTY4NTAxMjAxOSwiZXhwIjoxNjg1MDk4NDE5fQ.eMfykDQnrPRir01GdDfFcyirgIVNG_9M8cD8hORWBYJ7n6HYefPDAhvIxWJqXffU1dik15qAvO_bQr6af9z2Ow";
 
-    sessionStorage.setItem('token', token);
-    this.tokenStorageService.saveToken(token);
+
     this.title = this.getMessage();
     this.loadRndomBooks();
   }

@@ -2,6 +2,7 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 import { BookService } from '../rick-morty.service';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { map, pluck } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +15,10 @@ export class LoginComponent {
   showPassword!: boolean;
   email: string = '';
   password: string = '';
+  userLogged: boolean =false;
+  autenticationFailed: boolean = false;
 
-  constructor(private bookService: BookService, private tokenStorageService: TokenStorageService) {}
+  constructor(private authService: AuthService, private tokenStorageService: TokenStorageService) {}
 
   togglePasswordVisibility(passwordInput: HTMLInputElement) {
     this.showPassword = !this.showPassword;
@@ -24,16 +27,25 @@ export class LoginComponent {
 
   logIn():void{
     console.log(this.email + this.password);
-    this.bookService.signIn(this.email, this.password).subscribe(
+    this.authService.signIn(this.email, this.password).subscribe(
       {
         next: (data: any) => {
           this.tokenStorageService.saveToken(data.accessToken);
           this.tokenStorageService.saveUser(data);
+          this.userLogged = true;
+          this.email = '';
+          this.password = '';
         },
         error: (err: any) => {
           console.error('Error creating post', err);
+          this.autenticationFailed = true;
         }
       }
     );
+  }
+
+  logout():void{
+    this.tokenStorageService.signOut();
+    this.userLogged = false;
   }
 }
