@@ -14,9 +14,8 @@ export class BookComponent implements OnInit {
 
   ngOnInit() {
 
-    const adminToken = sessionStorage.getItem('token');
-    console.log(adminToken);
-    let header = this.bookService.getHeader(adminToken);
+    const token = sessionStorage.getItem('token');
+    let header = this.bookService.getHeader(token);
 
     this.loadRndomBooks();
   }

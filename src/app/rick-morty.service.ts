@@ -55,8 +55,10 @@ export class BookService {
   createEditorial(editorial_name: string):Observable<any>{
     const body = {
       editorial_name: editorial_name
+      //editorial_name
     };
-    const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    //const headers = new HttpHeaders().set('Content-Type', 'application/json');
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
 
     return this.http.post<any>(BASE+"editorials", body, { headers });
   }

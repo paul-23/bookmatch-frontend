@@ -25,6 +25,7 @@ editorial: any;
   createEditorial(editorialName: string): void {
     this.bookService.createEditorial(editorialName).subscribe(
       response => {
+        console.log(sessionStorage.getItem('token'));
         console.log('Post created successfully', response);
         // Handle the response or perform additional actions
       },
