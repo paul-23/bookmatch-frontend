@@ -28,6 +28,8 @@ export class BookService {
     return this.http.get(BASE+"user/"+id);
   }
 
+
+
   getBookByID(id: any){
     return this.http.get(BASE+"book/"+id);
   }
@@ -52,21 +54,23 @@ export class BookService {
     return this.http.get(BASE+"book/title/" + title)
   }
 
-  createBook(title: string, author: string, isbn: string, category: string, image: any, editorial: any): Observable<any> {
+  createBook(bookData: any) {
 
-    const body = {
-      title,
-      author,
-      isbn,
-      category,
-      image,
-      editorial
-    };
+    //const headers = new HttpHeaders();
+    //headers.append('Accept', 'application/json');
 
-    const headers = new HttpHeaders({'Content-Type': 'application/json'});
-
-    return this.http.post<any>(BASE + "book", body, { headers });
+    return this.http.post<any>(BASE + "book", bookData).subscribe(
+      (response) => {
+        console.log('Book created successfully', response);
+         // Handle success
+      },
+      (error) => {
+        console.error('Error creating book', error);
+         // Handle error
+      }
+    );
   }
+
 
 
   createEditorial(name_editorial: string): Observable<any> {

@@ -23,27 +23,50 @@ export class AddBookComponent {
   image: any;
   editorial: any;
 
+  newBook: any = {};
+  coverImage: File | null = null;
+
   ngOnInit() {
     this.loadEditorials();
   }
 
+  createBook(){
+    const formData = new FormData();
 
-  createBook(): void {
-    const editorialName = this.edit;
-    this.bookService.createEditorial(editorialName).subscribe(
-      response => {
-        console.log('Post created successfully', response);
-        // Handle the response or perform additional actions
+    formData.append('book', new Blob([JSON.stringify({
+      author: 'JNKFASDASDJNIKLDFSJNKLFSD1',
+      title: 'Título del Libro 1',
+      isbn: '9788466360081',
+      category: 'Categoría 1',
+      description: 'Descripción del Libro 1',
+      user: {
+        id_user: 1
       },
-      error => {
-        console.error('Error creating post', error);
-
-        // Meter texto rojo o algo visual aqui
+      editorial: {
+        id_editorial: 1
       }
-    );
+    })], { type: 'application/json' }));
+
+
+    formData.append('image', this.newBook.cover_image);
+    console.log(formData);
+    this.bookService.createBook(formData);
+
   }
 
+onFileSelected(event: any) {
+    const file = event.target.files[0];
+    this.convertToBlob(file);
+  }
 
+  convertToBlob(file: File) {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const blob = new Blob([reader.result as ArrayBuffer], { type: file.type });
+      this.newBook.cover_image = blob;
+    };
+    reader.readAsArrayBuffer(file);
+  }
 
   createEditorial(): void {
     const editorialName = this.edit;
