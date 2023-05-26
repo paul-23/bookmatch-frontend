@@ -15,7 +15,18 @@ export class BookService {
 
   constructor(private http: HttpClient) { }
 
-  signIn(email: string, password: string): Observable<string> {
+  signIn(email: string, password: string): Observable<any> {
+    const body = {
+      email: email,
+      password: password
+    };
+
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post(AUTH_BASE + "signin", body, { headers });
+  }
+
+  signInUserId(email: string, password: string): Observable<string> {
     const body = {
       email: email,
       password: password
@@ -24,31 +35,10 @@ export class BookService {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
     return this.http.post(AUTH_BASE + "signin", body, { headers }).pipe(
-      map(response => response as any), // Transforma la respuesta a tipo 'any'
-      pluck('accessToken') // Obtiene el valor de la propiedad 'accessToken'
+      map(response => response as any),
+      pluck('id')
     );
-
-    // return this.http.post(AUTH_BASE + "signin", body, { headers }).pipe(map(response => {
-    //   const accessToken = response.accessToken;
-    //   sessionStorage.setItem('accessToken', accessToken);
-    // }));
-
   }
-
-  /* signIn(email: string, password: string): Observable<any> {
-    const body = {
-      email: email,
-      password: password
-    };
-
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-    return this.http.post(AUTH_BASE + "signin", body, { headers }).pipe(map(response => {
-      const accessToken = response;
-      sessionStorage.setItem('accessToken', accessToken.accessToken);
-      return response; // Devuelve la respuesta para que pueda ser observada
-    }));
-  } */
 
   getBooks() {
     return this.http.get(BASE + "books");
