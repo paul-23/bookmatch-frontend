@@ -26,6 +26,8 @@ export class AddBookComponent {
   newBook: any = {};
   coverImage: File | null = null;
 
+  coverImageBlob: Blob | null = null;
+
   ngOnInit() {
     this.loadEditorials();
   }
@@ -48,7 +50,7 @@ export class AddBookComponent {
     })], { type: 'application/json' }));
 
 
-    formData.append('image', this.newBook.cover_image);
+    formData.append('image', this.newBook.cover_image as File);
     console.log(formData);
     this.bookService.createBook(formData);
 
@@ -56,17 +58,17 @@ export class AddBookComponent {
 
 onFileSelected(event: any) {
     const file = event.target.files[0];
-    this.convertToBlob(file);
+    //this.convertToBlob(file);
   }
 
-  convertToBlob(file: File) {
+  /*convertToBlob(file: File) {
     const reader = new FileReader();
     reader.onloadend = () => {
       const blob = new Blob([reader.result as ArrayBuffer], { type: file.type });
-      this.newBook.cover_image = blob;
+      this.coverImageBlob = blob;
     };
     reader.readAsArrayBuffer(file);
-  }
+  }*/
 
   createEditorial(): void {
     const editorialName = this.edit;
