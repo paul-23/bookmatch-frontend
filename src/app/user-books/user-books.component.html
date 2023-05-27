@@ -1,28 +1,22 @@
 <section class="container" *ngIf="user">
   <div class="row">
-
-
-    <div class="col">
+    <div class="col-6">
+      <img [src]="'data:image/jpg;base64,' + user.profile_image" class="card-img-top rounded-circle" alt="User profile image"/>
     </div>
-
-    <div class="col">
+    <div class="col-6">
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">{{user.username}}</h5>
           <p class="card-text">
-            <strong>Author</strong>: {{user.email}}
+            <strong>email</strong>: {{user.email}}
             <br>
-
           </p>
-          <!--<img [src]="'data:image/jpg;base64,' + user.profile_image"
-          height="300px" width="300px" class="card-img-top" alt="imagen del libro"/>
-          <button class="btn btn-danger" (click)="onBack()">Back</button> -->
         </div>
       </div>
 
       <div>
         <button id="edit_button" class="btn btn-danger"
-        [routerLink]="['/profile_settings',user.id_user]">Edit</button>
+        [routerLink]="['/profile_settings',user.id_user]">Settings  <i class="bi bi-gear-fill"></i></button>
       </div>
 
     </div>

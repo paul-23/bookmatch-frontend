@@ -16,7 +16,7 @@
     </div>
   </div>
   <div *ngIf="loading">
-    <h3 class="messageLNF">Loading...</h3>
+    <app-loader></app-loader>
   </div>
   <div *ngIf="!loading && !books">
     <h3 class="messageLNF">There are no books</h3>
