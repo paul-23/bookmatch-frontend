@@ -1,16 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { TokenStorageService } from './_services/token-storage.service';
+import { BookService } from './rick-morty.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'BookMatch';
   public input_text: string;
+  user: any;
+  userLogged: boolean = false;
+  userNotLogged: boolean = false;
 
-  constructor() {
+  constructor(private tokenStorageService: TokenStorageService, private bookService: BookService ) {
     this.input_text = '';
+  }
+
+  ngOnInit(): void {
+    this.user = this.tokenStorageService.getUser().username;
+    if(this.user !== ''){
+      this.userLogged = true;
+      console.log(this.user);
+    } else {
+      this.userNotLogged = true;
+    }
   }
 
   /*performSearch(){

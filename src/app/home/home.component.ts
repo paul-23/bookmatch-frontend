@@ -19,8 +19,6 @@ export class HomeComponent implements OnInit{
   constructor(private bookService: BookService, private tokenStorageService: TokenStorageService) {}
 
   ngOnInit() {
-
-
     this.title = this.getMessage();
     this.loadRndomBooks();
   }
