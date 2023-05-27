@@ -10,9 +10,16 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 export class UserBooksComponent implements OnInit{
 
   user: any;
+  books: any;
 
   constructor(private _router: Router,private _route: ActivatedRoute,
-    private bookService: BookService, private sanitizer: DomSanitizer) { }
+    private bookService: BookService, private sanitizer: DomSanitizer) {
+      this.books = [
+        { title: 'Book 1', author: 'author 1', available: true },
+        { title: 'Book 2', author: 'author 1', available: false },
+        { title: 'Book 3', author: 'author 1', available: true }
+      ]
+    }
 
   ngOnInit(): void {
     let id_user = this._route.snapshot.paramMap.get('id');

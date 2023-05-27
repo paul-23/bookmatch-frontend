@@ -1,3 +1,121 @@
 .container {
   margin-top: 50px;
+  min-height: 100vh;
+}
+
+.profile-card {
+  max-width: 400px;
+  margin: 50px auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  animation: slide-up 0.5s ease;
+}
+
+.profile-image {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin: 20px auto;
+}
+
+.profile-info {
+  padding: 20px;
+}
+
+.profile-info h5 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.profile-info p {
+  font-size: 16px;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.profile-settings {
+  margin-bottom: 20px;
+}
+
+.profile-settings a {
+  font-size: 18px;
+  color: #fff;
+  border: none;
+  transition: background-color 0.3s ease;
+  border-radius: 10px;
+  background-color: #e20074;
+  height: 60px;
+  font-weight: 500;
+  box-shadow: 0 15px 30px -7px rgba(119, 84, 246, 0.5);
+  transition: 0.3s all ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.profile-settings a:hover {
+  background-color: #643cf5;
+}
+
+.placeholder-image {
+  background-color: #f8f9fa;
+  width: 150px;
+  height: 150px;
+}
+
+@keyframes slide-up {
+  0% {
+    transform: translateY(100px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.book-card {
+  margin: 50px auto;
+  border-radius: 10px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  animation: slide-up 0.5s ease;
+}
+
+.book-list {
+  list-style: none;
+  padding: 0;
+}
+
+.book-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px;
+  border-bottom: 1px solid #ccc;
+}
+
+.book-list-item:last-child {
+  border-bottom: none;
+}
+
+.book-title {
+  flex: 1;
+  margin-right: 20px;
+}
+
+.book-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.book-actions button {
+  width: 100%;
+}
+
+.book-actions button {
+  margin-left: 10px;
 }
