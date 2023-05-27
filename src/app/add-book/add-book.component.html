@@ -4,50 +4,64 @@
       <h1 class="title">Add a Book</h1>
       <p class="caption mb-4">Share your book with the other members.</p>
 
-      <form action="#" class="pt-3">
+
+
+
+
+      <form action="#" class="pt-3" name="formBook" enctype="multipart/form-data">
         <div class="form-floating">
-          <input type="text" id="input_title" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Title">
+          <input type="text" id="input_title" class="form-control" id="exampleInputEmail1"
+          aria-describedby="emailHelp" placeholder="Enter Title" [(ngModel)]="newBook.title" name="titlename">
           <label for="input_title">Title</label>
         </div>
 
         <div class="form-floating">
-          <input type="text" id="input_author" class="form-control" id="exampleInputPassword1" placeholder="Enter Author">
+          <input type="text" id="input_author" class="form-control" id="exampleInputPassword1"
+          placeholder="Enter Author" [(ngModel)]="newBook.author" name="authorname">
           <label for="input_author">Author</label>
         </div>
 
         <div class="form-floating">
-          <input type="text" id="input_ISBN" class="form-control" id="input_ISBN" placeholder="Enter ISBN">
+          <input type="text" id="input_ISBN" class="form-control" id="input_ISBN"
+          placeholder="Enter ISBN" [(ngModel)]="newBook.isbn" name="isbnname">
           <label for="input_ISBN">ISBN</label>
         </div>
 
         <div class="form-floating">
-          <input type="text" id="input_category" class="form-control" id="input_category" placeholder="Enter Category">
+          <input type="text" id="input_category" class="form-control" id="input_category"
+          placeholder="Enter Category" [(ngModel)]="newBook.category" name="categoryname">
           <label for="input_category">Category</label>
         </div>
 
         <div class="form-floating profile-image">
-          <label for="formFileSm" class="form-label">Book cover image <span>(If blank, added based on the ISBN)</span></label>
-          <input class="form-control form-control-sm" id="formFileSm" type="file">
+          <label for="formFileSm" class="form-label" name="imagename">
+            Book cover image <span>(If blank, added based on the ISBN)</span></label>
+
+          <input (change)="onFileSelected($event)" name="image" class="form-control form-control-sm"
+          id="formFileSm" type="file"  [(ngModel)]="newBook.cover_image">
         </div>
 
 
-        <div class="dropdown">
-          <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-            Dropdown button
-          </button>
-          <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-            <li *ngFor="let editorial of editorials; let i = index">
-              <a class="dropdown-item" href="#">{{editorial.name_editorial}}</a></li>
-          </ul>
-        </div>
 
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Open modal for @getbootstrap</button>
 
-        <div class="d-grid mb-4">
-          <button type="submit" class="btn btn-primary">
-            Add book
-          </button>
-        </div>
+
+        <input name="editorialname" class="form-control" list="datalistOptions" id="inputOptions" placeholder="Type to search..."
+        [(ngModel)]="editorial" >
+        <datalist id="datalistOptions">
+            <option id="editorial_valor" *ngFor="let editorial of editorials; let i = index" value = "{{editorial.name_editorial}}"></option>
+        </datalist>
+
+
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Add new Editorial</button>
+
+        <form (ngSubmit)="createBook()" enctype="multipart/form-data">
+          <div class="d-grid mb-4">
+            <button type="submit" class="btn btn-primary">
+              Add book
+            </button>
+          </div>
+        </form>
 
       </form>
     </div>
@@ -62,18 +76,33 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form (ngSubmit)="createEditorial()">
           <div class="mb-3">
             <label for="message-text" class="col-form-label">Name:</label>
-            <textarea class="form-control" id="message-text"></textarea>
+
+            <input class="form-control" id="edit" [(ngModel)]="edit" name="first">
+
           </div>
-        </form>
-      </div>
 
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
+        <button type="button" class="btn btn-primary" id="create" type="submit">Create Editorial</button>
       </div>
+
+        </form>
+      </div>
+
     </div>
+  </div>
+</div>
+
+
+<div class="toast">
+  <div class="toast-header">
+    <strong class="me-auto">Toast Header</strong>
+    <button type="button" class="btn-close" data-bs-dismiss="toast"></button>
+  </div>
+  <div class="toast-body">
+    <p>Some text inside the toast body</p>
   </div>
 </div>

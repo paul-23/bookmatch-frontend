@@ -53,8 +53,10 @@ export class BookService {
     return this.http.get(BASE + "user/" + id);
   }
 
-  getBookByID(id: any) {
-    return this.http.get(BASE + "book/" + id);
+
+  getBookByID(id: any){
+    return this.http.get(BASE+"book/"+id);
+
   }
 
   getBookByName(title: any) {
@@ -77,13 +79,34 @@ export class BookService {
     return this.http.get(BASE + "book/title/" + title)
   }
 
-  createEditorial(editorial_name: string): Observable<any> {
+  createBook(bookData: any) {
+
+    const headers = new HttpHeaders();
+    headers.append('Accept', 'application/json');
+
+    return this.http.post<any>(BASE + "book", bookData, { headers: headers }).subscribe(
+      (response) => {
+        console.log('Book created successfully', response);
+         // Handle success
+      },
+      (error) => {
+        console.error('Error creating book', error);
+         // Handle error
+      }
+    );
+  }
+
+
+
+  createEditorial(name_editorial: string): Observable<any> {
+
     const body = {
-      editorial_name: editorial_name
-      //editorial_name
+      name_editorial
     };
+
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
     //const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
 
     return this.http.post<any>(BASE + "editorials", body, { headers });
   }

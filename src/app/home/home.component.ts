@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit{
   ngOnInit() {
 
 
+
     this.title = this.getMessage();
     this.loadRndomBooks();
   }
