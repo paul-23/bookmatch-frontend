@@ -21,6 +21,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { AboutUsComponent } from './about-us/about-us.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 
@@ -37,7 +38,8 @@ import { AboutUsComponent } from './about-us/about-us.component';
     UserBooksComponent,
     EditBooksComponent,
     AboutUsComponent,
-    SearchResultsComponent,
+    FooterComponent,
+    SearchResultsComponent
   ],
   imports: [
     BrowserModule,
