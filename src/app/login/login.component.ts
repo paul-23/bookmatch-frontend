@@ -17,6 +17,7 @@ export class LoginComponent {
   password: string = '';
   userLogged: boolean =false;
   autenticationFailed: boolean = false;
+  logiiin: any;
 
   constructor(private authService: AuthService, private tokenStorageService: TokenStorageService) {}
 
@@ -26,6 +27,7 @@ export class LoginComponent {
   }
 
   logIn():void{
+
     console.log(this.email + this.password);
     this.authService.signIn(this.email, this.password).subscribe(
       {
