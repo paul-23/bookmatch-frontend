@@ -34,12 +34,13 @@
         </div>
 
         <div class="form-floating profile-image">
-          <label for="formFileSm" class="form-label" name="imagename">Book cover image <span>(If blank, added based on the ISBN)</span></label>
+          <label for="formFileSm" class="form-label" name="imagename">
+            Book cover image <span>(If blank, added based on the ISBN)</span></label>
+
           <input (change)="onFileSelected($event)" name="image" class="form-control form-control-sm"
           id="formFileSm" type="file"  [(ngModel)]="newBook.cover_image">
         </div>
-        <img [src]="'data:image/jpg;base64,' + newBook.cover_image" class="card-img-top"
-        alt="imagen del libro" />
+
 
 
 
