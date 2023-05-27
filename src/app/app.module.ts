@@ -23,6 +23,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { AboutUsComponent } from './about-us/about-us.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoaderComponent } from './loader/loader.component';
+import { Notfound404Component } from './notfound404/notfound404.component';
 
 
 
@@ -41,7 +42,8 @@ import { LoaderComponent } from './loader/loader.component';
     AboutUsComponent,
     FooterComponent,
     SearchResultsComponent,
-    LoaderComponent
+    LoaderComponent,
+    Notfound404Component
   ],
   imports: [
     BrowserModule,
