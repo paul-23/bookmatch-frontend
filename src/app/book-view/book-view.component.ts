@@ -11,14 +11,38 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 export class BookViewComponent implements OnInit{
 
   book: any;
+  loading: boolean = true;
 
   constructor(private _router: Router,private _route: ActivatedRoute,private bookService: BookService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
+    this.loadRndomBooksDelayed();
+  }
+
+  loadRndomBooksDelayed() {
+    setTimeout(() => {
+      this.loadBook();
+    }, 1000);
+  }
+
+  loadBook() {
     let id_book = this._route.snapshot.paramMap.get('id');
     this.bookService.getBookByID(id_book).subscribe(
       (response) => {
         this.book = response;
+        this.loading = false;
+      },
+      (error) => {
+        console.log('Error al cargar datos');
+        this.loading = false;
+      }
+    );
+  }
+
+  orderBook() {
+    this.bookService.updateBookAvailability(this.book.id_book).subscribe(
+      (response) => {
+        console.log("bien");
       },
       (error) => {
         console.log('Error al cargar datos');

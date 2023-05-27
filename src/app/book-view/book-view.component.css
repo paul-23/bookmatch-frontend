@@ -1,0 +1,21 @@
+.container {
+  margin-top: 5vh;
+  min-height: 100vh;
+}
+
+.columna {
+  margin-top: 20px;
+}
+
+.cover {
+  margin-bottom: 30px;
+}
+
+.card-title {
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.card-body {
+  padding-inline: 15px;
+}

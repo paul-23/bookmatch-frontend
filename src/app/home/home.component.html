@@ -15,30 +15,44 @@
       </button>
     </div>
   </div>
-  <div *ngIf="!books">
-    <h3 class="notfound">There are no books</h3>
+  <div *ngIf="loading">
+    <h3 class="messageLNF">Loading...</h3>
   </div>
-  <div class="row">
-    <div class="columna" class="col-10 col-sm-6 col-md-4 col-xl-3" *ngFor="let book of books; let i = index">
+  <div *ngIf="!loading && !books">
+    <h3 class="messageLNF">There are no books</h3>
+  </div>
+  <div class="row" *ngIf="!loading && books">
+    <div
+      class="columna"
+      class="col-10 col-sm-6 col-md-4 col-xl-3"
+      *ngFor="let book of books; let i = index"
+    >
       <div class="card">
         <div class="cover-container">
           <div class="book">
             <div class="front">
               <div class="cover">
-                <img [src]="'data:image/jpg;base64,' + book.cover_image" class="card-img-top" alt="imagen del libro"/>
+                <img
+                  [src]="'data:image/jpg;base64,' + book.cover_image"
+                  class="card-img-top"
+                  alt="imagen del libro"
+                />
               </div>
             </div>
             <div class="left-side">
               <h2>
-                <span>{{book.author | uppercase}}</span>
+                <span>{{ book.author | uppercase }}</span>
               </h2>
             </div>
           </div>
         </div>
         <div class="card-body">
-          <h5 class="card-title">{{book.title}}</h5>
-          <p class="card-text">{{book.author}}</p>
-          <button class="btn btn-secondary btn-view" [routerLink]="['/book',book.id]">
+          <h5 class="card-title">{{ book.title }}</h5>
+          <p class="card-text">{{ book.author }}</p>
+          <button
+            class="btn btn-secondary btn-view"
+            [routerLink]="['/book', book.id]"
+          >
             View book
           </button>
         </div>

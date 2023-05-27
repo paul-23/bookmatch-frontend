@@ -11,10 +11,9 @@ import { TokenStorageService } from '../_services/token-storage.service';
 })
 export class HomeComponent implements OnInit{
 
-
   title = "";
-
   books: any;
+  loading: boolean = true;
 
   constructor(private bookService: BookService, private tokenStorageService: TokenStorageService) {}
 
@@ -52,10 +51,12 @@ export class HomeComponent implements OnInit{
     this.bookService.getBooks().subscribe(
       (response) => {
         this.books = response;
+        this.loading = false;
         console.log(this.books);
       },
       (error) => {
         console.log('Error al cargar datos');
+        this.loading = false;
       }
     );
   }

@@ -31,3 +31,8 @@ li > a {
 .footer{
   background-color: #262626;
 }
+
+.img-fluid {
+  height: auto;
+  width: 200px;
+}
