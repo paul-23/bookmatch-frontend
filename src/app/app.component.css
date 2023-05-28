@@ -27,3 +27,12 @@ li > a {
   font-weight: 400;
   font-size: 18px;
 }
+
+.footer{
+  background-color: #262626;
+}
+
+.img-fluid {
+  height: auto;
+  width: 200px;
+}

@@ -1,0 +1,130 @@
+.loading {
+  color: #000000;
+  text-align: center;
+  position: relative;
+  margin-top: 30px;
+  margin-bottom: 150px;
+  text-align: center;
+}
+
+.loading:after {
+  position: absolute;
+  content: "";
+  -webkit-animation: Dots 2s cubic-bezier(0, .39, 1, .68) infinite;
+  animation: Dots 2s cubic-bezier(0, .39, 1, .68) infinite;
+}
+
+.loader {
+  margin: 5% auto 30px;
+}
+
+.book {
+  border: 4px solid #e20074;
+  width: 60px;
+  height: 45px;
+  position: relative;
+  perspective: 150px;
+  background-color: #c5c5c5;
+}
+
+.page {
+  display: block;
+  width: 30px;
+  height: 45px;
+  border: 4px solid #e20074;
+  border-left: 1px solid #474747;
+  margin: 0;
+  position: absolute;
+  right: -4px;
+  top: -4px;
+  overflow: hidden;
+  background: #c5c5c5;
+  transform-style: preserve-3d;
+  -webkit-transform-origin: left center;
+  transform-origin: left center;
+  -webkit-transform: perspective(150px) rotateY(0deg);
+  transform: perspective(150px) rotateY(0deg);
+  -webkit-animation: pageTurn 1.7s cubic-bezier(0, .39, 1, .68) infinite;
+  animation: pageTurn 1.7s cubic-bezier(0, .39, 1, .68) infinite;
+}
+
+.book .page:nth-child(3) {
+  -webkit-animation-delay: 0.3s;
+  animation-delay: 0.3s;
+}
+
+.book .page:nth-child(2) {
+  -webkit-animation-delay: 0.6s;
+  animation-delay: 0.6s;
+}
+
+/* Page turn */
+
+@-webkit-keyframes pageTurn {
+  0% {
+    -webkit-transform: perspective(150px) rotateY(0deg);
+    transform: perspective(150px) rotateY(0deg);
+  }
+  20% {
+    background: #2b2b2b;
+  }
+  40% {
+    background: #808080;
+    -webkit-transform: perspective(150px) rotateY(-180deg);
+    transform: perspective(150px) rotateY(-180deg);
+  }
+  100% {
+    background: #c5c5c5;
+    -webkit-transform: perspective(150px) rotateY(-180deg);
+    transform: perspective(150px) rotateY(-180deg);
+  }
+}
+
+@keyframes pageTurn {
+  0% {
+    transform: perspective(150px) rotateY(0deg);
+  }
+  20% {
+    background: #2b2b2b;
+  }
+  40% {
+    background: #808080;
+    transform: perspective(150px) rotateY(-180deg);
+  }
+  100% {
+    background: #c5c5c5;
+    transform: perspective(150px) rotateY(-180deg);
+  }
+}
+
+/* Dots */
+
+@-webkit-keyframes Dots {
+  0% {
+    content: "";
+  }
+  33% {
+    content: ".";
+  }
+  66% {
+    content: "..";
+  }
+  100% {
+    content: "...";
+  }
+}
+
+@keyframes Dots {
+  0% {
+    content: "";
+  }
+  33% {
+    content: ".";
+  }
+  66% {
+    content: "..";
+  }
+  100% {
+    content: "...";
+  }
+}

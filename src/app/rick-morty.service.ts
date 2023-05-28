@@ -3,7 +3,6 @@ import { Injectable } from '@angular/core';
 import { Observable, map, pluck } from 'rxjs';
 
 //const BASE = "https://rickandmortyapi.com/api/";
-//const BASE = "http://localhost:8181/api/";
 const BASE = "https://api-bookmatch-production.up.railway.app/api/";
 const AUTH_BASE = "https://api-bookmatch-production.up.railway.app/auth/"
 const NUM_BOOKS = 8;
@@ -40,6 +39,10 @@ export class BookService {
     );
   }
 
+  updateBookAvailability(id: number) {
+    return this.http.put(BASE + "book/"+id+"/available", null);
+  }
+
   getBooks() {
     return this.http.get(BASE + "books");
     //+  getRndom().join());
@@ -54,8 +57,10 @@ export class BookService {
     return this.http.get(BASE + "user/" + id);
   }
 
-  getBookByID(id: any) {
-    return this.http.get(BASE + "book/" + id);
+
+  getBookByID(id: any){
+    return this.http.get(BASE+"book/"+id);
+
   }
 
   getBookByName(title: any) {
@@ -78,13 +83,34 @@ export class BookService {
     return this.http.get(BASE + "book/title/" + title)
   }
 
-  createEditorial(editorial_name: string): Observable<any> {
+  createBook(bookData: any) {
+
+    const headers = new HttpHeaders();
+    headers.append('Accept', 'application/json');
+
+    return this.http.post<any>(BASE + "book", bookData, { headers: headers }).subscribe(
+      (response) => {
+        console.log('Book created successfully', response);
+         // Handle success
+      },
+      (error) => {
+        console.error('Error creating book', error);
+         // Handle error
+      }
+    );
+  }
+
+
+
+  createEditorial(name_editorial: string): Observable<any> {
+
     const body = {
-      editorial_name: editorial_name
-      //editorial_name
+      name_editorial
     };
+
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
     //const headers = new HttpHeaders().set('Content-Type', 'application/json');
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
 
     return this.http.post<any>(BASE + "editorials", body, { headers });
   }
