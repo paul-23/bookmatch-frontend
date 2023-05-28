@@ -39,6 +39,8 @@ export class BookService {
     );
   }
 
+
+
   getBooks() {
     return this.http.get(BASE + "books");
     //+  getRndom().join());
@@ -47,6 +49,11 @@ export class BookService {
   getEditorials() {
     return this.http.get(BASE + "editorials");
     //+  getRndom().join());
+  }
+
+  getEditorialByName(name: any){
+    return this.http.get(BASE+"editorial/anme/"+name);
+
   }
 
   getUserByID(id: any) {
@@ -85,6 +92,36 @@ export class BookService {
     headers.append('Accept', 'application/json');
 
     return this.http.post<any>(BASE + "book", bookData, { headers: headers }).subscribe(
+      (response) => {
+        console.log('Book created successfully', response);
+         // Handle success
+      },
+      (error) => {
+        console.error('Error creating book', error);
+         // Handle error
+      }
+    );
+  }
+
+  updateBook(bookData: any, id: any) {
+
+    const formData = new FormData();
+
+// Iterate over the properties of the bookData object
+    for (const property in bookData) {
+      if (bookData.hasOwnProperty(property)) {
+        // If the property is an object, stringify it and append as a blob
+        if (typeof bookData[property] === 'object') {
+          formData.append(property, new Blob([JSON.stringify(bookData[property])], { type: 'application/json' }));
+        } else {
+          // Otherwise, directly append the property
+          formData.append(property, bookData[property]);
+        }
+      }
+    }
+    //const headers = new HttpHeaders({'Content-Type': 'application/json'});
+
+    return this.http.put<any>(BASE + "book/" + id,formData).subscribe(
       (response) => {
         console.log('Book created successfully', response);
          // Handle success
