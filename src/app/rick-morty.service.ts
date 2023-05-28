@@ -13,6 +13,10 @@ export class BookService {
 
   constructor(private http: HttpClient) { }
 
+  getLatestBooks(count: number) {
+    return this.http.get(BASE + "/books?count=${"+count+"}");
+  }
+
   updateBookAvailability(id: number) {
     return this.http.put(BASE + "book/"+id+"/available", null);
   }

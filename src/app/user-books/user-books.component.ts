@@ -12,8 +12,11 @@ export class UserBooksComponent implements OnInit{
   user: any;
   books: any;
 
-  constructor(private _router: Router,private _route: ActivatedRoute,
-    private bookService: BookService, private sanitizer: DomSanitizer) {
+  constructor(
+    private _router: Router,
+    private _route: ActivatedRoute,
+    private bookService: BookService,
+    private sanitizer: DomSanitizer) {
       this.books = [
         { title: 'Book 1', author: 'author 1', available: true },
         { title: 'Book 2', author: 'author 1', available: false },

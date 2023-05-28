@@ -1,9 +1,17 @@
-<div class="container-fluid div-text">
-  <h2 id="home-text">{{ title }}</h2>
-  <button class="btn btn-secondary btn-register btn-lg" routerLink="/register">
-    Join our community
-  </button>
+<div class="banner">
+  <div class="container">
+    <div class="row">
+      <div class="mx-auto text-center">
+        <div class="banner-content">
+          <h3 class="banner-title">{{ title }}</h3>
+          <p class="banner-description">Join our community of book lovers!</p>
+          <a class="btn btn-secondary btn-register btn-lg" href="/register">Join Now</a>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
 <div class="container">
   <div class="row title-container">
     <div class="col-6">
@@ -18,16 +26,16 @@
   <div *ngIf="loading">
     <app-loader></app-loader>
   </div>
-  <div *ngIf="!loading && !books">
+  <div *ngIf="!loading && !books || !loading && books.length === 0">
     <h3 class="messageLNF">There are no books</h3>
   </div>
-  <div class="row" *ngIf="!loading && books">
+  <div class="row" *ngIf="!loading && books && books.length > 0">
     <div
       class="columna"
       class="col-10 col-sm-6 col-md-4 col-xl-3"
       *ngFor="let book of books; let i = index"
     >
-      <div class="card">
+      <div class="card" *ngIf="book.aviable">
         <div class="cover-container">
           <div class="book">
             <div class="front">
@@ -51,7 +59,7 @@
           <p class="card-text">{{ book.author }}</p>
           <button
             class="btn btn-secondary btn-view"
-            [routerLink]="['/book', book.id]"
+            [routerLink]="['/book_view', book.id_book]"
           >
             View book
           </button>

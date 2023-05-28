@@ -41,6 +41,18 @@
           <i class="password-icon" [class]="showPassword ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'" (click)="togglePasswordVisibility(passwordInput)"></i>
         </div>
 
+        <div class="form-floating">
+          <input
+            #repeatPasswordInput
+            type="password"
+            class="form-control"
+            id="repeatPassword"
+            placeholder="Repeat password"
+          />
+          <label for="repeatPassword">Repeat password</label>
+          <i class="password-icon" [class]="showRepeatPassword ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'" (click)="toggleRepeatPasswordVisibility(repeatPasswordInput)"></i>
+        </div>
+
         <div class="form-floating profile-image">
           <label for="formFileSm" class="form-label">Profile image <span>(Optional)</span></label>
           <input class="form-control form-control-sm" id="formFileSm" type="file">

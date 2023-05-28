@@ -30,7 +30,7 @@ export class BookComponent implements OnInit {
 
   loadRndomBooksDelayed() {
     setTimeout(() => {
-      this.loadRndomBooks();
+      this.loadRandomBooks();
     }, 1000);
   }
 
@@ -44,11 +44,15 @@ export class BookComponent implements OnInit {
     return Math.floor(Math.random() * 5 + 1);
   }
 
-  loadRndomBooks() {
+  loadRandomBooks() {
     this.bookService.getBooks().subscribe(
       (response) => {
         this.books = response;
         this.loading = false;
+        console.log(this.books);
+
+        this.books = this.getLastFourAvailableBooks().reverse();
+        console.log(this.books);
       },
       (error) => {
         console.log('Error al cargar datos');
@@ -56,6 +60,11 @@ export class BookComponent implements OnInit {
       }
     );
   }
+
+  getLastFourAvailableBooks(): any[] {
+    return this.books.filter((book: any) => book.aviable);
+  }
+
 
   performSearch() {
     if (this.input_text && this.input_text.trim() !== '') {

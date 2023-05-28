@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit{
     sessionStorage.setItem('token', token);
     this.tokenStorageService.saveToken(token);
     this.title = this.getMessage();
-    this.loadRndomBooks();
+    this.loadRandomBooks();
   }
 
   getMessage() {
@@ -47,12 +47,12 @@ export class HomeComponent implements OnInit{
     return Math.floor(Math.random() * 5 + 1);
   }
 
-  loadRndomBooks() {
+  loadRandomBooks() {
     this.bookService.getBooks().subscribe(
       (response) => {
         this.books = response;
         this.loading = false;
-        console.log(this.books);
+        this.books = this.getLastFourAvailableBooks().reverse();
       },
       (error) => {
         console.log('Error al cargar datos');
@@ -60,4 +60,12 @@ export class HomeComponent implements OnInit{
       }
     );
   }
+
+  getLastFourAvailableBooks(): any[] {
+    const availableBooks = this.books.filter((book: any) => book.aviable);
+    const lastFourAvailableBooks = availableBooks.slice(-4);
+    return lastFourAvailableBooks;
+  }
+
+
 }

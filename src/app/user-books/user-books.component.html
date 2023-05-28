@@ -26,8 +26,7 @@
         </div>
         <div class="profile-settings text-center">
           <a class="btn btn-danger" [routerLink]="['/profile_settings', user.id_user]">
-            Settings
-            <i class="bi bi-gear-fill ml-2"></i>
+            Settings&nbsp;&nbsp;<i class="bi bi-gear-fill ml-2"></i>
           </a>
         </div>
       </div>
@@ -37,17 +36,22 @@
         <ul class="book-list list-group list-group-flush">
           <li class="book-list-item list-group-item" *ngFor="let book of books">
             <div class="book-details">
-              <div class="book-title"><h3>{{ book.title }}</h3></div>
-              <div class="book-info">
-                <p><strong>Author:</strong> {{ book.author }}</p>
-                <p><strong>ISBN:</strong> {{ book.isbn }}</p>
-                <p><strong>Category:</strong> {{ book.category }}</p>
+              <div class="book-image">
+                <img src="https://imagessl6.casadellibro.com/a/l/t5/06/9788419638106.jpg" alt="Book cover">
+              </div>
+              <div class="book-content">
+                <div class="book-title"><h3>{{ book.title }}</h3></div>
+                <div class="book-info">
+                  <p><strong>Author:</strong> {{ book.author }}</p>
+                  <p><strong>ISBN:</strong> {{ book.isbn }}</p>
+                  <p><strong>Category:</strong> {{ book.category }}</p>
+                </div>
               </div>
             </div>
             <div class="book-actions">
-              <button class="btn btn-primary">Editar</button>
-              <button class="btn btn-danger">Eliminar</button>
-              <button class="btn btn-success" *ngIf="!book.available">Disponible</button>
+              <button class="btn btn-primary">Edit</button>
+              <button class="btn btn-danger">Delete</button>
+              <button class="btn btn-success" *ngIf="!book.available">Set available</button>
             </div>
           </li>
         </ul>
@@ -55,6 +59,4 @@
     </div>
   </div>
 </section>
-
-
 
