@@ -1,8 +1,10 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, map, pluck } from 'rxjs';
 
 //const BASE = "https://rickandmortyapi.com/api/";
-const BASE = "localhost:8181/api/";
+const BASE = "https://api-bookmatch-production.up.railway.app/api/";
+const AUTH_BASE = "https://api-bookmatch-production.up.railway.app/auth/"
 const NUM_BOOKS = 8;
 
 @Injectable({
@@ -12,31 +14,145 @@ export class BookService {
 
   constructor(private http: HttpClient) { }
 
-  get8RndomBooks(){
-    return this.http.get(BASE+"book/"+
-      getRndom().join());
+  signIn(email: string, password: string): Observable<any> {
+    const body = {
+      email: email,
+      password: password
+    };
+
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post(AUTH_BASE + "signin", body, { headers });
   }
+
+  signInUserId(email: string, password: string): Observable<string> {
+    const body = {
+      email: email,
+      password: password
+    };
+
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post(AUTH_BASE + "signin", body, { headers }).pipe(
+      map(response => response as any),
+      pluck('id')
+    );
+  }
+
+  updateBookAvailability(id: number) {
+    return this.http.put(BASE + "book/"+id+"/available", null);
+  }
+
+
+  getBooks() {
+    return this.http.get(BASE + "books");
+    //+  getRndom().join());
+  }
+
+  getEditorials() {
+    return this.http.get(BASE + "editorials");
+    //+  getRndom().join());
+  }
+
+  getEditorialByName(name: any){
+    return this.http.get(BASE+"editorial/name/"+name);
+  }
+
+  getUserByID(id: any) {
+    return this.http.get(BASE + "user/" + id);
+  }
+
 
   getBookByID(id: any){
     return this.http.get(BASE+"book/"+id);
+
   }
 
-  getBookByName(title: any){
-    return this.http.get(BASE+"book/title/"+title);
+  getBookByName(title: any) {
+    return this.http.get(BASE + "book/title/" + title);
   }
 
-  getBookCover(id: any){
-    return this.http.get(BASE+"book/image/" + id)
+  getBookByAuthor(author: any) {
+    return this.http.get(BASE + "book/author/" + author);
   }
 
+  getBookByISBN(isbn: any) {
+    return this.http.get(BASE + "book/isbn/" + isbn);
+  }
+
+  getBookCover(id: any) {
+    return this.http.get(BASE + "book/image/" + id)
+  }
+
+  getBookByTitle(title: any) {
+    return this.http.get(BASE + "book/title/" + title)
+  }
+
+  createBook(bookData: any) {
+
+    const headers = new HttpHeaders();
+    headers.append('Accept', 'application/json');
+
+    return this.http.post<any>(BASE + "book", bookData, { headers: headers }).subscribe(
+      (response) => {
+        console.log('Book created successfully', response);
+         // Handle success
+      },
+      (error) => {
+        console.error('Error creating book', error);
+         // Handle error
+      }
+    );
+  }
+
+  updateBook(bookData: any, id: any) {
+
+    const headers = new HttpHeaders();
+    headers.append('Accept', 'application/json');
+
+    return this.http.put<any>(BASE + "book/" + id, bookData, { headers: headers }).subscribe(
+      (response) => {
+        console.log('Book edited successfully', response);
+         // Handle success
+      },
+      (error) => {
+        console.error('Error editing book', error);
+         // Handle error
+      }
+    );
+  }
+
+
+
+  createEditorial(name_editorial: string): Observable<any> {
+
+    const body = {
+      name_editorial
+    };
+
+    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    //const headers = new HttpHeaders().set('Content-Type', 'application/json');
+
+
+    return this.http.post<any>(BASE + "editorials", body, { headers });
+  }
+
+  getHeader(adminToken: any) {
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${adminToken}`);
+    return headers;
+  }
 }
 
-function getRndom(){
+function getRndom() {
   let randoms = [];
-  for(let i=0;i<NUM_BOOKS;i++){
+  for (let i = 0; i < NUM_BOOKS; i++) {
     randoms.push(Math.floor(Math.random() * 5 + 1))
   }
   return randoms;
 }
 
 
+
+function createBook(cover_image: any, author: any, title: any, isbn: any, category: any, name_editorial: any) {
+
+}

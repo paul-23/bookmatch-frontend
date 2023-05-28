@@ -6,6 +6,11 @@
 
 #navegacion{
   background-color: #e20074;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+}
+
+.body-content {
+  padding-top: 63.5px;
 }
 
 .active {
@@ -21,4 +26,13 @@ li > a {
   color: #fff;
   font-weight: 400;
   font-size: 18px;
+}
+
+.footer{
+  background-color: #262626;
+}
+
+.img-fluid {
+  height: auto;
+  width: 200px;
 }

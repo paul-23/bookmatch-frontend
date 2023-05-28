@@ -1,4 +1,4 @@
-<div class="site-wrap d-md-flex align-items-stretch">
+<div class="site-wrap d-md-flex justify-content-center">
   <div
     class="bg-img"
     style="background-image: url('https://media.istockphoto.com/id/175397396/photo/books-pattern.jpg?s=170667a&w=0&k=20&c=hNKnh4PMFOWUQbbr59XGcvoZPkMfq6JR18_57IcVp5Y=')"
@@ -30,20 +30,31 @@
         </div>
 
         <div class="form-floating">
-          <span class="password-show-toggle js-password-show-toggle"
-            ><span class="uil"></span
-          ></span>
           <input
+            #passwordInput
             type="password"
             class="form-control"
             id="password"
             placeholder="Password"
           />
           <label for="password">Password</label>
+          <i class="password-icon" [class]="showPassword ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'" (click)="togglePasswordVisibility(passwordInput)"></i>
+        </div>
+
+        <div class="form-floating">
+          <input
+            #repeatPasswordInput
+            type="password"
+            class="form-control"
+            id="repeatPassword"
+            placeholder="Repeat password"
+          />
+          <label for="repeatPassword">Repeat password</label>
+          <i class="password-icon" [class]="showRepeatPassword ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'" (click)="toggleRepeatPasswordVisibility(repeatPasswordInput)"></i>
         </div>
 
         <div class="form-floating profile-image">
-          <label for="formFileSm" class="form-label">Profile image</label>
+          <label for="formFileSm" class="form-label">Profile image <span>(Optional)</span></label>
           <input class="form-control form-control-sm" id="formFileSm" type="file">
         </div>
 

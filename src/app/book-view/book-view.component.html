@@ -1,1 +1,95 @@
-<p>book-view works!</p>
+<div class="container">
+  <button class="btn btn-danger" (click)="onBack()">Back</button>
+  <div *ngIf="loading">
+    <app-loader></app-loader>
+  </div>
+  <div *ngIf="!loading && !book">
+    <h3 class="messageLNF">Book not found</h3>
+  </div>
+  <div class="row columna" *ngIf="!loading && book">
+    <div *ngIf="book">
+      <div class="row">
+        <div class="col-12 col-md-6 col-xl-5">
+          <div class="cover-container">
+            <div class="book">
+              <div class="front">
+                <div class="cover">
+                  <img [src]="'data:image/jpg;base64,' + book.cover_image" class="card-img-top" alt="imagen del libro" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 col-md-6 col-lg-6 col-x7">
+          <div class="card-body">
+            <h2 class="card-title">{{ book.title }}</h2>
+            <p class="card-text">
+              <strong>Author</strong>: {{ book.author }}
+              <br />
+              <strong>ISBN</strong>: {{ book.isbn }}
+              <br />
+              <strong>Category</strong>: {{ book.category }}
+              <br /><br />
+              {{ book.description }}
+              <br />
+            </p>
+            <button id="edit_button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Order the book</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Ratings Container -->
+<div class="container">
+  <!-- Ratings Container -->
+  <div class="ratings-container" *ngIf="book">
+    <h1 class="ratings-title">Ratings</h1>
+    <p class="total-rating"><strong>Total Rating:</strong> {{ book.total_rating }}</p>
+
+    <!-- Rating Input -->
+    <div class="rating-input">
+      <h4 class="rate-title">Rate this book:</h4>
+      <div class="rating-stars">
+        <span class="star" *ngFor="let star of [1, 2, 3, 4, 5]" (click)="setUserRating(star)">
+          <i class="bi" [class.bi-star-fill]="star <= userRating" [class.bi-star]="star > userRating"></i>
+        </span>
+      </div>
+      <textarea class="form-control comment-input" rows="3" placeholder="Leave a comment" [(ngModel)]="userComment"></textarea>
+      <button class="btn btn-primary submit-btn" (click)="submitRating()">Submit</button>
+    </div>
+
+    <!-- Other Users' Ratings -->
+    <div class="other-ratings">
+      <h4 class="other-ratings-title">Other Users' Ratings:</h4>
+      <div class="card-columns">
+        <div class="card rating-card" *ngFor="let rating of book.ratings">
+          <div class="card-body">
+            <p class="card-text">{{ rating.comment }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Ask for the book</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p><b>Do you want to ask the user for the book?</b></p>
+        <p>Once you accept, the user will see your data. You can also get in touch.</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-primary" (click)="orderBook()" data-bs-dismiss="modal">Yes, ask</button>
+      </div>
+    </div>
+  </div>
+</div>

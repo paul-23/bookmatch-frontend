@@ -1,35 +1,35 @@
-<div class="site-wrap d-md-flex align-items-stretch">
-  <div
-    class="bg-img"
-    style="background-image: url('https://media.istockphoto.com/id/175397396/photo/books-pattern.jpg?s=170667a&w=0&k=20&c=hNKnh4PMFOWUQbbr59XGcvoZPkMfq6JR18_57IcVp5Y=')"
-  ></div>
+<div *ngIf="!userLogged" class="site-wrap d-md-flex justify-content-center">
   <div class="form-wrap">
     <div class="form-inner">
       <h1 class="title">Login</h1>
       <p class="caption mb-4">Please enter your login details to sign in.</p>
 
-      <form action="#" class="pt-3">
+
+        <form (ngSubmit)="logIn()" class="pt-3">
         <div class="form-floating">
           <input
             type="email"
+            name="email"
             class="form-control"
             id="email"
             placeholder="info@example.com"
+            [(ngModel)]="email"
           />
           <label for="email">Email Address</label>
         </div>
 
-        <div class="form-floating">
-          <span class="password-show-toggle js-password-show-toggle"
-            ><span class="uil"></span
-          ></span>
+        <div class="form-floating password-container">
           <input
+            #passwordInput
             type="password"
+            name="password"
             class="form-control"
             id="password"
             placeholder="Password"
+            [(ngModel)]="password"
           />
           <label for="password">Password</label>
+          <i class="password-icon" [class]="showPassword ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'" (click)="togglePasswordVisibility(passwordInput)"></i>
         </div>
 
         <div class="d-flex justify-content-between">
@@ -98,4 +98,10 @@
       </form>
     </div>
   </div>
+</div>
+
+<div *ngIf="userLogged">
+  <h1> You're already logged </h1>
+  <button (click)="logout()">Logout</button>
+  <button routerLink="/home">Home</button>
 </div>

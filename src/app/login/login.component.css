@@ -10,78 +10,20 @@ a:hover {
   color: #643cf5;
 }
 
-.bg-img,
 .form-wrap {
   height: 100vh;
   min-height: 500px;
-}
-
-.bg-img {
-  left: 0;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
-  width: 100%;
-  position: relative;
-  height: 200px;
-  min-height: 200px;
-  z-index: 2;
-}
-
-@media (min-width: 768px) {
-  .bg-img {
-    position: fixed;
-    width: 50%;
-    height: 100vh;
-  }
-}
-
-@media (min-width: 992px) {
-  .bg-img {
-    position: fixed;
-    width: 50%;
-    height: 100vh;
-  }
-}
-
-@media (min-width: 1200px) {
-  .bg-img {
-    position: fixed;
-    width: 60%;
-    height: 100vh;
-  }
+  min-width: 230px;
 }
 
 .form-wrap {
-  right: 0;
   position: relative;
   z-index: 1;
   padding: 5%;
   width: 100%;
   background: #fff;
   height: 100%;
-  margin-top: 35px;
-}
-
-@media (min-width: 768px) {
-  .form-wrap {
-    position: absolute;
-    width: 50%;
-  }
-}
-
-@media (min-width: 992px) {
-  .form-wrap {
-    position: absolute;
-    width: 50%;
-  }
-}
-
-@media (min-width: 1200px) {
-  .form-wrap {
-    position: absolute;
-    width: 40%;
-  }
+  max-width: 800px;
 }
 
 .form-wrap .title {
@@ -112,19 +54,6 @@ a:hover {
   right: 20px;
   top: 15px;
   z-index: 9;
-}
-
-.form-wrap .password-show-toggle span {
-  font-size: 20px;
-}
-
-.form-wrap .password-show-toggle span:before {
-  font-family: 'unicons-line';
-  content: "\ebf8";
-}
-
-.form-wrap .password-show-toggle.active span:before {
-  content: "\ebaf";
 }
 
 .form-wrap .form-check {
@@ -213,4 +142,20 @@ a:hover {
 
 .form-wrap .social-account-wrap .social-account li a:hover {
   border-color: #bdbdbd;
+}
+
+.password-container {
+  position: relative;
+}
+
+.password-icon {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
+.password-input {
+  padding-right: 30px;
 }

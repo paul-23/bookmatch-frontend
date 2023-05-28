@@ -1,1 +1,61 @@
-<p>profile-settings works!</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-wrap">
+        <div class="form-inner">
+          <h2>Profile settings</h2>
+          <form action="#" class="pt-3">
+            <div class="form-floating">
+              <input type="text" [(ngModel)]="user.username" id="username" name="username" class="form-control" id="exampleInputEmail1" aria-describedby="username" placeholder="Username">
+              <label for="username">Username</label>
+            </div>
+            <div class="row">
+              <div class="col-9">
+                <div class="form-floating">
+                  <label for="formFileSm" class="form-label">Profile image <span class="gray-text">(Optional)</span></label>
+                  <input class="form-control form-control-sm" id="formFileSm" type="file">
+                </div>
+              </div>
+              <div class="col-3">
+                <img
+                    *ngIf="user.profile_image"
+                    [src]="'data:image/jpg;base64,' + user.profile_image"
+                    class="card-img-top userProfile"
+                    alt="imagen del libro"
+                  />
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Save changes</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-wrap">
+        <div class="form-inner">
+          <h2>Change password</h2>
+          <form action="#" class="pt-3">
+            <div class="form-floating">
+              <input type="password" [(ngModel)]="currentPassword" id="currentPassword" name="currentPassword" class="form-control" aria-describedby="currentPassword" placeholder="Current Password">
+              <label for="currentPassword">Current password</label>
+            </div>
+            <div class="form-floating">
+              <input type="password" class="form-control" id="new-password" [(ngModel)]="newPassword" name="new-password" aria-describedby="currentPassword" placeholder="New Password">
+              <label for="new-password">New password</label>
+            </div>
+            <div class="form-floating">
+              <input type="password" class="form-control" id="confirm-password" [(ngModel)]="confirmPassword" name="confirmPassword" aria-describedby="confirmPassword" placeholder="Confirm Password">
+              <label for="confirm-password">Confirm new password</label>
+            </div>
+            <button type="submit" class="btn btn-primary">Change password</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container notlogged">
+  <h1>You are not logged in</h1>
+  <button class="btn btn-primary" [routerLink]="['/login']">Go to Login</button>
+</div>
