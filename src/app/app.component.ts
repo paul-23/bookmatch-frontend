@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'BookMatch';
   public input_text: string;
   user: any;
@@ -18,27 +18,4 @@ export class AppComponent implements OnInit {
     this.input_text = '';
   }
 
-  ngOnInit(): void {
-    this.user = this.tokenStorageService.getUser().username;
-    if (this.user !== undefined) {
-      this.userLogged = true;
-      console.log(this.user);
-    }
-  }
-
-  refreshPage() {
-    this.router.navigate(['home']);
-    window.location.reload();
-  }
-
-  /*performSearch(){
-    console.log(this.input_text);
-  }*/
-
-  /*sendInput() {
-    var inputElement = document.getElementById("search_input") as HTMLInputElement;
-    if (inputElement) {
-      this.input_text = inputElement.value;
-    }
-  } */
 }
