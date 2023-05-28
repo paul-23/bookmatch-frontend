@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { BookService } from '../rick-morty.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
+import { TokenStorageService } from '../_services/token-storage.service';
 
 @Component({
   selector: 'app-book-view',

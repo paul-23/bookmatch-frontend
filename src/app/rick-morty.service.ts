@@ -43,6 +43,7 @@ export class BookService {
     return this.http.put(BASE + "book/"+id+"/available", null);
   }
 
+
   getBooks() {
     return this.http.get(BASE + "books");
     //+  getRndom().join());
@@ -51,6 +52,10 @@ export class BookService {
   getEditorials() {
     return this.http.get(BASE + "editorials");
     //+  getRndom().join());
+  }
+
+  getEditorialByName(name: any){
+    return this.http.get(BASE+"editorial/name/"+name);
   }
 
   getUserByID(id: any) {
@@ -95,6 +100,23 @@ export class BookService {
       },
       (error) => {
         console.error('Error creating book', error);
+         // Handle error
+      }
+    );
+  }
+
+  updateBook(bookData: any, id: any) {
+
+    const headers = new HttpHeaders();
+    headers.append('Accept', 'application/json');
+
+    return this.http.put<any>(BASE + "book/" + id, bookData, { headers: headers }).subscribe(
+      (response) => {
+        console.log('Book edited successfully', response);
+         // Handle success
+      },
+      (error) => {
+        console.error('Error editing book', error);
          // Handle error
       }
     );

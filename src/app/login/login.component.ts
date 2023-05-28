@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
   password: string = '';
   userLogged: boolean = false;
   autenticationFailed: boolean = false;
+  logiiin: any;
 
   constructor(private authService: AuthService,
     private tokenStorageService: TokenStorageService,
@@ -37,6 +38,7 @@ export class LoginComponent implements OnInit {
   }
 
   logIn():void{
+
     console.log(this.email + this.password);
     this.authService.signIn(this.email, this.password).subscribe(
       {
