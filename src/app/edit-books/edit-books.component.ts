@@ -3,6 +3,8 @@ import { BookService } from '../rick-morty.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { TokenStorageService } from '../_services/token-storage.service';
+import { HttpClient } from '@angular/common/http';
+import { HttpHeaders } from '@angular/common/http';
 @Component({
   selector: 'app-edit-books',
   templateUrl: './edit-books.component.html',
@@ -18,9 +20,11 @@ export class EditBooksComponent implements OnInit{
   avilable: any;
   newBook: any = {};
   id_book: any;
+  selected: boolean = false;
+
 
   constructor(private tokenStorageService: TokenStorageService, private _router: Router,private _route: ActivatedRoute,
-    private bookService: BookService, private sanitizer: DomSanitizer) { }
+    private bookService: BookService, private sanitizer: DomSanitizer, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.id_book = this._route.snapshot.paramMap.get('id');
@@ -38,19 +42,38 @@ export class EditBooksComponent implements OnInit{
 
   updateBook() {
     const formData = new FormData();
-    const book2 = {
-      author: this.newBook.author,
-      title: this.newBook.title,
-      isbn: this.newBook.isbn,
-      category: this.newBook.category,
-      editorial: {
-        id_editorial: 1
-      },
 
-      description: this.newBook.description
+    const book2 = {
+      title: this.newBook.title,
+      author: this.newBook.author,
+      isbn: this.newBook.isbn,
+      category: this.newBook.category
     };
-    console.log(book2);
-    this.bookService.updateBook(book2, this.id_book);
+
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+
+    if (this.selected){
+      console.log("newBook");
+      console.log(this.newBook.cover_image);
+      formData.append('image', this.newBook.cover_image);
+    } else{
+      console.log("book");
+      console.log(this.book.cover_image);
+      formData.append('image',this.book.cover_image);
+    }
+    formData.append('book', JSON.stringify(book2));
+    this.bookService.updateBook(formData, this.id_book);
+  }
+
+  onFileSelected(event: any) {
+    if (event.target.files[0] == null){
+      this.newBook.cover_image = this.book.cover_image;
+      this.selected = false;
+    }else{
+    this.newBook.cover_image = event.target.files[0];
+    this.selected = true;
+  }
   }
 
 

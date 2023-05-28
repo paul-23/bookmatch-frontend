@@ -52,8 +52,7 @@ export class BookService {
   }
 
   getEditorialByName(name: any){
-    return this.http.get(BASE+"editorial/anme/"+name);
-
+    return this.http.get(BASE+"editorial/name/"+name);
   }
 
   getUserByID(id: any) {
@@ -105,29 +104,16 @@ export class BookService {
 
   updateBook(bookData: any, id: any) {
 
-    const formData = new FormData();
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
 
-// Iterate over the properties of the bookData object
-    for (const property in bookData) {
-      if (bookData.hasOwnProperty(property)) {
-        // If the property is an object, stringify it and append as a blob
-        if (typeof bookData[property] === 'object') {
-          formData.append(property, new Blob([JSON.stringify(bookData[property])], { type: 'application/json' }));
-        } else {
-          // Otherwise, directly append the property
-          formData.append(property, bookData[property]);
-        }
-      }
-    }
-    //const headers = new HttpHeaders({'Content-Type': 'application/json'});
-
-    return this.http.put<any>(BASE + "book/" + id,formData).subscribe(
+    return this.http.put<any>(BASE + "book/" + id, bookData, { headers: headers }).subscribe(
       (response) => {
-        console.log('Book created successfully', response);
+        console.log('Book edited successfully', response);
          // Handle success
       },
       (error) => {
-        console.error('Error creating book', error);
+        console.error('Error editing book', error);
          // Handle error
       }
     );

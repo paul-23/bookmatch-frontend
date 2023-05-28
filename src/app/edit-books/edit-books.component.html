@@ -38,6 +38,15 @@
 
 
 
+          <div class="form-floating profile-image">
+            <label for="formFileSm" class="form-label" name="imagename">
+              Book cover image <span>(If blank, added based on the ISBN)</span></label>
+
+            <input (change)="onFileSelected($event)" name="image" class="form-control form-control-sm"
+            id="formFileSm" type="file">
+          </div>
+
+
           <form (ngSubmit)="updateBook()" enctype="multipart/form-data">
             <div class="d-grid mb-4">
               <button type="submit" class="btn btn-primary" >

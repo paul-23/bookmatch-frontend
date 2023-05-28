@@ -49,10 +49,6 @@ export class AddBookComponent {
         id_editorial: 1
       }
     };
-    console.log(this.newBook.cover_image);
-    //formData.append('book', new Blob([JSON.stringify(book)], { type: 'application/json' }));
-    //formData.append('book', new Blob([JSON.stringify(book)]));
-    //formData.append('book', this.newBook.cover_image, 'cover_image');
 
     formData.append('image', this.newBook.cover_image);
     formData.append('book', JSON.stringify(book));
