@@ -14,8 +14,10 @@ import { EditBooksComponent } from './edit-books/edit-books.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { TokenStorageService } from './_services/token-storage.service';
+import { Notfound404Component } from './notfound404/notfound404.component';
 
 const routes: Routes = [
+  { path: 'appcomp', component: AppComponent},
   { path: '', component: HomeComponent},
   { path: 'home', component: HomeComponent},
   { path: 'books', component: BookComponent},
@@ -32,7 +34,9 @@ const routes: Routes = [
   { path: 'book_view', component: BookViewComponent},
   { path: 'add_book', component: AddBookComponent},
   { path: 'user_books', component: UserBooksComponent},
-  { path: 'edit_books', component: EditBooksComponent}
+  { path: 'edit_books', component: EditBooksComponent},
+
+  { path: '**', component: Notfound404Component}
 
 ];
 

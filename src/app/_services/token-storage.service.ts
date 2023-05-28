@@ -35,4 +35,8 @@ export class TokenStorageService {
     }
     return {};
   }
+
+  public getUserName(): any{
+    return window.sessionStorage.getItem(USER_KEY);
+  }
 }

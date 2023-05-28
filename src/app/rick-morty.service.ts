@@ -39,6 +39,9 @@ export class BookService {
     );
   }
 
+  updateBookAvailability(id: number) {
+    return this.http.put(BASE + "book/"+id+"/available", null);
+  }
 
 
   getBooks() {
