@@ -16,6 +16,7 @@ import { SearchResultsComponent } from './search-results/search-results.componen
 import { TokenStorageService } from './_services/token-storage.service';
 
 const routes: Routes = [
+  { path: 'appcomp', component: AppComponent},
   { path: '', component: HomeComponent},
   { path: 'home', component: HomeComponent},
   { path: 'books', component: BookComponent},

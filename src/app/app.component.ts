@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from './_services/token-storage.service';
 import { BookService } from './rick-morty.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -12,20 +13,22 @@ export class AppComponent implements OnInit {
   public input_text: string;
   user: any;
   userLogged: boolean = false;
-  userNotLogged: boolean = false;
 
-  constructor(private tokenStorageService: TokenStorageService, private bookService: BookService ) {
+  constructor(private tokenStorageService: TokenStorageService, private bookService: BookService, private router: Router) {
     this.input_text = '';
   }
 
   ngOnInit(): void {
     this.user = this.tokenStorageService.getUser().username;
-    if(this.user !== ''){
+    if (this.user !== undefined) {
       this.userLogged = true;
       console.log(this.user);
-    } else {
-      this.userNotLogged = true;
     }
+  }
+
+  refreshPage() {
+    this.router.navigate(['home']);
+    window.location.reload();
   }
 
   /*performSearch(){
