@@ -41,6 +41,39 @@
   </div>
 </div>
 
+<!-- Ratings Container -->
+<div class="container">
+  <!-- Ratings Container -->
+  <div class="ratings-container" *ngIf="book">
+    <h1 class="ratings-title">Ratings</h1>
+    <p class="total-rating"><strong>Total Rating:</strong> {{ book.total_rating }}</p>
+
+    <!-- Rating Input -->
+    <div class="rating-input">
+      <h4 class="rate-title">Rate this book:</h4>
+      <div class="rating-stars">
+        <span class="star" *ngFor="let star of [1, 2, 3, 4, 5]" (click)="setUserRating(star)">
+          <i class="bi" [class.bi-star-fill]="star <= userRating" [class.bi-star]="star > userRating"></i>
+        </span>
+      </div>
+      <textarea class="form-control comment-input" rows="3" placeholder="Leave a comment" [(ngModel)]="userComment"></textarea>
+      <button class="btn btn-primary submit-btn" (click)="submitRating()">Submit</button>
+    </div>
+
+    <!-- Other Users' Ratings -->
+    <div class="other-ratings">
+      <h4 class="other-ratings-title">Other Users' Ratings:</h4>
+      <div class="card-columns">
+        <div class="card rating-card" *ngFor="let rating of book.ratings">
+          <div class="card-body">
+            <p class="card-text">{{ rating.comment }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
