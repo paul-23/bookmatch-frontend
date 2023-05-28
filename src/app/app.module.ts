@@ -24,6 +24,7 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoaderComponent } from './loader/loader.component';
 import { Notfound404Component } from './notfound404/notfound404.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 
@@ -43,7 +44,8 @@ import { Notfound404Component } from './notfound404/notfound404.component';
     FooterComponent,
     SearchResultsComponent,
     LoaderComponent,
-    Notfound404Component
+    Notfound404Component,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
