@@ -25,8 +25,12 @@
             <a class="nav-link" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" [routerLink]="['/add_book']">Add Book</a>
           </li>
 
-          <li class="nav-item">
+          <li class="nav-item" *ngIf="!userLogged">
             <a class="nav-link" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" routerLink="/login" routerLinkActive="active">Login</a>
+          </li>
+
+          <li class="nav-item" *ngIf="userLogged">
+            <a class="nav-link">Hi, {{user}} </a>
           </li>
         </ul>
       </div>

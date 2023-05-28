@@ -17,6 +17,7 @@ import { TokenStorageService } from './_services/token-storage.service';
 import { Notfound404Component } from './notfound404/notfound404.component';
 
 const routes: Routes = [
+  { path: 'appcomp', component: AppComponent},
   { path: '', component: HomeComponent},
   { path: 'home', component: HomeComponent},
   { path: 'books', component: BookComponent},
