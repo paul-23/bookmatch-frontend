@@ -10,13 +10,16 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 })
 export class ProfileSettingsComponent  implements OnInit{
   user: any;
+  currentPassword: any = '';
+  newPassword: any = '';
+  confirmPassword: any = '';
 
   constructor(private _router: Router,private _route: ActivatedRoute,
     private bookService: BookService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     let id_user = this._route.snapshot.paramMap.get('id');
-    this.bookService.getBookByID(id_user).subscribe(
+    this.bookService.getUserByID(id_user).subscribe(
       (response) => {
         this.user = response;
       },
@@ -29,8 +32,5 @@ export class ProfileSettingsComponent  implements OnInit{
   getBase64ImageSrc(base64Image: string): SafeUrl {
     const imageUrl = `data:image/jpg;base64,${this.user.profile_image}`;
     return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
-  }
-  postBook(){
-
   }
 }

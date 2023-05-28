@@ -1,4 +1,18 @@
-.notfound {
+.container {
+  margin-top: 50px;
+  min-height: 100vh;
+}
+
+.allBooks {
+  margin-top: 30px;
+}
+
+.title {
+  margin-left: 30px;
+  margin-bottom: 30px;
+}
+
+.messageLNF {
   margin-top: 30px;
   margin-bottom: 150px;
   text-align: center;
@@ -16,7 +30,75 @@
   margin-bottom: 25px;
 }
 
-/* ------- Book cover 3D effect ------- */
+/* ------- Start Search bar ------------- */
+
+/*Error pulse effect*/
+.error {
+  border: 1px solid red;
+  animation: pulse-red 2s infinite;
+}
+
+@keyframes pulse-red {
+  0% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(217, 51, 51, 0.7);
+  }
+
+  70% {
+    transform: scale(1);
+    box-shadow: 0 0 0 10px rgba(217, 51, 51, 0);
+  }
+
+  100% {
+    transform: scale(0.95);
+    box-shadow: 0 0 0 0 rgba(217, 51, 51, 0);
+  }
+}
+
+.searchBar {
+  padding-inline: 30px;
+}
+
+.form-control {
+  height: 40px !important;
+  border-radius: 10px !important;
+  margin-bottom: 30px;
+}
+
+.form-control:active,
+.form-control:focus {
+  outline: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border-color: #e20074;
+}
+
+.bi-search {
+  padding-right: 10px;
+}
+
+.searchBtn {
+  border-radius: 10px;
+  background-color: #e20074;
+  border-color: #e20074;
+  height: 40px;
+  font-weight: 500;
+  -webkit-box-shadow: 7px 7px 23px -7px rgba(119, 84, 246, 0.5);
+  box-shadow: 7px 7px 23px -7px rgba(119, 84, 246, 0.5);
+  -webkit-transition: 0.3s all ease;
+  transition: 0.3s all ease;
+  font-size: 18px;
+  width: 100%;
+}
+
+.searchBtn:hover {
+  background-color: #643cf5;
+  border-color: #643cf5;
+}
+
+/* ------- End Search bar ------------- */
+
+/* ------- Start Book cover 3D effect ------- */
 
 .cover {
   width: 220px;
@@ -172,7 +254,7 @@
   background: linear-gradient(45deg, #dad5dc 0%, #f2ebf4 100%);
 }
 
-.left-side h2 span{
+.left-side h2 span {
   font-weight: 400;
   font-size: 25;
   padding-right: 20px;

@@ -8,13 +8,22 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
   templateUrl: './search-results.component.html',
   styleUrls: ['./search-results.component.css']
 })
-export class SearchResultsComponent implements OnInit{
+export class SearchResultsComponent implements OnInit {
 
-books: any;
+  books: any;
+  loading: boolean = true;
+  input_text: string;
+  filteredBooks: [] = [];
+  searchText: string = '';
+  searchError: boolean = false;
 
-    constructor(private _router: Router,private _route: ActivatedRoute,private bookService: BookService, private sanitizer: DomSanitizer) { }
+  constructor(private _router: Router, private _route: ActivatedRoute, private bookService: BookService, private sanitizer: DomSanitizer) {
+    this.input_text = '';
+  }
 
   ngOnInit(): void {
+    this._router.routeReuseStrategy.shouldReuseRoute = () => false;
+
     let text = this._route.snapshot.paramMap.get('id');
     console.log(text);
 
@@ -22,6 +31,7 @@ books: any;
     this.bookService.getBookByTitle(text).subscribe(
       (response) => {
         this.books = response;
+        this.loading = false;
       },
       (error) => {
         console.log('Error al cargar datos');
@@ -32,6 +42,7 @@ books: any;
     this.bookService.getBookByAuthor(text).subscribe(
       (response) => {
         this.books = response;
+        this.loading = false;
       },
       (error) => {
         console.log('Error al cargar datos');
@@ -42,11 +53,25 @@ books: any;
     this.bookService.getBookByISBN(text).subscribe(
       (response) => {
         this.books = response;
+        this.loading = false;
       },
       (error) => {
         console.log('Error al cargar datos');
       }
     );
+  }
+
+  performSearch() {
+    if (this.input_text && this.input_text.trim() !== '') {
+      this.input_text = this.input_text.replace('%', ' ');
+      this._router.navigate(['/search', this.input_text]);
+      this.searchError = false;
+    } else {
+      this.searchError = true;
+      setTimeout(() => {
+        this.searchError = false;
+      }, 5000);
+    }
   }
 
 

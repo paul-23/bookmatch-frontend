@@ -22,6 +22,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { FooterComponent } from './footer/footer.component';
+import { LoaderComponent } from './loader/loader.component';
+import { Notfound404Component } from './notfound404/notfound404.component';
 
 
 
@@ -39,7 +41,9 @@ import { FooterComponent } from './footer/footer.component';
     EditBooksComponent,
     AboutUsComponent,
     FooterComponent,
-    SearchResultsComponent
+    SearchResultsComponent,
+    LoaderComponent,
+    Notfound404Component
   ],
   imports: [
     BrowserModule,

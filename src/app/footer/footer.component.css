@@ -1,3 +1,54 @@
 .col-4 {
   padding-inline: 20px !important;
 }
+
+.brand-logos img {
+  max-height: 30px;
+  width: auto;
+}
+
+/* Footer Styles */
+footer {
+  padding: 40px 0;
+}
+
+.social-icons {
+  margin-bottom: 20px;
+}
+
+.social-icon {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 24px;
+  color: #fff;
+  transition: color 0.3s ease;
+}
+
+.social-icon:hover {
+  color: #ccc;
+}
+
+.brand-logos {
+  margin-bottom: 30px;
+}
+
+.footerLink {
+  margin-bottom: 20px;
+}
+
+.footerLink a {
+  color: #ccc;
+  font-size: 14px;
+  transition: color 0.3s ease;
+  text-decoration: none;
+}
+
+.footerLink a:hover {
+  color: #999;
+}
+
+p {
+  margin-bottom: 0;
+  font-size: 14px;
+  color: #ccc;
+}
