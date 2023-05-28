@@ -105,7 +105,7 @@ export class BookService {
   updateBook(bookData: any, id: any) {
 
     const headers = new HttpHeaders();
-    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
 
     return this.http.put<any>(BASE + "book/" + id, bookData, { headers: headers }).subscribe(
       (response) => {

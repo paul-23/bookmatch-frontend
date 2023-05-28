@@ -50,8 +50,6 @@ export class EditBooksComponent implements OnInit{
       category: this.newBook.category
     };
 
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'multipart/form-data');
 
     if (this.selected){
       console.log("newBook");
