@@ -79,8 +79,8 @@ export class BookService {
   }
 
 
-  getBookByID(id: any) {
-    return this.http.get(BASE + "book/" + id);
+  getBookByID(id: any){
+    return this.http.get(BASE+"book/"+id);
 
   }
 
@@ -104,6 +104,14 @@ export class BookService {
     return this.http.get(BASE + "book/title/" + title)
   }
 
+  getAverageRatingByBookId(id: any){
+    return this.http.get(BASE+"ratings/average/"+id);
+  }
+
+  getRatingsByBookId(id: any){
+    return this.http.get(BASE+"ratings/"+id);
+  }
+
   createBook(bookData: any) {
 
     const headers = new HttpHeaders();
@@ -124,7 +132,7 @@ export class BookService {
   updateBook(bookData: any, id: any) {
 
     const headers = new HttpHeaders();
-    headers.append('Accept', 'application/json');
+    headers.append('Content-Type', 'application/json');
 
     return this.http.put<any>(BASE + "book/" + id, bookData, { headers: headers }).subscribe(
       (response) => {
@@ -137,6 +145,27 @@ export class BookService {
       }
     );
   }
+
+  createRating(ratingData: any) {
+
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.post<any>(BASE + "ratings", ratingData)
+  }
+
+
+
+
+
+  editRating(ratingData: any, id: any) {
+
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.put<any>(BASE + "ratings/" + id, ratingData)
+  }
+
 
 
 
