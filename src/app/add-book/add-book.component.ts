@@ -45,6 +45,7 @@ export class AddBookComponent {
       isbn: this.newBook.isbn,
       category: this.newBook.category,
       //cover_image: this.newBook.cover_image,
+      aviable: true,
       description: this.newBook.description,
       user: {
         id_user: this.tokenStorageService.getUser().id

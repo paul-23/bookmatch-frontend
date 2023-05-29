@@ -130,9 +130,10 @@ export class BookViewComponent implements OnInit {
   }
 
   orderBook() {
-    this.bookService.updateBookAvailability(this.book.id_book).subscribe(
+    this.bookService.updateBookNOTAvailability(this.book.id_book).subscribe(
       (response) => {
-        console.log("bien");
+        this._router.navigate(['/book_view/', this.book.id_book]);
+        console.log("Libro reservado correctamente");
       },
       (error) => {
         console.log('Error al cargar datos');
