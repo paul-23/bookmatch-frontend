@@ -36,18 +36,6 @@ export class AuthService {
     );
   }
 
-  /* signUp(fullName: string, email: string, password: string): Observable<any> {
-    const body = {
-      username: fullName,
-      email: email,
-      password: password
-    };
-
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-
-    return this.http.post(AUTH_BASE + "signup", body, { headers });
-  } */
-
   signUp(userData: any) {
 
     const headers = new HttpHeaders();
