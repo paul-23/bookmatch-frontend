@@ -164,3 +164,7 @@ a:hover {
 .password-input {
   padding-right: 30px;
 }
+
+.something-wrong {
+  color: red;
+}

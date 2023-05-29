@@ -4,7 +4,6 @@ import { TokenStorageService } from '../_services/token-storage.service';
 import { map, pluck } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
-import { AppComponent } from '../app.component';
 
 @Component({
   selector: 'app-login',
@@ -23,8 +22,7 @@ export class LoginComponent implements OnInit {
 
   constructor(private authService: AuthService,
     private tokenStorageService: TokenStorageService,
-    private router: Router,
-    private appcomponent: AppComponent) {}
+    private router: Router) {}
 
   ngOnInit(): void {
     if(this.tokenStorageService.getToken() != null){
@@ -38,8 +36,6 @@ export class LoginComponent implements OnInit {
   }
 
   logIn():void{
-
-    console.log(this.email + this.password);
     this.authService.signIn(this.email, this.password).subscribe(
       {
         next: (data: any) => {
@@ -48,12 +44,7 @@ export class LoginComponent implements OnInit {
           this.userLogged = true;
           this.email = '';
           this.password = '';
-          //this.reload();
-
-          /*this.router.navigate(["/"]);
-          this.appcomponent.refreshPage();*/
-
-          this.appcomponent.refreshPage();
+          this.router.navigate(["/"]);
         },
         error: (err: any) => {
           console.error('Error creating post', err);
@@ -63,12 +54,9 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  reload(): void{
-    this.router.navigate(["/home"]);
-  }
-
   logout():void{
     this.tokenStorageService.signOut();
     this.userLogged = false;
+    this.router.navigate(["/login"]);
   }
 }

@@ -35,4 +35,11 @@ export class AuthService {
       pluck('id')
     );
   }
+
+  signUp(userData: any): Observable<any> {
+    const headers = new HttpHeaders();
+    headers.append('Accept', 'application/json');
+
+    return this.http.post<any>(AUTH_BASE + "signup", userData, { headers: headers });
+  }
 }

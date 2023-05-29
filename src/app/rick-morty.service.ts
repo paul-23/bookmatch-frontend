@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, map, pluck } from 'rxjs';
+import { Observable, catchError, map, pluck, throwError } from 'rxjs';
 
 //const BASE = "https://rickandmortyapi.com/api/";
 const BASE = "https://api-bookmatch-production.up.railway.app/api/";
@@ -40,13 +40,29 @@ export class BookService {
   }
 
   updateBookAvailability(id: number) {
-    return this.http.put(BASE + "book/"+id+"/available", null);
+    return this.http.put(BASE + "book/" + id + "/available", null);
   }
 
+  updateBookNOTAvailability(id: number) {
+    return this.http.put(BASE + "book/" + id + "/notavailable", null);
+  }
 
   getBooks() {
     return this.http.get(BASE + "books");
     //+  getRndom().join());
+  }
+
+  getBooksByUserID(id_user: any) {
+    return this.http.get(BASE + "books/user/" + id_user);
+  }
+
+  deleteBookByID(id: any): Observable<any> {
+    return this.http.delete(BASE + "book/" + id).pipe(
+      catchError((error) => {
+        console.log('Error al eliminar el libro', error);
+        return throwError('Error al eliminar el libro');
+      })
+    );
   }
 
   getEditorials() {
@@ -54,8 +70,8 @@ export class BookService {
     //+  getRndom().join());
   }
 
-  getEditorialByName(name: any){
-    return this.http.get(BASE+"editorial/name/"+name);
+  getEditorialByName(name: any) {
+    return this.http.get(BASE + "editorial/name/" + name);
   }
 
   getUserByID(id: any) {
@@ -65,6 +81,7 @@ export class BookService {
 
   getBookByID(id: any){
     return this.http.get(BASE+"book/"+id);
+
   }
 
   getBookByName(title: any) {
@@ -103,11 +120,11 @@ export class BookService {
     return this.http.post<any>(BASE + "book", bookData, { headers: headers }).subscribe(
       (response) => {
         console.log('Book created successfully', response);
-         // Handle success
+        // Handle success
       },
       (error) => {
         console.error('Error creating book', error);
-         // Handle error
+        // Handle error
       }
     );
   }
@@ -120,11 +137,11 @@ export class BookService {
     return this.http.put<any>(BASE + "book/" + id, bookData, { headers: headers }).subscribe(
       (response) => {
         console.log('Book edited successfully', response);
-         // Handle success
+        // Handle success
       },
       (error) => {
         console.error('Error editing book', error);
-         // Handle error
+        // Handle error
       }
     );
   }
@@ -158,7 +175,7 @@ export class BookService {
       name_editorial
     };
 
-    const headers = new HttpHeaders({'Content-Type': 'application/json'});
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     //const headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 
