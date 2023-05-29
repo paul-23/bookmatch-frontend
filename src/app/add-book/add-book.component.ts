@@ -51,13 +51,15 @@ export class AddBookComponent {
         id_user: this.tokenStorageService.getUser().id
       },
       editorial: {
-        id_editorial: 1
+        id_editorial: selectedEditorial
       }
 
 
     };
+    console.log(book);
     formData.append('image', this.newBook.cover_image);
     formData.append('book', JSON.stringify(book));
+    console.log(formData);
     this.bookService.createBook(formData);
   } else{
     console.log("editorial incorrecta, seleccione o cree una editorial");
