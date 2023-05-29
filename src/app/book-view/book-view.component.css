@@ -85,3 +85,8 @@
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   padding: 10px;
 }
+
+.card-img-top{
+  height: 40px;
+  width: auto;
+}

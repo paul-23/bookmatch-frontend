@@ -52,9 +52,6 @@ export class AddBookComponent {
 
     formData.append('image', this.newBook.cover_image);
     formData.append('book', JSON.stringify(book));
-
-
-    console.log(formData);
     this.bookService.createBook(formData);
   }
 

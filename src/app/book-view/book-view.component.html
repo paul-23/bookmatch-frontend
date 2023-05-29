@@ -32,6 +32,7 @@
               <br /><br />
               {{ book.description }}
               <br />
+              <strong>Rating</strong>: {{ total_rating}}
             </p>
             <button id="edit_button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Order the book</button>
           </div>
@@ -46,33 +47,45 @@
   <!-- Ratings Container -->
   <div class="ratings-container" *ngIf="book">
     <h1 class="ratings-title">Ratings</h1>
-    <p class="total-rating"><strong>Total Rating:</strong> {{ book.total_rating }}</p>
+    <p class="total-rating"><strong>Total Rating: {{total_rating}}</strong> {{ book.total_rating }}</p>
 
     <!-- Rating Input -->
     <div class="rating-input">
       <h4 class="rate-title">Rate this book:</h4>
       <div class="rating-stars">
+
         <span class="star" *ngFor="let star of [1, 2, 3, 4, 5]" (click)="setUserRating(star)">
           <i class="bi" [class.bi-star-fill]="star <= userRating" [class.bi-star]="star > userRating"></i>
         </span>
+
       </div>
       <textarea class="form-control comment-input" rows="3" placeholder="Leave a comment" [(ngModel)]="userComment"></textarea>
-      <button class="btn btn-primary submit-btn" (click)="submitRating()">Submit</button>
+      <button class="btn btn-primary submit-btn" (click)="postRating()">Submit</button>
     </div>
-
     <!-- Other Users' Ratings -->
-    <div class="other-ratings">
-      <h4 class="other-ratings-title">Other Users' Ratings:</h4>
-      <div class="card-columns">
-        <div class="card rating-card" *ngFor="let rating of book.ratings">
-          <div class="card-body">
-            <p class="card-text">{{ rating.comment }}</p>
-          </div>
+    <!-- Other Users' Ratings -->
+
+
+  <div class="other-ratings">
+    <h4 class="other-ratings-title">Other Users' Ratings:</h4>
+    <div class="card-columns">
+      <div class="card rating-card" *ngFor="let user_rating of user_ratings">
+        <div class="card-body">
+          <img [src]="'data:image/jpg;base64,' + user_rating.bookRating.user.profile_image" class="card-img-top" alt="imagen del libro" />
+
+          <h1 class="card-text">{{user_rating.bookRating.user.username}}</h1>
+          <span class="card-rating">{{user_rating.rating}}</span>
+          <p class="card-text">{{user_rating.comment}}</p>
         </div>
       </div>
     </div>
-  </div>
 </div>
+
+  </div>
+  <!-- Books html-->
+
+</div>
+
 
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">

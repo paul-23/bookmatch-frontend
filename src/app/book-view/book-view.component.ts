@@ -15,9 +15,11 @@ export class BookViewComponent implements OnInit {
   loading: boolean = true;
   userRating: number = 0;
   userComment: string = '';
+  total_rating: any;
+  user_ratings: any;
 
-
-  constructor(private _router: Router, private _route: ActivatedRoute, private bookService: BookService, private sanitizer: DomSanitizer) { }
+  constructor(private _router: Router, private _route: ActivatedRoute, private bookService: BookService,
+    private sanitizer: DomSanitizer, private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(): void {
     this.loadRndomBooksDelayed();
@@ -27,6 +29,28 @@ export class BookViewComponent implements OnInit {
     setTimeout(() => {
       this.loadBook();
     }, 1000);
+  }
+
+  postRating(){
+    console.log(this.tokenStorageService.getUser().id);
+    const formData = new FormData();
+    const rating = {
+      rating: this.userRating,
+      comment: this.userComment,
+      userRating: {
+        id_user: this.tokenStorageService.getUser().id,
+      },
+      bookRating: {
+        id_book: this.book.id_book
+      }
+    };
+    console.log(this.tokenStorageService.getUser().id);
+
+
+    formData.append('rating', JSON.stringify(rating));
+
+
+    this.bookService.createRating(rating);
   }
 
   loadBook() {
@@ -41,6 +65,32 @@ export class BookViewComponent implements OnInit {
         this.loading = false;
       }
     );
+
+    this.bookService.getAverageRatingByBookId(id_book).subscribe(
+      (response) => {
+        console.log('Ratings cargados');
+        this.total_rating = response;
+        console.log(this.total_rating);
+      },
+      (error) => {
+        console.log('Error al cargar datos');
+        this.loading = false;
+      }
+    );
+
+
+    this.bookService.getRatingsByBookId(id_book).subscribe(
+      (response) => {
+        console.log('Ratings cargados');
+        this.user_ratings = response;
+        console.log(this.user_ratings);
+      },
+      (error) => {
+        console.log('Error al cargar datos');
+        this.loading = false;
+      }
+    );
+
   }
 
   orderBook() {
@@ -78,6 +128,8 @@ export class BookViewComponent implements OnInit {
       );*/
     }
   }
+
+
 
   getBase64ImageSrc(base64Image: string): SafeUrl {
     const imageUrl = `data:image/jpg;base64,${this.book.image_cover}`;
