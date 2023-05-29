@@ -76,8 +76,20 @@ export class BookViewComponent implements OnInit {
          // Handle success
       },
       (error: any) => {
-        console.log('Error creating the rating');
-        // Handle error
+      window.alert('You have already given a rating to this book');
+
+        //this.bookService.editRating(rating, rating.id_rating).subscribe(
+        //  (response: any) => {
+        //    console.log('Rating edited successfully', response);
+        //    this.loadRatings();
+        //    // Handle success
+        //  },
+        //  (error: any) => {
+
+
+        //  window.alert('You have already given a rating to this book');        // Handle error
+        //  }
+        //);       // Handle error
       }
     );
 

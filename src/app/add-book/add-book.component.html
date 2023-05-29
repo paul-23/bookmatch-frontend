@@ -53,11 +53,25 @@
         <p *ngIf="bookError" style="color: red;">There are empty fields</p>
 
 
-        <div class="d-grid mb-4">
-          <button type="submit" class="btn btn-primary">
-            Add book
-          </button>
-        </div>
+
+
+        <input name="editorialname" class="form-control" list="datalistOptions" id="inputOptions" placeholder="Type to search..."
+        [(ngModel)]="newBook.editorial" >
+        <datalist id="datalistOptions">
+            <option id="editorial_valor" *ngFor="let editorial of editorials; let i = index" value = "{{editorial.name_editorial}}"></option>
+        </datalist>
+
+
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Add new Editorial</button>
+
+        <form (ngSubmit)="createBook()" enctype="multipart/form-data">
+          <div class="d-grid mb-4">
+            <button type="submit" class="btn btn-primary">
+              Add book
+            </button>
+          </div>
+        </form>
 
       </form>
     </div>

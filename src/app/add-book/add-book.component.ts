@@ -36,6 +36,10 @@ export class AddBookComponent {
   }
 
   createBook() {
+    const selectedEditorialName = this.newBook.editorial;
+    const selectedEditorial = this.editorials.find((editorial: any) => editorial.name_editorial === selectedEditorialName);
+
+    if (selectedEditorial){
     const formData = new FormData();
 
     if (!this.newBook.title || !this.newBook.author || !this.newBook.isbn || !this.newBook.category) {
@@ -58,14 +62,18 @@ export class AddBookComponent {
       editorial: {
         id_editorial: 1
       }
+
+
     };
 
     formData.append('image', this.newBook.cover_image);
     formData.append('book', JSON.stringify(book));
 
     this.bookService.createBook(formData);
+  } else{
+    console.log("editorial incorrecta, seleccione o cree una editorial");
   }
-
+  }
 
 onFileSelected(event: any) {
     this.newBook.cover_image = event.target.files[0];

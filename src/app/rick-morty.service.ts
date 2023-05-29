@@ -104,6 +104,10 @@ export class BookService {
     return this.http.get(BASE + "book/title/" + title)
   }
 
+  getEditorialByTitle(title: any){
+    return this.http.get(BASE + "editorial/name/" + title)
+  }
+
   getAverageRatingByBookId(id: any){
     return this.http.get(BASE+"ratings/average/"+id);
   }
