@@ -1,36 +1,32 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { BookService } from '../rick-morty.service';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { TokenStorageService } from '../_services/token-storage.service';
-import { HttpClient } from '@angular/common/http';
-import { HttpHeaders } from '@angular/common/http';
+import { BookService } from '../rick-morty.service';
+
 @Component({
   selector: 'app-edit-books',
   templateUrl: './edit-books.component.html',
   styleUrls: ['./edit-books.component.css']
 })
-export class EditBooksComponent implements OnInit{
+export class EditBooksComponent implements OnInit {
   book: any;
-  title: any;
-  author: any;
-  description: any;
-  isbn: any;
-  category: any;
-  avilable: any;
   newBook: any;
   id_book: any;
   selected: boolean = false;
 
-
-  constructor(private tokenStorageService: TokenStorageService, private _router: Router,private _route: ActivatedRoute,
-    private bookService: BookService, private sanitizer: DomSanitizer, private http: HttpClient) { }
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private bookService: BookService
+  ) {}
 
   ngOnInit(): void {
-    this.id_book = this._route.snapshot.paramMap.get('id');
+    this.id_book = this.route.snapshot.paramMap.get('id');
     this.bookService.getBookByID(this.id_book).subscribe(
       (response) => {
         this.book = response;
+        this.newBook = { ...this.book };
+        console.log(this.newBook.cover_image);
       },
       (error) => {
         console.log('Error al cargar datos');
@@ -39,43 +35,42 @@ export class EditBooksComponent implements OnInit{
   }
 
   updateBook() {
-    const formData = new FormData();
-
-    const book2 = {
+    const updatedBook = {
       title: this.newBook.title,
       author: this.newBook.author,
       isbn: this.newBook.isbn,
-      category: this.newBook.category
+      category: this.newBook.category,
+      aviable: this.newBook.aviable,
+      description: this.newBook.description
     };
 
+    const formData = new FormData();
+    formData.append('book', JSON.stringify(updatedBook));
 
-    if (this.selected){
-      console.log("newBook");
-      console.log(this.newBook.cover_image);
+    if (this.newBook.cover_image) {
       formData.append('image', this.newBook.cover_image);
-    } else{
-      console.log("book");
-      console.log(this.book.cover_image);
-      formData.append('image',this.book.cover_image);
+    } else {
+      formData.append('image', this.book.cover_image);
     }
-    formData.append('book', JSON.stringify(book2));
-    this.bookService.updateBook(formData, this.id_book);
+
+    this.bookService.updateBook(formData, this.id_book).subscribe(
+      (response) => {
+        console.log('Libro actualizado exitosamente');
+        this.router.navigate(['/books']);
+      },
+      (error) => {
+        console.log('Error al actualizar el libro');
+      }
+    );
   }
+
 
   onFileSelected(event: any) {
-    if (event.target.files[0] == null){
-      this.newBook.cover_image = this.book.cover_image;
-      this.selected = false;
-    }else{
-    this.newBook.cover_image = event.target.files[0];
-    this.selected = true;
-  }
+    if (event.target.files[0] && event.target.files[0].size > 0) {
+      this.newBook.cover_image = event.target.files[0];
+      this.selected = true;
+    }
   }
 
 
-
-  getBase64ImageSrc(base64Image: string): SafeUrl {
-    const imageUrl = `data:image/jpg;base64,${this.book.image_cover}`;
-    return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
-  }
 }

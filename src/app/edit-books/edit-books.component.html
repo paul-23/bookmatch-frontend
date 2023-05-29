@@ -5,54 +5,51 @@
         <h1 class="title">Edit a Book</h1>
         <p class="caption mb-4">Share your book with the other members.</p>
 
-        <form action="#" class="pt-3">
+        <form (ngSubmit)="updateBook()" enctype="multipart/form-data" class="pt-3">
           <div class="form-floating">
-            <input name = "title_name" [(ngModel)]="book.title" type="text"
-            class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="{{book.title}}">
+            <input name = "title_name" [(ngModel)]="newBook.title" type="text"
+            class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Title">
             <label for="input_title">Title</label>
           </div>
 
           <div class="form-floating">
-            <input name = "author_name" [(ngModel)]="book.author" type="text"
+            <input name = "author_name" [(ngModel)]="newBook.author" type="text"
             class="form-control" id="exampleInputPassword1" placeholder="Enter Author">
             <label for="input_author">Author</label>
           </div>
 
           <div class="form-floating">
-            <input name = "description_name" [(ngModel)]="book.description" type="text"
+            <input name = "description_name" [(ngModel)]="newBook.description" type="text"
             class="form-control" id="input_category" placeholder="Enter Category">
             <label for="input_category">Descripcion</label>
           </div>
 
           <div class="form-floating">
-            <input [(ngModel)]="book.isbn" name = "isbn_name" type="text"
+            <input [(ngModel)]="newBook.isbn" name = "isbn_name" type="text"
             class="form-control" id="input_ISBN" placeholder="Enter ISBN">
             <label for="input_ISBN">ISBN</label>
           </div>
 
           <div class="form-floating">
-            <input name = "category_name" [(ngModel)]="book.category" type="text"
+            <input name = "category_name" [(ngModel)]="newBook.category" type="text"
             class="form-control" id="input_category" placeholder="Enter Category">
             <label for="input_category">Category</label>
           </div>
 
           <div class="form-floating profile-image">
-            <label for="formFileSm" class="form-label" name="imagename">
+            <label for="formFileSm" class="form-label">
               Book cover image <span>(If blank, added based on the ISBN)</span></label>
 
-            <input (change)="onFileSelected($event)" name="image" class="form-control form-control-sm"
-            id="formFileSm" type="file">
+            <input (change)="onFileSelected($event)" name="image" class="form-control form-control-sm" id="formFileSm" type="file">
           </div>
 
           <img [src]="'data:image/jpg;base64,' + book.cover_image" class="card-img-top" alt="imagen del libro" />
 
-          <form (ngSubmit)="updateBook()" enctype="multipart/form-data">
             <div class="d-grid mb-4">
               <button type="submit" class="btn btn-primary" >
                 Update book
               </button>
             </div>
-          </form>
 
         </form>
       </div>
