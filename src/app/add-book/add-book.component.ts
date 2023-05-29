@@ -53,14 +53,13 @@ export class AddBookComponent {
       title: this.newBook.title,
       isbn: this.newBook.isbn,
       category: this.newBook.category,
-      //cover_image: this.newBook.cover_image,
       aviable: true,
       description: this.newBook.description,
       user: {
         id_user: this.tokenStorageService.getUser().id
       },
       editorial: {
-        id_editorial: 1
+        id_editorial: selectedEditorial.id_editorial
       }
 
 
@@ -69,6 +68,7 @@ export class AddBookComponent {
     formData.append('image', this.newBook.cover_image);
     formData.append('book', JSON.stringify(book));
 
+    console.log(this.newBook.cover_image);
     this.bookService.createBook(formData);
   } else{
     console.log("editorial incorrecta, seleccione o cree una editorial");

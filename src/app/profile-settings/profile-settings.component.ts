@@ -27,12 +27,13 @@ export class ProfileSettingsComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.events.subscribe(() => {
-      if (this.tokenStorageService.getToken()) {
-        this.user = this.tokenStorageService.getUser();
+      this.user = this.tokenStorageService.getUser();
+      if (this.tokenStorageService.getUser()) {
+
+        console.log(this.tokenStorageService.getUser());
         this.getUserByID(this.user.id);
       }
     });
-    this.getUserByID(this.user.id);
   }
 
   getUserByID(id: any) {
@@ -52,6 +53,33 @@ export class ProfileSettingsComponent implements OnInit {
     } else {
       this.userLogged = false;
     }
+  }
+
+  editProfile(){
+    const formData = new FormData();
+
+    const user2 = {
+      username: this.user.username
+    };
+
+    formData.append('user', JSON.stringify(user2));
+    formData.append('image',this.user.profile_image);
+
+    console.log(user2);
+    console.log(this.user.profile_image);
+
+    this.bookService.editUser(formData, this.user.id_user).subscribe(
+      (response) => {
+        this.user = response;
+      },
+      (error) => {
+        console.log('Error al cargar datos');
+      }
+    );
+  }
+
+  onFileSelected(event: any) {
+    this.user.profile_image = event.target.files[0];
   }
 
   getBase64ImageSrc(base64Image: string): SafeUrl {

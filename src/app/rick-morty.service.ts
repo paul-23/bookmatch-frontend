@@ -116,6 +116,14 @@ export class BookService {
     return this.http.get(BASE+"ratings/"+id);
   }
 
+  editUser(user: any, id: any) : Observable<any> {
+
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.put(BASE+"user/"+id, user);
+  }
+
   createBook(bookData: any) {
 
     const headers = new HttpHeaders();
