@@ -17,6 +17,7 @@ export class UserBooksComponent implements OnInit {
   selectedBook: any;
   profileImage: any;
   @ViewChild('toastElement') toastElement: any;
+  loading: boolean = true;
 
   constructor(
     private router: Router,
@@ -31,6 +32,9 @@ export class UserBooksComponent implements OnInit {
       if (this.tokenStorageService.getToken()) {
         this.user = this.tokenStorageService.getUser();
         this.getUserByID(this.user.id);
+      } else {
+        let id_user = this.route.snapshot.paramMap.get('id');
+        this.getOtherUserByID(id_user);
       }
     });
   }
@@ -63,6 +67,7 @@ export class UserBooksComponent implements OnInit {
     this.bookService.getBooksByUserID(id_user).subscribe(
       (response) => {
         this.books = response;
+        this.loading = false;
       },
       (error) => {
         console.log('Error al cargar los libros', error);
@@ -78,6 +83,7 @@ export class UserBooksComponent implements OnInit {
           this.user = response;
           this.profileImage = this.getBase64ImageSrc(this.user?.profile_image);
           this.loadBooksByUserID(this.user.id_user);
+          this.loading = false;
         },
         () => {
           console.log('Error al cargar datos');
@@ -87,6 +93,21 @@ export class UserBooksComponent implements OnInit {
     } else {
       this.userLogged = false;
     }
+  }
+
+  getOtherUserByID(id: any) {
+      this.bookService.getUserByID(id).subscribe(
+        (response) => {
+          this.user = response;
+          this.profileImage = this.getBase64ImageSrc(this.user?.profile_image);
+          this.loadBooksByUserID(this.user.id_user);
+          this.loading = false;
+        },
+        () => {
+          console.log('Error al cargar datos');
+        }
+      );
+      this.userLogged = false;
   }
 
   updateBookAvailability(id: number) {

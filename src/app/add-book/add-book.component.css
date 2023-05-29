@@ -101,6 +101,20 @@ a:hover {
   border-color: #643cf5;
 }
 
+.new-editorial {
+  box-shadow: none !important;
+  margin-top: 0 !important;
+  width: 100%;
+  background-color: #643cf5 !important;
+  border-color: #643cf5 !important;
+  transition: 0.3s all;
+}
+
+.new-editorial:hover {
+  background-color: #e20074 !important;
+  border-color: #e20074 !important;
+}
+
 .form-wrap .social-account-wrap {
   padding-top: 30px;
   padding-bottom: 50px;

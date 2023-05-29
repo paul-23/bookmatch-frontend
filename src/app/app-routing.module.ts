@@ -27,7 +27,7 @@ const routes: Routes = [
 
   { path: 'search/:id', component: SearchResultsComponent},
   { path: 'user_books/:id', component: UserBooksComponent},
-  { path: 'profile_settings/:id', component: ProfileSettingsComponent},
+  { path: 'profile_settings', component: ProfileSettingsComponent},
   { path: 'book_view/:id', component: BookViewComponent},
   { path: 'edit_books/:id', component: EditBooksComponent},
   { path: 'book_view', component: BookViewComponent},

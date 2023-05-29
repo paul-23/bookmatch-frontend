@@ -175,9 +175,10 @@ a:hover {
 .userProfile {
   max-height: 80px;
   width: auto;
-  border-radius: 50%;
-  box-shadow: 3px 3px 10px 0 #bfbfbf;
+  border-radius: 10px;
+  /*box-shadow: 3px 3px 10px 0 #bfbfbf;*/
   margin-bottom: 20px;
+  border: 1px solid #d1d1d1 !important;
 }
 
 .notlogged {

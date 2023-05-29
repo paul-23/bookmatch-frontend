@@ -1,4 +1,8 @@
-<section class="container" *ngIf="!userLogged">
+<div *ngIf="loading">
+  <app-loader></app-loader>
+</div>
+
+<section class="container" *ngIf="!userLogged && !loading">
   <h1>User profile</h1>
   <div class="card profile-card">
     <div class="d-flex justify-content-center align-items-center">
@@ -12,7 +16,7 @@
 </section>
 
 
-<section class="container" *ngIf="userLogged">
+<section class="container" *ngIf="userLogged && !loading">
   <h1>{{ user.username }} profile</h1>
   <div class="row justify-content-center">
     <div class="col-md-4 col-lg-4">
@@ -25,7 +29,7 @@
           <p><strong>Email:</strong> {{ user?.email }}</p>
         </div>
         <div class="profile-settings text-center">
-          <a class="btn btn-danger" [routerLink]="['/profile_settings', user?.id_user]">
+          <a class="btn btn-danger" [routerLink]="['/profile_settings']">
             Settings&nbsp;&nbsp;<i class="bi bi-gear-fill ml-2"></i>
           </a>
         </div>
