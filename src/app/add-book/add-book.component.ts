@@ -126,7 +126,7 @@ onFileSelected(event: any) {
     );
   }
 
-  postEditorial(){
-
+  refresh() {
+    window.location.reload();
   }
 }

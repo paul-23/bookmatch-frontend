@@ -17,6 +17,8 @@ export class ProfileSettingsComponent implements OnInit {
   loading: boolean = true;
   profileImage: any;
   userLogged = false;
+  selected: boolean = false;
+  user_profile_image: any;
 
   constructor(
     private router: Router,
@@ -63,10 +65,15 @@ export class ProfileSettingsComponent implements OnInit {
     };
 
     formData.append('user', JSON.stringify(user2));
-    formData.append('image',this.user.profile_image);
 
-    console.log(user2);
-    console.log(this.user.profile_image);
+    if (this.selected) {
+      formData.append('image',this.user_profile_image);
+    }else{
+      console.log(this.user.profile_image);
+      formData.append('image',this.user.profile_image);
+    }
+
+    //formData.append('image',this.user.profile_image);
 
     this.bookService.editUser(formData, this.user.id_user).subscribe(
       (response) => {
@@ -79,7 +86,8 @@ export class ProfileSettingsComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    this.user.profile_image = event.target.files[0];
+    this.user_profile_image = event.target.files[0];
+    this.selected = true;
   }
 
   getBase64ImageSrc(base64Image: string): SafeUrl {
