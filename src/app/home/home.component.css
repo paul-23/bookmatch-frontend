@@ -63,7 +63,8 @@ label {
 }
 
 .title-container {
-  margin: 30px 0;
+  margin-top: 50px;
+  margin-bottom: 30px;
   padding-top: 25px;
   padding-inline: 20px;
 }
@@ -242,9 +243,54 @@ label {
   background: linear-gradient(45deg, #dad5dc 0%, #f2ebf4 100%);
 }
 
-.left-side h2 span{
+.left-side h2 span {
   font-weight: 400;
   font-size: 25;
   padding-right: 20px;
   font-family: acumin-pro, sans-serif;
+}
+
+.feature-icon {
+  height: 50px;
+  width: 50px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.feature-icon i {
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+}
+
+.card-cover {
+  background-size: cover;
+  padding-top: 0px !important;
+  overflow: hidden;
+  transition: all 0.3s;
+}
+
+.card-cover:hover {
+  transform: scale(1.05);
+}
+
+.card-blur {
+  background: rgba(0, 0, 0, 0.16);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(1.6px);
+  -webkit-backdrop-filter: blur(1.6px);
+  text-shadow: 1px 1px 4px #4e4e4e;
+  transition: backdrop-filter 0.3s;
+}
+
+.card-blur:hover {
+  backdrop-filter: blur(5px);
+}
+
+#custom-cards {
+  margin-top: 70px;
+  margin-bottom: 100px;
 }

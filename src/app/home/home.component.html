@@ -5,7 +5,9 @@
         <div class="banner-content">
           <h3 class="banner-title">{{ title }}</h3>
           <p class="banner-description">Join our community of book lovers!</p>
-          <a class="btn btn-secondary btn-register btn-lg" href="/register">Join Now</a>
+          <a class="btn btn-secondary btn-register btn-lg" href="/register"
+            >Join Now</a
+          >
         </div>
       </div>
     </div>
@@ -26,7 +28,7 @@
   <div *ngIf="loading">
     <app-loader></app-loader>
   </div>
-  <div *ngIf="!loading && !books || !loading && books.length === 0">
+  <div *ngIf="(!loading && !books) || (!loading && books.length === 0)">
     <h3 class="messageLNF">There are no books</h3>
   </div>
   <div class="row" *ngIf="!loading && books && books.length > 0">
@@ -55,11 +57,69 @@
           </div>
         </div>
         <div class="card-body">
-          <h5 class="card-title">{{book.title}}</h5>
-          <p class="card-text">{{book.author}}</p>
-          <button class="btn btn-secondary btn-view" [routerLink]="['/book_view/', book.id_book]">
+          <h5 class="card-title">{{ book.title }}</h5>
+          <p class="card-text">{{ book.author }}</p>
+          <button
+            class="btn btn-secondary btn-view"
+            [routerLink]="['/book_view/', book.id_book]"
+          >
             View book
           </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container px-4 py-5" id="custom-cards">
+  <h2 class="pb-2">Welcome to BookMatch!</h2>
+  <p class="pb-2">
+    The platform for exchanging books between employees of our company
+  </p>
+  <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
+    <div class="col">
+      <div
+        class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg"
+        style="
+          background-image: url('./../../assets/images/home-img/registration.jpg');
+        "
+      >
+        <div class="card-blur d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+          <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Sign up</h2>
+          <h4 class="fw-bold">
+            Create your BookMatch account to start exchanging books with
+            your classmates.
+          </h4>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div
+        class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg"
+        style="
+          background-image: url('./../../assets/images/home-img/share-book.jpg');
+        "
+      >
+        <div class="card-blur d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+          <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Upload your books</h2>
+          <h4 class="fw-bold">
+            Add the books you want to trade to your personal library and
+            specify your preferences.
+          </h4>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div
+        class="card card-cover h-100 overflow-hidden text-white bg-dark rounded-5 shadow-lg"
+        style="background-image: url('./../../assets/images/home-img/swap.jpg')"
+      >
+        <div class="card-blur d-flex flex-column h-100 p-5 pb-3 text-shadow-1">
+          <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold">Interchange them</h2>
+          <h4 class="fw-bold">
+            Browse available books from other employees and propose
+            exchanges according to your interests.
+          </h4>
         </div>
       </div>
     </div>

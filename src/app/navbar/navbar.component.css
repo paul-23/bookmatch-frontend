@@ -36,3 +36,9 @@ li > a {
   height: auto;
   width: 200px;
 }
+
+.card-img-top {
+  height: 25px;
+  width: auto;
+  border-radius: 50%;
+}

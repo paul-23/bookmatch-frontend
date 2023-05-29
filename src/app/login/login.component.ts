@@ -36,8 +36,6 @@ export class LoginComponent implements OnInit {
   }
 
   logIn():void{
-
-    console.log(this.email + this.password);
     this.authService.signIn(this.email, this.password).subscribe(
       {
         next: (data: any) => {
@@ -59,5 +57,6 @@ export class LoginComponent implements OnInit {
   logout():void{
     this.tokenStorageService.signOut();
     this.userLogged = false;
+    this.router.navigate(["/login"]);
   }
 }
