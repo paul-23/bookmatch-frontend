@@ -22,6 +22,8 @@ export class BookViewComponent implements OnInit {
   total_rating: any;
   user_ratings: any;
   id_book: any;
+  user: any;
+  userLogged: boolean = false;
 
 
   constructor(private _router: Router, private _route: ActivatedRoute, private bookService: BookService,
@@ -30,6 +32,12 @@ export class BookViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.id_book = this._route.snapshot.paramMap.get('id');
+    this._router.events.subscribe(() => {
+      if (this.tokenStorageService.getToken()) {
+        this.user = this.tokenStorageService.getUser();
+        this.userLogged = true;
+      }
+    });
     this.loadRndomBooksDelayed();
     //this._router.events.subscribe(() => {
       this.loadRatings();
@@ -77,7 +85,6 @@ export class BookViewComponent implements OnInit {
 
 
   loadBook() {
-
     this.bookService.getBookByID(this.id_book).subscribe(
       (response) => {
         this.book = response;
@@ -93,9 +100,7 @@ export class BookViewComponent implements OnInit {
   loadRatings(){
     this.bookService.getAverageRatingByBookId(this.id_book).subscribe(
       (response) => {
-        console.log('Ratings cargados');
         this.total_rating = response;
-        console.log(this.total_rating);
       },
       (error) => {
         console.log('Error al cargar datos');
@@ -106,9 +111,7 @@ export class BookViewComponent implements OnInit {
 
     this.bookService.getRatingsByBookId(this.id_book).subscribe(
       (response) => {
-        console.log('Ratings cargados');
         this.user_ratings = response;
-        console.log(this.user_ratings);
       },
       (error) => {
         console.log('Error al cargar datos');
@@ -120,7 +123,7 @@ export class BookViewComponent implements OnInit {
   orderBook() {
     this.bookService.updateBookNOTAvailability(this.book.id_book).subscribe(
       (response) => {
-        this._router.navigate(['/book_view/', this.book.id_book]);
+        this.loadBook();
         console.log("Libro reservado correctamente");
       },
       (error) => {

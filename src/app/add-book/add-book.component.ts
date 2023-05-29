@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { BookService } from '../rick-morty.service';
 import { TokenStorageService } from '../_services/token-storage.service';
 
-
 @Component({
   selector: 'app-add-book',
   templateUrl: './add-book.component.html',
@@ -24,17 +23,27 @@ export class AddBookComponent {
   image: any;
   editorial: any;
 
+  editorialError:boolean = false;
+  bookError:boolean = false;
+
   newBook: any = {};
   coverImage: Blob | null = null;
 
   coverImageBlob: Blob | null = null;
 
-  ngOnInit() {
+  ngAfterViewInit() {
     this.loadEditorials();
   }
 
   createBook() {
     const formData = new FormData();
+
+    if (!this.newBook.title || !this.newBook.author || !this.newBook.isbn || !this.newBook.category) {
+      console.error('Error: Los campos deben estar completos.');
+      this.bookError = true;
+      return;
+    }
+
     const book = {
       author: this.newBook.author,
       title: this.newBook.title,
@@ -50,10 +59,13 @@ export class AddBookComponent {
         id_editorial: 1
       }
     };
+
     formData.append('image', this.newBook.cover_image);
     formData.append('book', JSON.stringify(book));
+
     this.bookService.createBook(formData);
   }
+
 
 onFileSelected(event: any) {
     this.newBook.cover_image = event.target.files[0];
@@ -70,18 +82,22 @@ onFileSelected(event: any) {
   }*/
 
   createEditorial(): void {
+    this.editorialError = false;
     const editorialName = this.edit;
-    this.bookService.createEditorial(editorialName).subscribe(
-      response => {
-        console.log('Post created successfully', response);
-        // Handle the response or perform additional actions
-      },
-      error => {
-        console.error('Error creating post', error);
-
-        // Meter texto rojo o algo visual aqui
-      }
-    );
+    if (editorialName !== null && editorialName !== undefined && editorialName !== '') {
+      this.bookService.createEditorial(editorialName).subscribe(
+        response => {
+          console.log('Post created successfully', response);
+          this.loadEditorials();
+        },
+        error => {
+          this.editorialError = true;
+          console.error('Error creating post', error);
+        }
+      );
+    } else {
+      this.editorialError = true;
+    }
   }
 
   getRndom() {

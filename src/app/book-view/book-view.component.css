@@ -25,6 +25,8 @@
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 100px;
+  margin-bottom: 100px;
 }
 
 .ratings-title {
@@ -84,10 +86,17 @@
   border-radius: 10px;
   box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
   padding: 10px;
+  margin-bottom: 15px;
 }
 
 .card-img-rating{
   border-radius: 50%;
   height: 40px;
   width: auto;
+}
+
+.profile-image {
+  border-radius: 50%;
+  width: 80px;
+  height: auto;
 }

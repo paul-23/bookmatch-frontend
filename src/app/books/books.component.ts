@@ -49,10 +49,7 @@ export class BookComponent implements OnInit {
       (response) => {
         this.books = response;
         this.loading = false;
-        console.log(this.books);
-
         this.books = this.getLastFourAvailableBooks().reverse();
-        console.log(this.books);
       },
       (error) => {
         console.log('Error al cargar datos');

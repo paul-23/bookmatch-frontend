@@ -4,7 +4,7 @@
       <h1 class="title">Add a Book</h1>
       <p class="caption mb-4">Share your book with the other members.</p>
 
-      <form action="#" class="pt-3" name="formBook" enctype="multipart/form-data">
+      <form (ngSubmit)="createBook()" class="pt-3" name="formBook" enctype="multipart/form-data">
         <div class="form-floating">
           <input type="text" id="input_title" class="form-control" id="exampleInputEmail1"
           aria-describedby="emailHelp" placeholder="Enter Title" [(ngModel)]="newBook.title" name="titlename">
@@ -50,13 +50,14 @@
           </div>
         </div>
 
-        <form (ngSubmit)="createBook()" enctype="multipart/form-data">
-          <div class="d-grid mb-4">
-            <button type="submit" class="btn btn-primary">
-              Add book
-            </button>
-          </div>
-        </form>
+        <p *ngIf="bookError" style="color: red;">There are empty fields</p>
+
+
+        <div class="d-grid mb-4">
+          <button type="submit" class="btn btn-primary">
+            Add book
+          </button>
+        </div>
 
       </form>
     </div>
@@ -76,14 +77,13 @@
             <label for="message-text" class="col-form-label">Name:</label>
 
             <input class="form-control" id="edit" [(ngModel)]="edit" name="first">
-
           </div>
+          <p *ngIf="editorialError" style="color: red;">Empty field, or the editorial already exists</p>
 
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" id="create" type="submit">Create Editorial</button>
-      </div>
-
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="create" type="submit">Create Editorial</button>
+          </div>
         </form>
       </div>
 

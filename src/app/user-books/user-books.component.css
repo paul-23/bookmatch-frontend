@@ -130,6 +130,24 @@ body :root {
   width: 100%;
 }
 
+.btn-primary {
+  border-radius: 10px;
+  background-color: #e20074;
+  border-color: #e20074;
+  height: 40px;
+  font-weight: 500;
+  -webkit-box-shadow: 0 15px 30px -7px rgba(119, 84, 246, 0.5);
+          box-shadow: 0 15px 30px -7px rgba(119, 84, 246, 0.5);
+  -webkit-transition: .3s all ease;
+  transition: .3s all ease;
+  font-size: 18px;
+}
+
+.btn-primary:hover {
+  background-color: #643cf5;
+  border-color: #643cf5;
+}
+
 @media (max-width: 576px) {
   .book-list-item {
     display: flex;

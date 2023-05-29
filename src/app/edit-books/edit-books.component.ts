@@ -18,7 +18,7 @@ export class EditBooksComponent implements OnInit{
   isbn: any;
   category: any;
   avilable: any;
-  newBook: any = {};
+  newBook: any;
   id_book: any;
   selected: boolean = false;
 

@@ -29,21 +29,32 @@
               <strong>ISBN</strong>: {{ book.isbn }}
               <br />
               <strong>Category</strong>: {{ book.category }}
-              <br /><br />
-              {{ book.description }}
               <br />
               <strong>Rating</strong>: {{ total_rating}}
+              <br /><br />
+              {{ book.description }}
             </p>
-            <button *ngIf="book.aviable" id="edit_button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Order the book</button>
+            <div *ngIf="userLogged">
+              <h4 style="margin-bottom: 10px;"><strong>Contact</strong></h4>
+              <div class="row">
+                <div class="col-2">
+                  <img [src]="'data:image/jpg;base64,' + book?.user.profile_image" class="profile-image img-fluid" alt="User profile image">
+                </div>
+                <div class="col-10">
+                  <div class="card-body profile-info">
+                    <h5>{{book?.user.username}}</h5>
+                    <p><strong>Email:</strong> {{book?.user.email}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br/>
+            <button *ngIf="book.aviable && userLogged" id="edit_button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Order the book</button>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
-
-<!-- Ratings Container -->
-<div class="container">
   <!-- Ratings Container -->
   <div class="ratings-container" *ngIf="book">
     <h1 class="ratings-title">Ratings</h1>
@@ -67,11 +78,11 @@
 
 
   <div class="other-ratings">
-    <h4 class="other-ratings-title">Other Users' Ratings:</h4>
+    <h4 class="other-ratings-title" *ngIf="user_ratings">Other Users' Ratings:</h4>
     <div class="card-columns">
       <div class="card rating-card" *ngFor="let user_rating of user_ratings; let i = index" >
         <div class="card-body">
-          <img [src]="'data:image/jpg;base64,' + user_rating.bookRating.user.profile_image" class="card-img-rating" alt="imagen del libro" />
+          <img [src]="'data:image/jpg;base64,' + user_rating.userRating.profile_image" class="card-img-rating" alt="imagen del libro" />
 
           <h1 class="card-text">{{user_rating.userRating.username}}</h1>
           <span class="card-rating">{{user_rating.rating}}</span>

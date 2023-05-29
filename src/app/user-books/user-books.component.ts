@@ -18,6 +18,7 @@ export class UserBooksComponent implements OnInit {
   profileImage: any;
   @ViewChild('toastElement') toastElement: any;
   loading: boolean = true;
+  notLogged: boolean = true;
 
   constructor(
     private router: Router,
@@ -29,12 +30,17 @@ export class UserBooksComponent implements OnInit {
 
   ngOnInit(): void {
     this.router.events.subscribe(() => {
+      let id_user = this.route.snapshot.paramMap.get('id');
       if (this.tokenStorageService.getToken()) {
         this.user = this.tokenStorageService.getUser();
-        this.getUserByID(this.user.id);
+        if (this.user.id == id_user) {
+          this.getUserByID(this.user.id);
+        } else {
+          this.getOtherUserByID(id_user);
+        }
       } else {
-        let id_user = this.route.snapshot.paramMap.get('id');
-        this.getOtherUserByID(id_user);
+        this.notLogged = false;
+        this.loading  = false;
       }
     });
   }
@@ -99,7 +105,6 @@ export class UserBooksComponent implements OnInit {
       this.bookService.getUserByID(this.user.id).subscribe(
         (response) => {
           this.user = response;
-          console.log(this.user);
           if (this.user.roleId === 'ROLE_ADMIN') {
             this.loadBooksAdmin();
           } else if (this.user.roleId === 'ROLE_USER') {
