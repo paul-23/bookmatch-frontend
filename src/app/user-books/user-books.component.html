@@ -4,7 +4,7 @@
 
 <div class="container" *ngIf="!notLogged && !loading">
   <h1>You are not logged in</h1>
-  <button class="btn btn-primary" routerLink="/login">Login</button>
+  <button class="btn btn-primary goToLoginBtn" routerLink="/login">Login</button>
 </div>
 
 <section class="container" *ngIf="notLogged && !userLogged && !loading">

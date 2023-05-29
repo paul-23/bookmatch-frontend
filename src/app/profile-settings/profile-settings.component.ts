@@ -31,8 +31,10 @@ export class ProfileSettingsComponent implements OnInit {
         this.user = this.tokenStorageService.getUser();
         this.getUserByID(this.user.id);
       }
+      if (!this.tokenStorageService.getToken()) {
+        this.loading = false;
+      }
     });
-    this.getUserByID(this.user.id);
   }
 
   getUserByID(id: any) {
