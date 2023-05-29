@@ -3,12 +3,17 @@ import { BookService } from '../rick-morty.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { TokenStorageService } from '../_services/token-storage.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { Observable, map, pluck } from 'rxjs';
+
 
 @Component({
   selector: 'app-book-view',
   templateUrl: './book-view.component.html',
   styleUrls: ['./book-view.component.css']
 })
+
 export class BookViewComponent implements OnInit {
 
   book: any;
@@ -18,8 +23,9 @@ export class BookViewComponent implements OnInit {
   total_rating: any;
   user_ratings: any;
 
+
   constructor(private _router: Router, private _route: ActivatedRoute, private bookService: BookService,
-    private sanitizer: DomSanitizer, private tokenStorageService: TokenStorageService) { }
+    private sanitizer: DomSanitizer, private tokenStorageService: TokenStorageService, private http: HttpClient) { }
 
   ngOnInit(): void {
     this.loadRndomBooksDelayed();
@@ -32,10 +38,9 @@ export class BookViewComponent implements OnInit {
   }
 
   postRating(){
-    console.log(this.tokenStorageService.getUser().id);
     const formData = new FormData();
     const rating = {
-      rating: this.userRating,
+      id_rating: this.userRating,
       comment: this.userComment,
       userRating: {
         id_user: this.tokenStorageService.getUser().id,
@@ -44,14 +49,35 @@ export class BookViewComponent implements OnInit {
         id_book: this.book.id_book
       }
     };
-    console.log(this.tokenStorageService.getUser().id);
+    console.log(this.tokenStorageService.getUser());
 
 
     formData.append('rating', JSON.stringify(rating));
 
 
-    this.bookService.createRating(rating);
+    this.bookService.createRating(rating).subscribe(
+      (response: any) => {
+        console.log('Rating created successfully', response);
+         // Handle success
+      },
+      (error: any) => {
+      window.alert('You have already given a rating to this book');
+        this.bookService.editRating(rating, rating.id_rating).subscribe(
+          (response: any) => {
+            console.log('Rating edited successfully', response);
+            // Handle success
+          },
+          (error: any) => {
+
+
+          window.alert('You have already given a rating to this book');        // Handle error
+          }
+        );       // Handle error
+      }
+    );
+
   }
+
 
   loadBook() {
     let id_book = this._route.snapshot.paramMap.get('id');

@@ -134,17 +134,23 @@ export class BookService {
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'application/json');
 
-    return this.http.post<any>(BASE + "ratings", ratingData).subscribe(
-      (response) => {
-        console.log('Rating created successfully', response);
-         // Handle success
-      },
-      (error) => {
-        console.error('Error creating rating', error);
-         // Handle error
-      }
-    );
+    return this.http.post<any>(BASE + "ratings", ratingData)
   }
+
+
+
+
+
+  editRating(ratingData: any, id: any) {
+
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.put<any>(BASE + "ratings/" + id, ratingData)
+  }
+
+
+
 
   createEditorial(name_editorial: string): Observable<any> {
 

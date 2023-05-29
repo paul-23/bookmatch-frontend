@@ -86,7 +86,8 @@
   padding: 10px;
 }
 
-.card-img-top{
+.card-img-rating{
+  border-radius: 50%;
   height: 40px;
   width: auto;
 }

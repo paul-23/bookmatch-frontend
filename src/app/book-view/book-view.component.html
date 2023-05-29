@@ -69,17 +69,17 @@
   <div class="other-ratings">
     <h4 class="other-ratings-title">Other Users' Ratings:</h4>
     <div class="card-columns">
-      <div class="card rating-card" *ngFor="let user_rating of user_ratings">
+      <div class="card rating-card" *ngFor="let user_rating of user_ratings; let i = index" >
         <div class="card-body">
-          <img [src]="'data:image/jpg;base64,' + user_rating.bookRating.user.profile_image" class="card-img-top" alt="imagen del libro" />
+          <img [src]="'data:image/jpg;base64,' + user_rating.bookRating.user.profile_image" class="card-img-rating" alt="imagen del libro" />
 
-          <h1 class="card-text">{{user_rating.bookRating.user.username}}</h1>
+          <h1 class="card-text">{{user_rating.userRating.username}}</h1>
           <span class="card-rating">{{user_rating.rating}}</span>
           <p class="card-text">{{user_rating.comment}}</p>
         </div>
       </div>
     </div>
-</div>
+  </div>
 
   </div>
   <!-- Books html-->
