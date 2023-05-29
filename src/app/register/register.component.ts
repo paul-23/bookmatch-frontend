@@ -51,8 +51,18 @@ export class RegisterComponent {
           password: this.password
         };
         formData.append('signup', JSON.stringify(user));
-        this.authService.signUp(formData);
-        this.logIn();
+        this.authService.signUp(formData).subscribe(
+          (response) => {
+            console.log('User registered successfully', response);
+            this.logIn();
+             // Handle success
+          },
+          (error) => {
+            console.error('Error creating user', error);
+            window.alert('Email already exists!');
+             // Handle error
+          }
+        );
         this.fullName = '';
         this.email = '';
         this.password = '';
