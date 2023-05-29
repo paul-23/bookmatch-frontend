@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BookService } from '../rick-morty.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -16,6 +16,7 @@ export class UserBooksComponent implements OnInit {
   showToast = false;
   selectedBook: any;
   profileImage: any;
+  @ViewChild('toastElement') toastElement: any;
 
   constructor(
     private router: Router,
@@ -38,7 +39,7 @@ export class UserBooksComponent implements OnInit {
     this.showToast = true;
     setTimeout(() => {
       this.showToast = false;
-    }, 5000);
+    }, 8000);
   }
 
   deleteBook(id: any) {
@@ -46,7 +47,7 @@ export class UserBooksComponent implements OnInit {
       (response: any) => {
         if (response && response.success === true && response.message === 'Book deleted successfully') {
           this.loadBooksByUserID(this.user.id_user);
-          this.showToast = true;
+          this.showAndHideToast();
           console.log('Libro eliminado correctamente');
         } else {
           console.log('Error al eliminar el libro:', response);

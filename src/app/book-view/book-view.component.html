@@ -33,7 +33,7 @@
               {{ book.description }}
               <br />
             </p>
-            <button id="edit_button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Order the book</button>
+            <button *ngIf="book.aviable" id="edit_button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">Order the book</button>
           </div>
         </div>
       </div>

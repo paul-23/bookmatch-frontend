@@ -80,7 +80,7 @@
 </div>
 
 <div class="position-fixed top-0 end-0 p-3" style="z-index: 11; margin-top: 65px;">
-  <div *ngIf="showToast" id="toast" class="toast hide text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
+  <div id="liveToast" *ngIf="showToast" #toastElement [ngClass]="{'show': showToast, 'hide': !showToast}" class="toast text-white bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" data-bs-delay="5000">
     <div class="toast-header">
       <i class="bi bi-info-circle-fill me-2"></i>
       <strong class="me-auto">Book deleted</strong>

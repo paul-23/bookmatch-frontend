@@ -43,6 +43,10 @@ export class BookService {
     return this.http.put(BASE + "book/" + id + "/available", null);
   }
 
+  updateBookNOTAvailability(id: number) {
+    return this.http.put(BASE + "book/" + id + "/notavailable", null);
+  }
+
   getBooks() {
     return this.http.get(BASE + "books");
     //+  getRndom().join());
