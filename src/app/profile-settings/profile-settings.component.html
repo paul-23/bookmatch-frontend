@@ -51,11 +51,20 @@
               <input type="password" class="form-control" id="new-password" [(ngModel)]="newPassword" name="new-password" aria-describedby="currentPassword" placeholder="New Password">
               <label for="new-password">New password</label>
             </div>
+            <div class="form-floating" *ngIf="passwordNoMatch">
+              <p style="color:red;"> PASSWORD MISMATCH</p>
+            </div>
             <div class="form-floating">
               <input type="password" class="form-control" id="confirm-password" [(ngModel)]="confirmPassword" name="confirmPassword" aria-describedby="confirmPassword" placeholder="Confirm Password">
               <label for="confirm-password">Confirm new password</label>
             </div>
-            <button type="submit" class="btn btn-primary">Change password</button>
+            <div class="form-floating" *ngIf="passChangeOk">
+              <p style="color:green;"> PASSWORD CHANGED SUCCESSFULLY</p>
+            </div>
+            <div class="form-floating" *ngIf="passChangeFail">
+              <p style="color:red;"> ERROR! PASSWORD NOT CHANGED</p>
+            </div>
+            <button type="submit" class="btn btn-primary" (click)="changePassword()">Change password</button>
           </form>
         </div>
       </div>
