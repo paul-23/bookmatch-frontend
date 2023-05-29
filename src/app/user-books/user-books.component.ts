@@ -50,7 +50,13 @@ export class UserBooksComponent implements OnInit {
     this.bookService.deleteBookByID(id).subscribe(
       (response: any) => {
         if (response && response.success === true && response.message === 'Book deleted successfully') {
-          this.loadBooksByUserID(this.user.id_user);
+          if (this.user.roleId === 'ROLE_ADMIN') {
+            this.loadBooksAdmin();
+          } else if (this.user.roleId === 'ROLE_USER') {
+            this.loadBooksByUserID(this.user.id_user);
+          } else {
+            this.userLogged = false;
+          }
           this.showAndHideToast();
           console.log('Libro eliminado correctamente');
         } else {
@@ -75,14 +81,33 @@ export class UserBooksComponent implements OnInit {
     );
   }
 
+  loadBooksAdmin() {
+    this.bookService.getBooks().subscribe(
+      (response) => {
+        this.books = response;
+        this.loading = false;
+      },
+      (error) => {
+        console.log('Error al cargar los libros', error);
+      }
+    );
+  }
+
   getUserByID(id: any) {
     if (this.tokenStorageService.getToken()) {
       this.user = this.tokenStorageService.getUser();
       this.bookService.getUserByID(this.user.id).subscribe(
         (response) => {
           this.user = response;
+          console.log(this.user);
+          if (this.user.roleId === 'ROLE_ADMIN') {
+            this.loadBooksAdmin();
+          } else if (this.user.roleId === 'ROLE_USER') {
+            this.loadBooksByUserID(this.user.id_user);
+          } else {
+            this.userLogged = false;
+          }
           this.profileImage = this.getBase64ImageSrc(this.user?.profile_image);
-          this.loadBooksByUserID(this.user.id_user);
           this.loading = false;
         },
         () => {
@@ -113,7 +138,13 @@ export class UserBooksComponent implements OnInit {
   updateBookAvailability(id: number) {
     this.bookService.updateBookAvailability(id).subscribe(
       (response) => {
-        this.loadBooksByUserID(this.user.id_user);
+        if (this.user.roleId === 'ROLE_ADMIN') {
+          this.loadBooksAdmin();
+        } else if (this.user.roleId === 'ROLE_USER') {
+          this.loadBooksByUserID(this.user.id_user);
+        } else {
+          this.userLogged = false;
+        }
         console.log('Libro actualizado correctamente');
       },
       (error) => {

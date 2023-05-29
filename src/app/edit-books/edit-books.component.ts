@@ -38,8 +38,6 @@ export class EditBooksComponent implements OnInit{
     );
   }
 
-
-
   updateBook() {
     const formData = new FormData();
 
