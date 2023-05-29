@@ -35,4 +35,33 @@ export class AuthService {
       pluck('id')
     );
   }
+
+  /* signUp(fullName: string, email: string, password: string): Observable<any> {
+    const body = {
+      username: fullName,
+      email: email,
+      password: password
+    };
+
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    return this.http.post(AUTH_BASE + "signup", body, { headers });
+  } */
+
+  signUp(userData: any) {
+
+    const headers = new HttpHeaders();
+    headers.append('Accept', 'application/json');
+
+    return this.http.post<any>(AUTH_BASE + "signup", userData, { headers: headers }).subscribe(
+      (response) => {
+        console.log('User registered successfully', response);
+         // Handle success
+      },
+      (error) => {
+        console.error('Error creating user', error);
+         // Handle error
+      }
+    );
+  }
 }
