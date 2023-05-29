@@ -46,18 +46,36 @@
             </datalist>
           </div>
           <div class="col-12 col-md-6 col-lg-5">
-            <button type="button" class="btn btn-primary new-editorial" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">Add new Editorial</button>
+            <button type="button" class="btn btn-primary new-editorial" data-bs-toggle="modal"
+            data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">
+              Add new Editorial</button>
           </div>
         </div>
 
         <p *ngIf="bookError" style="color: red;">There are empty fields</p>
 
 
-        <div class="d-grid mb-4">
-          <button type="submit" class="btn btn-primary">
-            Add book
-          </button>
-        </div>
+
+
+        <input name="editorialname" class="form-control" list="datalistOptions" id="inputOptions" placeholder="Type to search..."
+        [(ngModel)]="newBook.editorial" >
+        <datalist id="datalistOptions">
+            <option id="editorial_valor" *ngFor="let editorial of editorials; let i = index" value = "{{editorial.name_editorial}}"></option>
+        </datalist>
+
+
+
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+        data-bs-whatever="@getbootstrap">
+          Add new Editorial</button>
+
+        <form (ngSubmit)="createBook()" enctype="multipart/form-data">
+          <div class="d-grid mb-4">
+            <button type="submit" class="btn btn-primary">
+              Add book
+            </button>
+          </div>
+        </form>
 
       </form>
     </div>
@@ -82,7 +100,7 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" id="create" type="submit">Create Editorial</button>
+            <button (click)="refresh()" type="button" class="btn btn-primary" id="create" type="submit">Create Editorial</button>
           </div>
         </form>
       </div>

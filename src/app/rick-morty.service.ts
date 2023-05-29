@@ -104,12 +104,24 @@ export class BookService {
     return this.http.get(BASE + "book/title/" + title)
   }
 
+  getEditorialByTitle(title: any){
+    return this.http.get(BASE + "editorial/name/" + title)
+  }
+
   getAverageRatingByBookId(id: any){
     return this.http.get(BASE+"ratings/average/"+id);
   }
 
   getRatingsByBookId(id: any){
     return this.http.get(BASE+"ratings/"+id);
+  }
+
+  editUser(user: any, id: any) : Observable<any> {
+
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.put(BASE+"user/"+id, user);
   }
 
   createBook(bookData: any) {
