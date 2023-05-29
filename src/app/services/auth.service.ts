@@ -36,5 +36,20 @@ export class AuthService {
     );
   }
 
+  signUp(userData: any) {
 
+    const headers = new HttpHeaders();
+    headers.append('Accept', 'application/json');
+
+    return this.http.post<any>(AUTH_BASE + "signup", userData, { headers: headers }).subscribe(
+      (response) => {
+        console.log('User registered successfully', response);
+         // Handle success
+      },
+      (error) => {
+        console.error('Error creating user', error);
+         // Handle error
+      }
+    );
+  }
 }
