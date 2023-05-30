@@ -37,12 +37,14 @@
           id="formFileSm" type="file">
         </div>
 
+
+
         <div class="row">
           <div class="col-12 col-md-6 col-lg-7 align-middle pb-3">
             <input style="height: 60px;" name="editorialname" class="form-control" list="datalistOptions" id="inputOptions" placeholder="Type to search..."
-            [(ngModel)]="editorial" >
+            [(ngModel)]="newBook.editorial" >
             <datalist id="datalistOptions">
-                <option id="editorial_valor" *ngFor="let editorial of editorials; let i = index" value = "{{editorial.name_editorial}}"></option>
+              <option id="editorial_valor" *ngFor="let editorial of editorials; let i = index" value = "{{editorial.name_editorial}}"></option>
             </datalist>
           </div>
           <div class="col-12 col-md-6 col-lg-5">
@@ -56,18 +58,6 @@
 
 
 
-
-        <input name="editorialname" class="form-control" list="datalistOptions" id="inputOptions" placeholder="Type to search..."
-        [(ngModel)]="newBook.editorial" >
-        <datalist id="datalistOptions">
-            <option id="editorial_valor" *ngFor="let editorial of editorials; let i = index" value = "{{editorial.name_editorial}}"></option>
-        </datalist>
-
-
-
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
-        data-bs-whatever="@getbootstrap">
-          Add new Editorial</button>
 
         <form (ngSubmit)="createBook()" enctype="multipart/form-data">
           <div class="d-grid mb-4">
@@ -100,7 +90,7 @@
 
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button (click)="refresh()" type="button" class="btn btn-primary" id="create" type="submit">Create Editorial</button>
+            <button type="button" class="btn btn-primary" id="create" type="submit">Create Editorial</button>
           </div>
         </form>
       </div>

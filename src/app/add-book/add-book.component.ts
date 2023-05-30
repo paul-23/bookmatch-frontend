@@ -125,8 +125,4 @@ onFileSelected(event: any) {
       }
     );
   }
-
-  refresh() {
-    window.location.reload();
-  }
 }
