@@ -83,7 +83,8 @@
       <h4 class="other-ratings-title" *ngIf="!noRatings">Other Users' Ratings:</h4>
       <div class="card-columns">
         <div>
-          <h4 *ngIf="noRatings">There are no ratings yet, be the first to give your opinion!</h4>
+          <h4 *ngIf="noRatings && userLogged">There are no ratings yet, be the first to give your opinion!</h4>
+          <h4 *ngIf="noRatings && !userLogged">There are no ratings yet, login and be the first to give your opinion!</h4>
         </div>
         <div class="card rating-card" *ngFor="let user_rating of user_ratings; let i = index" >
           <div class="card-body">
