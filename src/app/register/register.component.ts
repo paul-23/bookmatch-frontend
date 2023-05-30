@@ -53,8 +53,9 @@ export class RegisterComponent implements OnInit {
           email: this.email,
           password: this.password
         };
-        formData.append('image', this.profile_image);
+
         formData.append('signup', JSON.stringify(user));
+        formData.append('image', this.profile_image);
         this.authService.signUp(formData).subscribe(
           (response) => {
             console.log('User registered successfully', response);
@@ -92,6 +93,10 @@ export class RegisterComponent implements OnInit {
         }
       }
     );
+  }
+
+  onFileChange(event: any) {
+    this.profile_image = event.target.files[0];
   }
 
 }

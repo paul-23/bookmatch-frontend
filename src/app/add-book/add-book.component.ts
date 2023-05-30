@@ -17,7 +17,6 @@ export class AddBookComponent {
     private router: Router) {}
   name: any;
   edit: any;
-  showToast = false;
 
   title: any;
   author: any;
@@ -73,15 +72,11 @@ export class AddBookComponent {
 
     };
 
-    formData.append('image', this.newBook.cover_image);
-    formData.append('book', JSON.stringify(book));
-
 
     formData.append('image', this.newBook.cover_image);
     formData.append('book', JSON.stringify(book));
     this.bookService.createBook(formData).subscribe(
       (response) => {
-        this.showAndHideToast();
         console.log('Book created successfully', response);
         this.router.navigate(['/']);
         // Handle success
@@ -107,12 +102,10 @@ onFileSelected(event: any) {
     if (editorialName !== null && editorialName !== undefined && editorialName !== '') {
       this.bookService.createEditorial(editorialName).subscribe(
         response => {
-          console.log('Post created successfully', response);
           this.loadEditorials();
         },
         error => {
           this.editorialError = true;
-          console.error('Error creating post', error);
         }
       );
     } else {
@@ -133,12 +126,5 @@ onFileSelected(event: any) {
         console.log('Error al cargar datos');
       }
     );
-  }
-
-  showAndHideToast(): void {
-    this.showToast = true;
-    setTimeout(() => {
-      this.showToast = false;
-    }, 8000);
   }
 }
