@@ -37,6 +37,7 @@ export class ProfileSettingsComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.router.events.subscribe(() => {
       this.user = this.tokenStorageService.getUser();
       if (this.tokenStorageService.getUser()) {

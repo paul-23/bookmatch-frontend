@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { BookService } from '../rick-morty.service';
@@ -13,20 +13,26 @@ export class EditBooksComponent implements OnInit {
   newBook: any;
   id_book: any;
   selected: boolean = false;
+  previewImage: SafeUrl | null = null;
+  typeFileError: boolean = false;
 
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private bookService: BookService
+    private bookService: BookService,
+    private sanitizer: DomSanitizer,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.id_book = this.route.snapshot.paramMap.get('id');
     this.bookService.getBookByID(this.id_book).subscribe(
       (response) => {
         this.book = response;
         this.newBook = { ...this.book };
-        console.log(this.newBook.cover_image);
+        this.previewImage = this.addImagePrefix(this.newBook.cover_image);
+        this.cdr.detectChanges();
       },
       (error) => {
         console.log('Error al cargar datos');
@@ -49,8 +55,6 @@ export class EditBooksComponent implements OnInit {
 
     if (this.newBook.cover_image) {
       formData.append('image', this.newBook.cover_image);
-    } else {
-      formData.append('image', this.book.cover_image);
     }
 
     this.bookService.updateBook(formData, this.id_book).subscribe(
@@ -66,11 +70,28 @@ export class EditBooksComponent implements OnInit {
 
 
   onFileSelected(event: any) {
-    if (event.target.files[0] && event.target.files[0].size > 0) {
-      this.newBook.cover_image = event.target.files[0];
+    const file = event.target.files[0];
+    if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+      this.newBook.cover_image = file;
       this.selected = true;
+      this.previewImage = this.addImagePrefix(file);
+      this.cdr.detectChanges();
+    } else {
+      this.typeFileError = true;
     }
   }
 
+  addImagePrefix(image: string | File): SafeUrl | null {
+    if (image instanceof File) {
+      return this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(image));
+    }
+
+    if (image && !image.startsWith('data:image/')) {
+      const extension = image.substr(0, 5) === '/9j/4' ? 'jpg' : 'png';
+      return this.sanitizer.bypassSecurityTrustUrl('data:image/' + extension + ';base64,' + image);
+    }
+
+    return null;
+  }
 
 }

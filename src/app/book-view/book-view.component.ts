@@ -31,6 +31,7 @@ export class BookViewComponent implements OnInit {
     private location: Location) { }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.id_book = this._route.snapshot.paramMap.get('id');
     this._router.events.subscribe(() => {
       if (this.tokenStorageService.getToken()) {

@@ -40,10 +40,12 @@
             <label for="formFileSm" class="form-label">
               Book cover image <span>(If blank, added based on the ISBN)</span></label>
 
-            <input (change)="onFileSelected($event)" name="image" class="form-control form-control-sm" id="formFileSm" type="file">
+            <input (change)="onFileSelected($event)" [value]="newBook.cover_image" accept="image/jpeg, image/png" name="image" class="form-control form-control-sm" id="formFileSm" type="file">
           </div>
 
-          <img [src]="'data:image/jpg;base64,' + book.cover_image" class="card-img-top" alt="imagen del libro" />
+          <p *ngIf="typeFileError" style="color: red;">Type of file isn't accepted</p>
+
+          <img [src]="previewImage" class="card-img-top" alt="imagen del libro" />
 
             <div class="d-grid mb-4">
               <button type="submit" class="btn btn-primary" >
