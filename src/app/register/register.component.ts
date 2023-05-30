@@ -54,7 +54,6 @@ export class RegisterComponent implements OnInit {
           password: this.password
         };
 
-        console.log(this.profile_image);
         formData.append('signup', JSON.stringify(user));
         formData.append('image', this.profile_image);
         this.authService.signUp(formData).subscribe(

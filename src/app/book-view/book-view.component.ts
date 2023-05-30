@@ -5,6 +5,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Location } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -25,16 +26,18 @@ export class BookViewComponent implements OnInit {
   user: any;
   userLogged: boolean = false;
   rated: boolean = false;
-  noRatings:boolean = true;
+  noRatings: boolean = true;
   userHasRated: boolean = false;
 
 
   constructor(private _router: Router, private _route: ActivatedRoute, private bookService: BookService,
     private sanitizer: DomSanitizer, private tokenStorageService: TokenStorageService, private http: HttpClient,
-    private location: Location) { }
+    private location: Location,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
+    this.userRating = 0;
     this.id_book = this._route.snapshot.paramMap.get('id');
     this._router.events.subscribe(() => {
       if (this.tokenStorageService.getToken()) {
@@ -44,15 +47,12 @@ export class BookViewComponent implements OnInit {
       this.stringNotRatings();
     });
     this.loadRndomBooksDelayed();
-    //this._router.events.subscribe(() => {
-      this.loadRatings();
-
-    //});
+    this.loadRatings();
   }
 
-  checkRatings(){
-    for (const rating of this.user_ratings){
-      if (this.tokenStorageService.getUser().id_user == rating.id_user_rating){
+  checkRatings() {
+    for (const rating of this.user_ratings) {
+      if (this.tokenStorageService.getUser().id_user == rating.id_user_rating) {
         console.log('Rated');
       }
     }
@@ -64,7 +64,11 @@ export class BookViewComponent implements OnInit {
     }, 1000);
   }
 
-  postRating(){
+  postRating() {
+    if (!this.userRating) {
+      this.toastr.error('Please select a rating before submitting.', 'Select rating');
+      return;
+    }
     const formData = new FormData();
     const rating = {
       rating: this.userRating,
@@ -77,19 +81,15 @@ export class BookViewComponent implements OnInit {
       }
     };
 
-
-
-
     formData.append('rating', JSON.stringify(rating));
 
     this.bookService.createRating(rating).subscribe(
       (response: any) => {
-        console.log('Rating created successfully', response);
+        this.toastr.success('Rating created successfully', 'Rating');
         this.loadRatings();
-         // Handle success
       },
       (error: any) => {
-      window.alert('You have already given a rating to this book');
+        this.toastr.error('You have already given a rating to this book', 'Rating error');
       }
     );
 
@@ -109,7 +109,7 @@ export class BookViewComponent implements OnInit {
     );
   }
 
-  loadRatings(){
+  loadRatings() {
     this.bookService.getAverageRatingByBookId(this.id_book).subscribe(
       (response) => {
         this.total_rating = response;
@@ -159,36 +159,32 @@ export class BookViewComponent implements OnInit {
     );
   }
 
+  getStarArray(rating: number): any[] {
+    const fullStars = Math.floor(rating);
+    const decimalPart = rating - fullStars;
+    const totalStars = 5;
+    let halfStar = false;
+    let emptyStars = totalStars - fullStars;
+
+    // Verificar si hay media estrella
+    if (decimalPart >= 0.5) {
+      halfStar = true;
+      emptyStars--;
+    }
+
+    const starArray = Array(fullStars).fill('full');
+
+    if (halfStar) {
+      starArray.push('half');
+    }
+
+    starArray.push(...Array(emptyStars).fill('empty'));
+    return starArray;
+  }
+
   // Método para asignar el rating seleccionado por el usuario
   public setUserRating(star: number) {
     this.userRating = star;
-  }
-
-  public submitRating() {
-    if (this.userRating) {
-      const newRating = {
-        rating: this.userRating,
-        comment: this.userComment
-      };
-      /*this.bookService.addRating(this.book.id, newRating).subscribe(
-        (response: any) => {
-          this.book.total_rating += this.userRating;
-          this.book.ratings.push(newRating);
-          this.userRating = 0;
-          this.userComment = '';
-        },
-        (error: any) => {
-          console.log('Error al cargar datos:', error);
-        }
-      );*/
-    }
-  }
-
-
-
-  getBase64ImageSrc(base64Image: string): SafeUrl {
-    const imageUrl = `data:image/jpg;base64,${this.book.image_cover}`;
-    return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
   }
 
   onBack(): void {
