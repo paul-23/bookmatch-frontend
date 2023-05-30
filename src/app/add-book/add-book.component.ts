@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BookService } from '../rick-morty.service';
 import { TokenStorageService } from '../_services/token-storage.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-book',
@@ -12,7 +13,8 @@ export class AddBookComponent {
   editorials: any;
   showPopup = false;
   inputValue: string = "";
-  constructor(private bookService: BookService, private tokenStorageService: TokenStorageService) {}
+  constructor(private bookService: BookService, private tokenStorageService: TokenStorageService,
+    private router: Router) {}
   name: any;
   edit: any;
   showToast = false;
@@ -77,6 +79,7 @@ export class AddBookComponent {
       (response) => {
         this.showAndHideToast();
         console.log('Book created successfully', response);
+        this.router.navigate(['/']);
         // Handle success
       },
       (error) => {

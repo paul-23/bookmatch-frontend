@@ -15,6 +15,7 @@ export class RegisterComponent {
   showPassword!: boolean;
   showRepeatPassword!: boolean;
 
+  profile_image: any;
   fullName: string = '';
   email: string = '';
   password: string = '';
@@ -50,6 +51,7 @@ export class RegisterComponent {
           email: this.email,
           password: this.password
         };
+        formData.append('image', this.profile_image);
         formData.append('signup', JSON.stringify(user));
         this.authService.signUp(formData).subscribe(
           (response) => {
