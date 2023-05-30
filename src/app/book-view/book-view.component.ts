@@ -40,6 +40,7 @@ export class BookViewComponent implements OnInit {
         this.user = this.tokenStorageService.getUser();
         this.userLogged = true;
       }
+      this.stringNotRatings();
     });
     this.loadRndomBooksDelayed();
     //this._router.events.subscribe(() => {
@@ -116,7 +117,7 @@ export class BookViewComponent implements OnInit {
     this.bookService.getAverageRatingByBookId(this.id_book).subscribe(
       (response) => {
         this.total_rating = response;
-        this.noRatings = true;
+        this.stringNotRatings();
       },
       (error) => {
         console.log('Error al cargar datos');
@@ -129,12 +130,22 @@ export class BookViewComponent implements OnInit {
       (response) => {
         this.user_ratings = response;
         this.userHasRated = this.user_ratings.some((rating: any) => rating.userRating.id_user === this.user.id);
+        console.log(this.user_ratings);
+        this.stringNotRatings();
       },
       (error) => {
         console.log('Error al cargar datos');
         this.loading = false;
       }
     );
+  }
+
+  stringNotRatings() {
+    if (this.user_ratings.length > 0) {
+      this.noRatings = false;
+    } else {
+      this.noRatings = true;
+    }
   }
 
   orderBook() {
