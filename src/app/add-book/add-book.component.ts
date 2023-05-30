@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { BookService } from '../rick-morty.service';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-book',
@@ -10,11 +11,13 @@ import { Router } from '@angular/router';
 })
 
 export class AddBookComponent {
+  constructor(private bookService: BookService, private tokenStorageService: TokenStorageService,
+    private router: Router, private toastr: ToastrService) {}
+
   editorials: any;
   showPopup = false;
   inputValue: string = "";
-  constructor(private bookService: BookService, private tokenStorageService: TokenStorageService,
-    private router: Router) {}
+
   name: any;
   edit: any;
 
@@ -102,9 +105,11 @@ onFileSelected(event: any) {
     if (editorialName !== null && editorialName !== undefined && editorialName !== '') {
       this.bookService.createEditorial(editorialName).subscribe(
         response => {
+          this.toastr.success('Editorial created successfully');
           this.loadEditorials();
         },
         error => {
+          this.toastr.error('Error creating Editorial');
           this.editorialError = true;
         }
       );
