@@ -129,16 +129,8 @@ export class BookService {
     const headers = new HttpHeaders();
     headers.append('Accept', 'application/json');
 
-    return this.http.post<any>(BASE + "book", bookData, { headers: headers }).subscribe(
-      (response) => {
-        console.log('Book created successfully', response);
-        // Handle success
-      },
-      (error) => {
-        console.error('Error creating book', error);
-        // Handle error
-      }
-    );
+    return this.http.post<any>(BASE + "book", bookData, { headers: headers });
+
   }
 
   updateBook(bookData: any, id: any) {
