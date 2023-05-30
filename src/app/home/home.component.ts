@@ -18,6 +18,7 @@ export class HomeComponent implements OnInit{
   constructor(private bookService: BookService, private tokenStorageService: TokenStorageService) {}
 
   ngOnInit() {
+    window.scrollTo(0, 0);
     this.title = this.getMessage();
     this.loadRandomBooks();
   }

@@ -22,6 +22,7 @@ export class SearchResultsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this._router.routeReuseStrategy.shouldReuseRoute = () => false;
 
     let text = this._route.snapshot.paramMap.get('id');

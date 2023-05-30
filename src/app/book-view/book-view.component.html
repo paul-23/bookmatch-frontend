@@ -37,10 +37,10 @@
             <div *ngIf="userLogged">
               <h4 style="margin-bottom: 10px;"><strong>Contact</strong></h4>
               <div class="row">
-                <div class="col-2">
-                  <img [src]="'data:image/jpg;base64,' + book?.user.profile_image" class="profile-image img-fluid" alt="User profile image">
+                <div class="col-12 col-sm-4 col-md-4 col-lg-3 col-xl-2">
+                  <img [src]="'data:image/jpg;base64,' + book?.user.profile_image" class="profile-image" alt="User profile image">
                 </div>
-                <div class="col-10">
+                <div class="col-12 col-sm-4 col-md-8 col-lg-9 col-xl-10">
                   <div class="card-body profile-info">
                     <h5>{{book?.user.username}}</h5>
                     <p><strong>Email:</strong> {{book?.user.email}}</p>
@@ -58,10 +58,10 @@
   <!-- Ratings Container -->
   <div class="ratings-container" *ngIf="book">
     <h1 class="ratings-title">Ratings</h1>
-    <p class="total-rating"><strong>Total Rating: {{total_rating}}</strong> {{ book.total_rating }}</p>
+    <p class="total-rating"><strong>Total Rating: <span style="font-size: 35px;">{{total_rating}}</span></strong></p>
 
     <!-- Rating Input -->
-    <div class="rating-input">
+    <div class="rating-input" *ngIf="!userHasRated && userLogged">
       <h4 class="rate-title">Rate this book:</h4>
       <div class="rating-stars">
 
@@ -78,21 +78,22 @@
 
 
   <div class="other-ratings">
-    <h4 class="other-ratings-title" *ngIf="user_ratings">Other Users' Ratings:</h4>
+    <h4 class="other-ratings-title" *ngIf="!noRatings">Other Users' Ratings:</h4>
     <div class="card-columns">
+      <div>
+        <h4 *ngIf="noRatings">There are no ratings yet, be the first to give your opinion!</h4>
+      </div>
       <div class="card rating-card" *ngFor="let user_rating of user_ratings; let i = index" >
         <div class="card-body">
           <img [src]="'data:image/jpg;base64,' + user_rating.userRating.profile_image" class="card-img-rating" alt="imagen del libro" />
-
-          <h1 class="card-text">{{user_rating.userRating.username}}</h1>
-          <span class="card-rating">{{user_rating.rating}}</span>
+          <h4 class="card-text">{{user_rating.userRating.username}}</h4>
+          <h3 class="card-rating">{{user_rating.rating}}</h3>
           <p class="card-text">{{user_rating.comment}}</p>
         </div>
       </div>
     </div>
   </div>
-
-  </div>
+</div>
   <!-- Books html-->
 
 </div>

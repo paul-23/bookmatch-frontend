@@ -1,10 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-notfound404',
   templateUrl: './notfound404.component.html',
   styleUrls: ['./notfound404.component.css']
 })
-export class Notfound404Component {
+export class Notfound404Component implements OnInit {
+
+  ngOnInit(): void {
+    window.scrollTo(0, 0);
+  }
 
 }

@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit {
     private router: Router) {}
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     if(this.tokenStorageService.getToken() != null){
       this.userLogged = true;
     }
