@@ -30,7 +30,7 @@
               <br />
               <strong>Category</strong>: {{ book.category }}
               <br />
-              <strong>Rating</strong>: {{ total_rating}}
+              <strong>Rating</strong>: {{ total_rating | number:'1.1-1' }}
               <br /><br />
               {{ book.description }}
             </p>
@@ -58,7 +58,12 @@
   <!-- Ratings Container -->
   <div class="ratings-container" *ngIf="book">
     <h1 class="ratings-title">Ratings</h1>
-    <p class="total-rating"><strong>Total Rating: <span style="font-size: 35px;">{{total_rating}}</span></strong></p>
+    <div>
+      <p class="total-rating" style="display: inline;"><strong>Total Rating: <span style="font-size: 35px;">{{total_rating | number:'1.1-1' }}</span></strong></p>
+      <span *ngFor="let starFill of getStarArray(total_rating)">
+        <i class="bi" [ngClass]="{'bi-star-fill': starFill === 'full', 'bi-star-half': starFill === 'half', 'bi-star': starFill === 'empty'}"></i>
+      </span>
+    </div>
 
     <!-- Rating Input -->
     <div class="rating-input" *ngIf="!userHasRated && userLogged">
@@ -73,27 +78,26 @@
       <textarea class="form-control comment-input" rows="3" placeholder="Leave a comment" [(ngModel)]="userComment"></textarea>
       <button class="btn btn-primary submit-btn" (click)="postRating()">Submit</button>
     </div>
-    <!-- Other Users' Ratings -->
-    <!-- Other Users' Ratings -->
 
 
-  <div class="other-ratings">
-    <h4 class="other-ratings-title" *ngIf="!noRatings">Other Users' Ratings:</h4>
-    <div class="card-columns">
-      <div>
-        <h4 *ngIf="noRatings">There are no ratings yet, be the first to give your opinion!</h4>
-      </div>
-      <div class="card rating-card" *ngFor="let user_rating of user_ratings; let i = index" >
-        <div class="card-body">
-          <img [src]="'data:image/jpg;base64,' + user_rating.userRating.profile_image" class="card-img-rating" alt="imagen del libro" />
-          <h4 class="card-text">{{user_rating.userRating.username}}</h4>
-          <h3 class="card-rating">{{user_rating.rating}}</h3>
-          <p class="card-text">{{user_rating.comment}}</p>
+    <!-- Other Users' Ratings -->
+    <div class="other-ratings">
+      <h4 class="other-ratings-title" *ngIf="!noRatings">Other Users' Ratings:</h4>
+      <div class="card-columns">
+        <div>
+          <h4 *ngIf="noRatings">There are no ratings yet, be the first to give your opinion!</h4>
+        </div>
+        <div class="card rating-card" *ngFor="let user_rating of user_ratings; let i = index" >
+          <div class="card-body">
+            <img [src]="'data:image/jpg;base64,' + user_rating.userRating.profile_image" class="card-img-rating" alt="imagen del libro" />
+            <h4 class="card-text">{{user_rating.userRating.username}}</h4>
+            <h3 class="card-rating">{{user_rating.rating}}</h3>
+            <p class="card-text">{{user_rating.comment}}</p>
+          </div>
         </div>
       </div>
     </div>
   </div>
-</div>
   <!-- Books html-->
 
 </div>
