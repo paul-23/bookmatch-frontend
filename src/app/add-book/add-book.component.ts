@@ -28,7 +28,7 @@ export class AddBookComponent {
   editorialError:boolean = false;
   bookError:boolean = false;
 
-  newBook: any = {};
+  newBook: any;
   coverImage: Blob | null = null;
 
   coverImageBlob: Blob | null = null;
