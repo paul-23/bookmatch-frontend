@@ -1,7 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenStorageService } from '../_services/token-storage.service';
-import { AppComponent } from '../app.component';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -26,8 +25,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(private authService: AuthService,
     private tokenStorageService: TokenStorageService,
-    private router: Router,
-    private appcomponent: AppComponent) { }
+    private router: Router) { }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -67,11 +65,6 @@ export class RegisterComponent implements OnInit {
              // Handle error
           }
         );
-        this.fullName = '';
-        this.email = '';
-        this.password = '';
-        this.passwordAgain = '';
-        this.checkBox = false;
 
       } else {
         this.isChecked = false;
