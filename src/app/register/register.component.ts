@@ -14,6 +14,7 @@ export class RegisterComponent implements OnInit {
   showPassword!: boolean;
   showRepeatPassword!: boolean;
 
+  profile_image: any;
   fullName: string = '';
   email: string = '';
   password: string = '';
@@ -52,6 +53,7 @@ export class RegisterComponent implements OnInit {
           email: this.email,
           password: this.password
         };
+        formData.append('image', this.profile_image);
         formData.append('signup', JSON.stringify(user));
         this.authService.signUp(formData).subscribe(
           (response) => {
