@@ -130,7 +130,7 @@ body :root {
   width: 100%;
 }
 
-.btn-primary {
+.goToLoginBtn {
   border-radius: 10px;
   background-color: #e20074;
   border-color: #e20074;
@@ -143,7 +143,7 @@ body :root {
   font-size: 18px;
 }
 
-.btn-primary:hover {
+.goToLoginBtn:hover {
   background-color: #643cf5;
   border-color: #643cf5;
 }

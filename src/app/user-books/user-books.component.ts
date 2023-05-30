@@ -43,6 +43,7 @@ export class UserBooksComponent implements OnInit {
         this.loading  = false;
       }
     });
+    window.scrollTo(0, 0);
   }
 
   showAndHideToast(): void {

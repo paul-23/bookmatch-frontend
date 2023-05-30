@@ -22,6 +22,8 @@ export class BookComponent implements OnInit {
 
   ngOnInit() {
 
+    window.scrollTo(0, 0);
+
     const token = sessionStorage.getItem('token');
     let header = this.bookService.getHeader(token);
 

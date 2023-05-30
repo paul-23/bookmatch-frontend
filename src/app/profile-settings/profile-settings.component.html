@@ -21,15 +21,15 @@
               <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="form-floating">
                   <label for="formFileSm" class="form-label">Profile image <span class="gray-text">(Optional)</span></label>
-                  <input name="profileImage" (change)="onFileSelected($event)" [(ngModel)]="user_profile_image"class="form-control form-control-sm" id="formFileSm" type="file">
+                  <input name="profileImage" (change)="onFileSelected($event)" [value]="user.profile_image" accept="image/jpeg, image/png" [(ngModel)]="user_profile_image" class="form-control form-control-sm" id="formFileSm" type="file">
                 </div>
               </div>
+              <p *ngIf="typeFileError" style="color: red;">Type of file isn't accepted</p>
               <div class="col-2 col-sm-2 col-md-2">
                 <img
-                    *ngIf="user.profile_image"
-                    [src]="'data:image/jpg;base64,' + user.profile_image"
+                    [src]="previewImage"
                     class="card-img-top userProfile"
-                    alt="imagen del libro"
+                    alt="imagen del usuario"
                   />
               </div>
             </div>
@@ -51,11 +51,20 @@
               <input type="password" class="form-control" id="new-password" [(ngModel)]="newPassword" name="new-password" aria-describedby="currentPassword" placeholder="New Password">
               <label for="new-password">New password</label>
             </div>
+            <div class="form-floating" *ngIf="passwordNoMatch">
+              <p style="color:red;"> PASSWORD MISMATCH</p>
+            </div>
             <div class="form-floating">
               <input type="password" class="form-control" id="confirm-password" [(ngModel)]="confirmPassword" name="confirmPassword" aria-describedby="confirmPassword" placeholder="Confirm Password">
               <label for="confirm-password">Confirm new password</label>
             </div>
-            <button type="submit" class="btn btn-primary">Change password</button>
+            <div class="form-floating" *ngIf="passChangeOk">
+              <p style="color:green;"> PASSWORD CHANGED SUCCESSFULLY</p>
+            </div>
+            <div class="form-floating" *ngIf="passChangeFail">
+              <p style="color:red;"> ERROR! PASSWORD NOT CHANGED</p>
+            </div>
+            <button type="submit" class="btn btn-primary" (click)="changePassword()">Change password</button>
           </form>
         </div>
       </div>

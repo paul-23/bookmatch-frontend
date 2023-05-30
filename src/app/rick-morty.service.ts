@@ -133,22 +133,13 @@ export class BookService {
 
   }
 
-  updateBook(bookData: any, id: any) {
-
+  updateBook(formData: FormData, id: any): Observable<any> {
     const headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
+    headers.append('Content-Type', 'multipart/form-data');
 
-    return this.http.put<any>(BASE + "book/" + id, bookData, { headers: headers }).subscribe(
-      (response) => {
-        console.log('Book edited successfully', response);
-        // Handle success
-      },
-      (error) => {
-        console.error('Error editing book', error);
-        // Handle error
-      }
-    );
+    return this.http.put<any>(BASE + "book/" + id, formData, { headers: headers });
   }
+
 
   createRating(ratingData: any) {
 

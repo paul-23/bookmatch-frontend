@@ -1,7 +1,6 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenStorageService } from '../_services/token-storage.service';
-import { AppComponent } from '../app.component';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -9,7 +8,7 @@ import { AuthService } from '../services/auth.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
   @ViewChild('passwordInput', { static: true })
   passwordInput!: ElementRef<HTMLInputElement>;
   showPassword!: boolean;
@@ -26,8 +25,11 @@ export class RegisterComponent {
 
   constructor(private authService: AuthService,
     private tokenStorageService: TokenStorageService,
-    private router: Router,
-    private appcomponent: AppComponent) { }
+    private router: Router) { }
+
+  ngOnInit(): void {
+    window.scrollTo(0, 0);
+  }
 
   togglePasswordVisibility(passwordInput: HTMLInputElement) {
     this.showPassword = !this.showPassword;
@@ -63,11 +65,6 @@ export class RegisterComponent {
              // Handle error
           }
         );
-        this.fullName = '';
-        this.email = '';
-        this.password = '';
-        this.passwordAgain = '';
-        this.checkBox = false;
 
       } else {
         this.isChecked = false;

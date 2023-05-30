@@ -25,6 +25,8 @@ export class BookViewComponent implements OnInit {
   user: any;
   userLogged: boolean = false;
   rated: boolean = false;
+  noRatings:boolean = true;
+  userHasRated: boolean = false;
 
 
   constructor(private _router: Router, private _route: ActivatedRoute, private bookService: BookService,
@@ -32,12 +34,14 @@ export class BookViewComponent implements OnInit {
     private location: Location) { }
 
   ngOnInit(): void {
+    window.scrollTo(0, 0);
     this.id_book = this._route.snapshot.paramMap.get('id');
     this._router.events.subscribe(() => {
       if (this.tokenStorageService.getToken()) {
         this.user = this.tokenStorageService.getUser();
         this.userLogged = true;
       }
+      this.stringNotRatings();
     });
     this.loadRndomBooksDelayed();
     //this._router.events.subscribe(() => {
@@ -109,6 +113,7 @@ export class BookViewComponent implements OnInit {
     this.bookService.getAverageRatingByBookId(this.id_book).subscribe(
       (response) => {
         this.total_rating = response;
+        this.stringNotRatings();
       },
       (error) => {
         console.log('Error al cargar datos');
@@ -120,6 +125,9 @@ export class BookViewComponent implements OnInit {
     this.bookService.getRatingsByBookId(this.id_book).subscribe(
       (response) => {
         this.user_ratings = response;
+        this.userHasRated = this.user_ratings.some((rating: any) => rating.userRating.id_user === this.user.id);
+        console.log(this.user_ratings);
+        this.stringNotRatings();
       },
       (error) => {
         console.log('Error al cargar datos');
@@ -129,6 +137,14 @@ export class BookViewComponent implements OnInit {
 
     console.log(this.user_ratings);
     this.checkRatings();
+  }
+
+  stringNotRatings() {
+    if (this.user_ratings.length > 0) {
+      this.noRatings = false;
+    } else {
+      this.noRatings = true;
+    }
   }
 
   orderBook() {

@@ -32,6 +32,10 @@ export class AddBookComponent {
 
   coverImageBlob: Blob | null = null;
 
+  ngOnInit(){
+    window.scrollTo(0, 0);
+  }
+
   ngAfterViewInit() {
     this.loadEditorials();
   }
