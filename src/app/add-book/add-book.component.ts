@@ -15,6 +15,7 @@ export class AddBookComponent {
   constructor(private bookService: BookService, private tokenStorageService: TokenStorageService) {}
   name: any;
   edit: any;
+  showToast = false;
 
   title: any;
   author: any;
@@ -76,7 +77,17 @@ export class AddBookComponent {
 
     formData.append('image', this.newBook.cover_image);
     formData.append('book', JSON.stringify(book));
-    this.bookService.createBook(formData);
+    this.bookService.createBook(formData).subscribe(
+      (response) => {
+        this.showAndHideToast();
+        console.log('Book created successfully', response);
+        // Handle success
+      },
+      (error) => {
+        console.error('Error creating book', error);
+        // Handle error
+      }
+    );
   } else{
     console.log("editorial incorrecta, seleccione o cree una editorial");
   }
@@ -86,15 +97,6 @@ onFileSelected(event: any) {
     this.newBook.cover_image = event.target.files[0];
 
   }
-
-  /*convertToBlob(file: File) {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const blob = new Blob([reader.result as ArrayBuffer], { type: file.type });
-      this.coverImageBlob = blob;
-    };
-    reader.readAsArrayBuffer(file);
-  }*/
 
   createEditorial(): void {
     this.editorialError = false;
@@ -130,7 +132,10 @@ onFileSelected(event: any) {
     );
   }
 
-  refresh() {
-    window.location.reload();
+  showAndHideToast(): void {
+    this.showToast = true;
+    setTimeout(() => {
+      this.showToast = false;
+    }, 8000);
   }
 }

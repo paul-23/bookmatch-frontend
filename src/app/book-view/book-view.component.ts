@@ -17,13 +17,14 @@ export class BookViewComponent implements OnInit {
 
   book: any;
   loading: boolean = true;
-  userRating: number = 0;
+  userRating: any;
   userComment: string = '';
   total_rating: any;
   user_ratings: any;
   id_book: any;
   user: any;
   userLogged: boolean = false;
+  rated: boolean = false;
   noRatings:boolean = true;
   userHasRated: boolean = false;
 
@@ -45,7 +46,16 @@ export class BookViewComponent implements OnInit {
     this.loadRndomBooksDelayed();
     //this._router.events.subscribe(() => {
       this.loadRatings();
+
     //});
+  }
+
+  checkRatings(){
+    for (const rating of this.user_ratings){
+      if (this.tokenStorageService.getUser().id_user == rating.id_user_rating){
+        console.log('Rated');
+      }
+    }
   }
 
   loadRndomBooksDelayed() {
@@ -66,7 +76,6 @@ export class BookViewComponent implements OnInit {
         id_book: this.book.id_book
       }
     };
-    console.log(this.tokenStorageService.getUser());
 
 
 
@@ -81,19 +90,6 @@ export class BookViewComponent implements OnInit {
       },
       (error: any) => {
       window.alert('You have already given a rating to this book');
-
-        //this.bookService.editRating(rating, rating.id_rating).subscribe(
-        //  (response: any) => {
-        //    console.log('Rating edited successfully', response);
-        //    this.loadRatings();
-        //    // Handle success
-        //  },
-        //  (error: any) => {
-
-
-        //  window.alert('You have already given a rating to this book');        // Handle error
-        //  }
-        //);       // Handle error
       }
     );
 
@@ -138,6 +134,9 @@ export class BookViewComponent implements OnInit {
         this.loading = false;
       }
     );
+
+    console.log(this.user_ratings);
+    this.checkRatings();
   }
 
   stringNotRatings() {
