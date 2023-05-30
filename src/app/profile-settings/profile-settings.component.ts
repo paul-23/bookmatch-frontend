@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { AuthService } from '../services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile-settings',
@@ -37,7 +38,8 @@ export class ProfileSettingsComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private tokenStorageService: TokenStorageService,
     private authService: AuthService,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -89,9 +91,11 @@ export class ProfileSettingsComponent implements OnInit {
 
     this.bookService.editUser(formData, this.user.id_user).subscribe(
       (response) => {
+        this.toastr.success('Profile edited correctly');
         this.router.navigate(["/profile_settings"]);
       },
       (error) => {
+        this.toastr.error('Error editing Profile');
         console.log('Error al cargar datos');
       }
     );

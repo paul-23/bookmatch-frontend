@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { BookService } from '../rick-morty.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-books',
@@ -21,7 +22,8 @@ export class EditBooksComponent implements OnInit {
     private route: ActivatedRoute,
     private bookService: BookService,
     private sanitizer: DomSanitizer,
-    private cdr: ChangeDetectorRef
+    private cdr: ChangeDetectorRef,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -59,10 +61,11 @@ export class EditBooksComponent implements OnInit {
 
     this.bookService.updateBook(formData, this.id_book).subscribe(
       (response) => {
-        console.log('Libro actualizado exitosamente');
+        this.toastr.success('Book edited successfully');
         this.router.navigate(['/books']);
       },
       (error) => {
+        this.toastr.error('Error editing Book');
         console.log('Error al actualizar el libro');
       }
     );
