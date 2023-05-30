@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
 import { BookService } from '../rick-morty.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -27,13 +27,17 @@ export class ProfileSettingsComponent implements OnInit {
   passChangeOk: boolean = false;
   passChangeFail: boolean = false;
 
+  previewImage: SafeUrl | null = null;
+  typeFileError: boolean = false;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private bookService: BookService,
     private sanitizer: DomSanitizer,
     private tokenStorageService: TokenStorageService,
-    private authService: AuthService
+    private authService: AuthService,
+    private cdr: ChangeDetectorRef
   ) { }
 
   ngOnInit(): void {
@@ -41,8 +45,6 @@ export class ProfileSettingsComponent implements OnInit {
     this.router.events.subscribe(() => {
       this.user = this.tokenStorageService.getUser();
       if (this.tokenStorageService.getUser()) {
-
-        console.log(this.tokenStorageService.getUser());
         this.getUserByID(this.user.id);
         this.userId = this.user.id;
       }
@@ -58,7 +60,8 @@ export class ProfileSettingsComponent implements OnInit {
       this.bookService.getUserByID(id).subscribe(
         (response) => {
           this.user = response;
-          this.profileImage = this.getBase64ImageSrc(this.user?.profile_image);
+          this.previewImage = this.addImagePrefix(this.user.profile_image);
+          this.cdr.detectChanges();
           this.loading = false;
         },
         () => {
@@ -80,18 +83,13 @@ export class ProfileSettingsComponent implements OnInit {
 
     formData.append('user', JSON.stringify(user2));
 
-    if (this.selected) {
-      formData.append('image',this.user_profile_image);
-    }else{
-      console.log(this.user.profile_image);
+    if (this.user.profile_image) {
       formData.append('image',this.user.profile_image);
     }
 
-    //formData.append('image',this.user.profile_image);
-
     this.bookService.editUser(formData, this.user.id_user).subscribe(
       (response) => {
-        this.user = response;
+        this.router.navigate(["/profile_settings"]);
       },
       (error) => {
         console.log('Error al cargar datos');
@@ -100,13 +98,28 @@ export class ProfileSettingsComponent implements OnInit {
   }
 
   onFileSelected(event: any) {
-    this.user_profile_image = event.target.files[0];
-    this.selected = true;
+    const file = event.target.files[0];
+    if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+      this.user.profile_image = file;
+      this.selected = true;
+      this.previewImage = this.addImagePrefix(file);
+      this.cdr.detectChanges();
+    } else {
+      this.typeFileError = true;
+    }
   }
 
-  getBase64ImageSrc(base64Image: string): SafeUrl {
-    const imageUrl = `data:image/jpg;base64,${this.user.profile_image}`;
-    return this.sanitizer.bypassSecurityTrustUrl(imageUrl);
+  addImagePrefix(image: string | File): SafeUrl | null {
+    if (image instanceof File) {
+      return this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(image));
+    }
+
+    if (image && !image.startsWith('data:image/')) {
+      const extension = image.substr(0, 5) === '/9j/4' ? 'jpg' : 'png';
+      return this.sanitizer.bypassSecurityTrustUrl('data:image/' + extension + ';base64,' + image);
+    }
+
+    return null;
   }
 
   changePassword() {

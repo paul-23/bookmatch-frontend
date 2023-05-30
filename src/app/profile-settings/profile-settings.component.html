@@ -21,15 +21,15 @@
               <div class="col-12 col-sm-12 col-md-12 col-lg-12">
                 <div class="form-floating">
                   <label for="formFileSm" class="form-label">Profile image <span class="gray-text">(Optional)</span></label>
-                  <input name="profileImage" (change)="onFileSelected($event)" [(ngModel)]="user_profile_image"class="form-control form-control-sm" id="formFileSm" type="file">
+                  <input name="profileImage" (change)="onFileSelected($event)" [value]="user.profile_image" accept="image/jpeg, image/png" [(ngModel)]="user_profile_image" class="form-control form-control-sm" id="formFileSm" type="file">
                 </div>
               </div>
+              <p *ngIf="typeFileError" style="color: red;">Type of file isn't accepted</p>
               <div class="col-2 col-sm-2 col-md-2">
                 <img
-                    *ngIf="user.profile_image"
-                    [src]="'data:image/jpg;base64,' + user.profile_image"
+                    [src]="previewImage"
                     class="card-img-top userProfile"
-                    alt="imagen del libro"
+                    alt="imagen del usuario"
                   />
               </div>
             </div>
