@@ -24,6 +24,8 @@ export class BookViewComponent implements OnInit {
   id_book: any;
   user: any;
   userLogged: boolean = false;
+  noRatings:boolean = true;
+  userHasRated: boolean = false;
 
 
   constructor(private _router: Router, private _route: ActivatedRoute, private bookService: BookService,
@@ -114,6 +116,7 @@ export class BookViewComponent implements OnInit {
     this.bookService.getAverageRatingByBookId(this.id_book).subscribe(
       (response) => {
         this.total_rating = response;
+        this.noRatings = true;
       },
       (error) => {
         console.log('Error al cargar datos');
@@ -125,6 +128,7 @@ export class BookViewComponent implements OnInit {
     this.bookService.getRatingsByBookId(this.id_book).subscribe(
       (response) => {
         this.user_ratings = response;
+        this.userHasRated = this.user_ratings.some((rating: any) => rating.userRating.id_user === this.user.id);
       },
       (error) => {
         console.log('Error al cargar datos');
