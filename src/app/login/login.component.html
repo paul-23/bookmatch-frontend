@@ -44,8 +44,10 @@
   </div>
 </div>
 
-<div *ngIf="userLogged">
+<div class="userNotLogged" *ngIf="userLogged">
   <h1> You're already logged </h1>
-  <button (click)="logout()">Logout</button>
-  <button routerLink="/home">Home</button>
+  <div class="buttonsUserNotLogged">
+    <button class="btn btn-primary" (click)="logout()">Logout</button>
+    <button class="btn btn-primary" routerLink="/home">Home</button>
+  </div>
 </div>
