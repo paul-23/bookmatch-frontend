@@ -86,7 +86,7 @@
       <div class="card-columns">
         <div>
           <h4 *ngIf="noRatings && userLogged">There are no ratings yet, be the first to give your opinion!</h4>
-          <h4 *ngIf="noRatings && !userLogged">There are no ratings yet, login and be the first to give your opinion!</h4>
+          <h4 *ngIf="!userLogged">Login to give your opinion!</h4>
         </div>
         <div class="card rating-card" *ngFor="let user_rating of user_ratings; let i = index" >
           <div class="card-body">
