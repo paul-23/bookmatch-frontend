@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from './_services/token-storage.service';
-import { BookService } from './rick-morty.service';
+import { BookService } from './service.service';
 import { Router } from '@angular/router';
 
 @Component({

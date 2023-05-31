@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { BookService } from '../rick-morty.service';
+import { BookService } from '../service.service';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';

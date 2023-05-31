@@ -1,7 +1,7 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
-import { BookService } from '../rick-morty.service';
+import { BookService } from '../service.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

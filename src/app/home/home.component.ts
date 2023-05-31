@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { BookService } from '../rick-morty.service';
+import { BookService } from '../service.service';
 import { TokenStorageService } from '../_services/token-storage.service';
 
 

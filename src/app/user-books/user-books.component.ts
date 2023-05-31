@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { BookService } from '../rick-morty.service';
+import { BookService } from '../service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { TokenStorageService } from '../_services/token-storage.service';
@@ -67,11 +67,11 @@ export class UserBooksComponent implements OnInit {
           this.showAndHideToast();
           console.log('Libro eliminado correctamente');
         } else {
-          console.log('Error al eliminar el libro:', response);
+          console.log('Error al eliminar el libro1:', response);
         }
       },
       (error) => {
-        console.log('Error al eliminar el libro:', error);
+        console.log('Error al eliminar el libro2:', error);
       }
     );
   }
