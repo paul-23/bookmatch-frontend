@@ -23,4 +23,13 @@ From here we can view the book with all of its details as well as the average ra
 The rating you give the book is determined by the stars you give it, 5 stars being the highest rating, Each user can only make 1 rating for each book
 
 ![Profile](https://github.com/paul-23/bookmatch-frontend/assets/51365249/5c656835-2851-4b53-b1df-f1ec27b183c6)
-Here each user can see it's books aswell as enter it's settings to change its username, profile_image or password
+Here each user can see and edit it's own books aswell as enter it's settings to change its username, profile_image or password
+
+![EditaarLibro](https://github.com/paul-23/bookmatch-frontend/assets/51365249/88cdb95a-3e82-4848-b324-6b293d22a409)
+From here we can edit the book previously added
+
+![EditUser](https://github.com/paul-23/bookmatch-frontend/assets/51365249/e65778a4-0e3b-4088-a84c-a666e2360263)
+From here the username, profile image and password of a user can be changed
+
+![AboutUs](https://github.com/paul-23/bookmatch-frontend/assets/51365249/1087ce51-b457-4e84-a29c-da9a720cfd00)
+and lastly, this is simly the about us page, enjoy the program we've made with our blood sweat and tears!
