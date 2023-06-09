@@ -1,11 +1,8 @@
 <div class="container">
-  <div *ngIf="loading">
-    <app-loader></app-loader>
-  </div>
   <div *ngIf="!loading && !books">
     <h1 class="messageLNF">There are no books available</h1>
   </div>
-  <div class="row allBooks" *ngIf="!loading && books">
+  <div class="row allBooks" *ngIf="books">
     <h1 class="title">Available books</h1>
     <div class="searchBar">
       <div class="row justify-content-center">
@@ -18,8 +15,7 @@
       </div>
     </div>
     <div
-      class="columna"
-      class="col-10 col-sm-6 col-md-6 col-xl-3 book-card"
+      class="columna col-10 col-sm-6 col-md-6 col-xl-3 book-card"
       *ngFor="let book of books; let i = index"
     >
       <div *ngIf="book.aviable" class="card">
@@ -30,7 +26,7 @@
                 <img
                   [src]="'data:image/jpg;base64,' + book.cover_image"
                   class="card-img-top"
-                  alt="imagen del libro"
+                  [alt]="book.title"
                 />
               </div>
             </div>
@@ -48,5 +44,8 @@
         </div>
       </div>
     </div>
+  </div>
+  <div *ngIf="loading">
+    <app-loader></app-loader>
   </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { BookService } from '../service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -19,6 +19,10 @@ export class UserBooksComponent implements OnInit {
   @ViewChild('toastElement') toastElement: any;
   loading: boolean = true;
   notLogged: boolean = true;
+  currentPage: number = 0;
+  pageSize: number = 8;
+  totalItems: number = 0;
+  isLoadingMore: boolean = false;
 
   constructor(
     private router: Router,
@@ -26,23 +30,21 @@ export class UserBooksComponent implements OnInit {
     private bookService: BookService,
     private sanitizer: DomSanitizer,
     private tokenStorageService: TokenStorageService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
-    this.router.events.subscribe(() => {
-      let id_user = this.route.snapshot.paramMap.get('id');
-      if (this.tokenStorageService.getToken()) {
-        this.user = this.tokenStorageService.getUser();
-        if (this.user.id == id_user) {
-          this.getUserByID(this.user.id);
-        } else {
-          this.getOtherUserByID(id_user);
-        }
+    let id_user = this.route.snapshot.paramMap.get('id');
+    if (this.tokenStorageService.getToken()) {
+      this.user = this.tokenStorageService.getUser();
+      if (this.user.id == id_user) {
+        this.getUserByID(this.user.id);
       } else {
-        this.notLogged = false;
-        this.loading  = false;
+        this.getOtherUserByID(id_user);
       }
-    });
+    } else {
+      this.notLogged = false;
+      this.loading = false;
+    }
     window.scrollTo(0, 0);
   }
 
@@ -76,20 +78,10 @@ export class UserBooksComponent implements OnInit {
     );
   }
 
+  /* --------------------- OWN PROFILE / BOOKS --------------------- */
+
   loadBooksByUserID(id_user: any) {
     this.bookService.getBooksByUserID(id_user).subscribe(
-      (response) => {
-        this.books = response;
-        this.loading = false;
-      },
-      (error) => {
-        console.log('Error al cargar los libros', error);
-      }
-    );
-  }
-
-  loadBooksAdmin() {
-    this.bookService.getBooks().subscribe(
       (response) => {
         this.books = response;
         this.loading = false;
@@ -126,20 +118,79 @@ export class UserBooksComponent implements OnInit {
     }
   }
 
-  getOtherUserByID(id: any) {
-      this.bookService.getUserByID(id).subscribe(
+  /* --------------------- END OWN PROFILE / BOOKS --------------------- */
+
+  /* --------------------- ADMIN --------------------- */
+
+  @HostListener('window:scroll', [])
+  onScroll(): void {
+    const windowHeight = window.visualViewport?.height || document.documentElement.clientHeight || document.body.clientHeight;
+    const documentHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, document.body.offsetHeight, document.documentElement.offsetHeight, document.body.clientHeight, document.documentElement.clientHeight);
+    const scrollPosition = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
+
+    if (scrollPosition + windowHeight >= documentHeight && !this.isLoadingMore) {
+      this.loadMoreAdminBooks();
+    }
+  }
+
+
+  loadBooksAdmin() {
+    this.bookService.getBooksPagination(this.currentPage, this.pageSize).subscribe(
+      (response) => {
+        this.books = response;
+        this.totalItems = response.length;
+        this.loading = false;
+      },
+      (error) => {
+        console.log('Error al cargar los libros');
+        this.loading = false;
+      }
+    );
+  }
+
+  loadMoreAdminBooks() {
+    const totalPages = Math.ceil(this.totalItems / this.pageSize);
+
+    if (this.currentPage < totalPages) {
+      this.isLoadingMore = true;
+      this.currentPage++;
+      this.loading = true;
+
+      this.bookService.getBooksPagination(this.currentPage, this.pageSize).subscribe(
         (response) => {
-          this.user = response;
-          this.profileImage = this.getBase64ImageSrc(this.user?.profile_image);
-          this.loadBooksByUserID(this.user.id_user);
+          this.books = this.books.concat(response);
+          this.isLoadingMore = false;
           this.loading = false;
         },
-        () => {
-          console.log('Error al cargar datos');
+        (error) => {
+          console.log('Error al cargar más libros');
+          this.isLoadingMore = false;
+          this.loading = false;
         }
       );
-      this.userLogged = false;
+    }
   }
+
+  /* --------------------- END ADMIN --------------------- */
+
+  /* --------------------- OTHER USER PROFILE --------------------- */
+
+  getOtherUserByID(id: any) {
+    this.bookService.getUserByID(id).subscribe(
+      (response) => {
+        this.user = response;
+        this.profileImage = this.getBase64ImageSrc(this.user?.profile_image);
+        this.loadBooksByUserID(this.user.id_user);
+        this.loading = false;
+      },
+      () => {
+        console.log('Error al cargar datos');
+      }
+    );
+    this.userLogged = false;
+  }
+
+  /* --------------------- END OTHER USER PROFILE --------------------- */
 
   updateBookAvailability(id: number) {
     this.bookService.updateBookAvailability(id).subscribe(

@@ -1,5 +1,4 @@
-import { HttpClient,HttpHeaders } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, Renderer2 } from '@angular/core';
 import { BookService } from '../service.service';
 import { Router } from '@angular/router';
 
@@ -9,61 +8,82 @@ import { Router } from '@angular/router';
   styleUrls: ['./books.component.css'],
 })
 export class BookComponent implements OnInit {
-  books: any;
+
+  books: any[] = [];
   loading: boolean = true;
   input_text: string;
-  filteredBooks: [] = [];
+  filteredBooks: any[] = [];
   searchText: string = '';
   searchError: boolean = false;
+  currentPage: number = 0;
+  pageSize: number = 8;
+  totalItems: number = 0;
+  isLoadingMore: boolean = false;
 
-  constructor(private _router: Router, private bookService: BookService) {
+  constructor(private _router: Router, private bookService: BookService, private renderer: Renderer2) {
     this.input_text = '';
   }
 
   ngOnInit() {
-
     window.scrollTo(0, 0);
-
-    const token = sessionStorage.getItem('token');
-    let header = this.bookService.getHeader(token);
-
-    this.loadRndomBooksDelayed();
+    this.loadBooks();
+    this.renderer.listen('window', 'scroll', this.onScroll.bind(this));
   }
 
-  loadRndomBooksDelayed() {
-    setTimeout(() => {
-      this.loadRandomBooks();
-    }, 1000);
+  @HostListener('window:scroll', [])
+  onScroll(): void {
+    const windowHeight = window.visualViewport?.height || document.documentElement.clientHeight || document.body.clientHeight;
+    const documentHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight, document.body.offsetHeight, document.documentElement.offsetHeight, document.body.clientHeight, document.documentElement.clientHeight);
+    const scrollPosition = window.scrollY || document.documentElement.scrollTop || document.body.scrollTop;
+
+    if (scrollPosition + windowHeight >= documentHeight && !this.isLoadingMore) {
+      this.loadMoreBooks();
+    }
   }
 
-  searchBooks() {
-    this.filteredBooks = this.books.filter((book: { available: any; title: string; }) =>
-      book.available && book.title.toLowerCase().includes(this.searchText.toLowerCase())
-    );
-  }
 
-  getRndom() {
-    return Math.floor(Math.random() * 5 + 1);
-  }
-
-  loadRandomBooks() {
-    this.bookService.getBooks().subscribe(
+  loadBooks() {
+    this.bookService.getBooksPagination(this.currentPage, this.pageSize).subscribe(
       (response) => {
         this.books = response;
+        this.totalItems = response.length;
         this.loading = false;
-        this.books = this.getLastFourAvailableBooks().reverse();
+        this.books = this.getAviableBooks();
       },
       (error) => {
-        console.log('Error al cargar datos');
+        console.log('Error al cargar los libros');
         this.loading = false;
       }
     );
   }
 
-  getLastFourAvailableBooks(): any[] {
-    return this.books.filter((book: any) => book.aviable);
+  loadMoreBooks() {
+    const totalPages = Math.ceil(this.totalItems / this.pageSize);
+
+    if (this.currentPage < totalPages) {
+      this.isLoadingMore = true;
+      this.currentPage++;
+      this.loading = true;
+
+      this.bookService.getBooksPagination(this.currentPage, this.pageSize).subscribe(
+        (response) => {
+          this.books = this.books.concat(response);
+          this.isLoadingMore = false;
+          this.books = this.getAviableBooks();
+          this.loading = false;
+        },
+        (error) => {
+          console.log('Error al cargar más libros');
+          this.isLoadingMore = false;
+          this.loading = false;
+        }
+      );
+    }
   }
 
+  getAviableBooks(): any[] {
+    return this.books.filter((book: any) => book.aviable);
+  }
 
   performSearch() {
     if (this.input_text && this.input_text.trim() !== '') {
@@ -77,4 +97,5 @@ export class BookComponent implements OnInit {
       }, 5000);
     }
   }
+
 }

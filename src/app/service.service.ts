@@ -52,6 +52,10 @@ export class BookService {
     //+  getRndom().join());
   }
 
+  getBooksPagination(page: number, size: number): Observable<any> {
+    return this.http.get(BASE + "listbooks?page=" + page + "&size=" + size);
+  }
+
   getBooksByUserID(id_user: any) {
     return this.http.get(BASE + "books/user/" + id_user);
   }
