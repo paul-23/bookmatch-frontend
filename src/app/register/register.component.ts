@@ -13,14 +13,13 @@ export class RegisterComponent implements OnInit {
   passwordInput!: ElementRef<HTMLInputElement>;
   showPassword!: boolean;
   showRepeatPassword!: boolean;
-
   profile_image: any;
   fullName: string = '';
   email: string = '';
   password: string = '';
   passwordAgain: string = '';
   checkBox: boolean = false;
-
+  userLogged: boolean = false;
   passwordMatch: boolean = true;
   isChecked: boolean = true;
 
@@ -30,6 +29,9 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
+    if(this.tokenStorageService.getToken() != null){
+      this.userLogged = true;
+    }
   }
 
   togglePasswordVisibility(passwordInput: HTMLInputElement) {
@@ -97,6 +99,12 @@ export class RegisterComponent implements OnInit {
 
   onFileChange(event: any) {
     this.profile_image = event.target.files[0];
+  }
+
+  logout():void{
+    this.tokenStorageService.signOut();
+    this.userLogged = false;
+    this.router.navigate(["/register"]);
   }
 
 }

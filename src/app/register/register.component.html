@@ -1,4 +1,4 @@
-<div class="site-wrap d-md-flex justify-content-center registerview">
+<div *ngIf="!userLogged" class="site-wrap d-md-flex justify-content-center registerview">
   <div
     class="bg-img"
     style="background-image: url('https://media.istockphoto.com/id/175397396/photo/books-pattern.jpg?s=170667a&w=0&k=20&c=hNKnh4PMFOWUQbbr59XGcvoZPkMfq6JR18_57IcVp5Y=')"
@@ -75,8 +75,8 @@
           <div class="form-check">
             <input type="checkbox" name="checkbox" class="form-check-input" id="remember" [(ngModel)]="checkBox" />
             <label for="remember" class="form-check-label"
-              >I agree to the <a href="#">Terms of Service</a> and
-              <a href="#">Privacy Policy</a></label
+              >I agree to the <a [routerLink]="['/terms-of-service']">Terms of Service</a> and
+              <a [routerLink]="['/privacy-policy']">Privacy Policy</a></label
             >
           </div>
         </div>
@@ -96,6 +96,33 @@
         </div>
 
       </form>
+    </div>
+  </div>
+</div>
+
+<div class="userNotLogged" *ngIf="userLogged">
+  <h1> You're already logged </h1>
+  <div class="buttonsUserNotLogged">
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#LogoutConfirmation">Logout</button>
+    <button class="btn btn-primary" routerLink="/home">Home</button>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="LogoutConfirmation" tabindex="-1" aria-labelledby="LogoutConfirmationLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="LogoutConfirmationLabel">Logout</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Are you sure you want to log out?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="logout()">Logout</button>
+      </div>
     </div>
   </div>
 </div>
