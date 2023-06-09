@@ -1,8 +1,4 @@
-<div *ngIf="loading">
-  <app-loader></app-loader>
-</div>
-
-<div class="container" *ngIf="!notLogged && !loading">
+<div class="container" *ngIf="!notLogged">
   <h1>You are not logged in</h1>
   <button class="btn btn-primary goToLoginBtn" routerLink="/login">Login</button>
 </div>
@@ -20,8 +16,7 @@
   </div>
 </section>
 
-
-<section class="container" *ngIf="userLogged && !loading">
+<section class="container" *ngIf="userLogged && user.profile_image">
   <h1>{{ user.username }} profile</h1>
   <div class="row justify-content-center">
     <div class="col-md-4 col-lg-4">
@@ -101,3 +96,6 @@
   </div>
 </div>
 
+<div *ngIf="loading">
+  <app-loader></app-loader>
+</div>

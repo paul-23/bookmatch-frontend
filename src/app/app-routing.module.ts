@@ -15,6 +15,8 @@ import { AboutUsComponent } from './about-us/about-us.component';
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { TokenStorageService } from './_services/token-storage.service';
 import { Notfound404Component } from './notfound404/notfound404.component';
+import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent},
@@ -24,6 +26,8 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent},
   { path: 'profile_settings', component: ProfileSettingsComponent},
   { path: 'about', component: AboutUsComponent},
+  { path: 'terms-of-service', component: TermsOfServiceComponent},
+  { path: 'privacy-policy', component: PrivacyPolicyComponent},
 
   { path: 'search/:id', component: SearchResultsComponent},
   { path: 'user_books/:id', component: UserBooksComponent},

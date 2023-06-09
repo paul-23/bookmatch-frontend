@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -13,21 +14,20 @@ import { BookViewComponent } from './book-view/book-view.component';
 import { AddBookComponent } from './add-book/add-book.component';
 import { UserBooksComponent } from './user-books/user-books.component';
 import { EditBooksComponent } from './edit-books/edit-books.component';
-
-import { AuthInterceptor } from './_helpers/auth.interceptor';
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-
-import { HttpClientModule } from '@angular/common/http';
-
 import { SearchResultsComponent } from './search-results/search-results.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoaderComponent } from './loader/loader.component';
 import { Notfound404Component } from './notfound404/notfound404.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toastr';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { AuthInterceptor } from './_helpers/auth.interceptor';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+
+import { ToastrModule, ToastNoAnimation, ToastNoAnimationModule } from 'ngx-toastr';
+import { TermsOfServiceComponent } from './terms-of-service/terms-of-service.component';
+import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +46,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SearchResultsComponent,
     LoaderComponent,
     Notfound404Component,
-    NavbarComponent
+    NavbarComponent,
+    TermsOfServiceComponent,
+    PrivacyPolicyComponent
   ],
   imports: [
     BrowserModule,

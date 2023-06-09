@@ -14,13 +14,17 @@ export class HomeComponent implements OnInit{
   title = "";
   books: any;
   loading: boolean = true;
+  userLogged: boolean = false;
 
   constructor(private bookService: BookService, private tokenStorageService: TokenStorageService) {}
 
   ngOnInit() {
     window.scrollTo(0, 0);
     this.title = this.getMessage();
-    this.loadRandomBooks();
+    this.loadBooks();
+    if (this.tokenStorageService.getToken()) {
+      this.userLogged = true;
+    }
   }
 
   getMessage() {
@@ -40,11 +44,7 @@ export class HomeComponent implements OnInit{
     return r_text[num];
   }
 
-  getRndom() {
-    return Math.floor(Math.random() * 5 + 1);
-  }
-
-  loadRandomBooks() {
+  loadBooks() {
     this.bookService.getBooks().subscribe(
       (response) => {
         this.books = response;

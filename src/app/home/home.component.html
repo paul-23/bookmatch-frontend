@@ -4,10 +4,18 @@
       <div class="mx-auto text-center">
         <div class="banner-content">
           <h3 class="banner-title">{{ title }}</h3>
-          <p class="banner-description">Join our community of book lovers!</p>
-          <a class="btn btn-secondary btn-register btn-lg" href="/register"
-            >Join Now</a
-          >
+          <div *ngIf="!userLogged" class="not-logged">
+            <p class="banner-description">Join our community of book lovers!</p>
+            <a class="btn btn-secondary btn-register btn-lg" href="/register"
+              >Join Now</a
+            >
+          </div>
+          <div *ngIf="userLogged" class="not-logged">
+            <p class="banner-description">Don't wait more and upload a book</p>
+            <a class="btn btn-secondary btn-register btn-lg" [routerLink]="['/add_book']"
+              >Add book</a
+            >
+          </div>
         </div>
       </div>
     </div>
