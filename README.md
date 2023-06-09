@@ -1,3 +1,28 @@
+<h1>BookMatch</h1>
+The application would be intended to facilitate the exchange of books between the employees of a company, allowing users to search, lend and request books from other users of the application within the company.<br><br>
+<img alt="image" src="https://github.com/paul-23/bookmatch-frontend/assets/62121921/c81881c9-4c7a-4a1c-8c7a-d5a382a77c70">
+
+
+<h2>Deploy</h2>
+<ul>
+  <li>https://master.d2sv4z6b1a6l5v.amplifyapp.com/</li>
+</ul>
+
+<h2>Back End</h2>
+<ul>
+  <li>GitHub link: https://github.com/paul-23/bookmatch-backend</li>
+  <li>Railway API: http://api-bookmatch-production.up.railway.app</li>
+</ul>
+
+<h2>Developed by</h2>
+<ul>
+  <li>Paul Alexandru Stanescu: <a href="https://github.com/paul-23">GitHub</a> / <a href="https://www.linkedin.com/in/paul-stanescu/">LinkedIn</a></li>
+  <li>Marc Rojo Gómez: <a href="https://github.com/burnout131">GitHub</a> / <a href="https://www.linkedin.com/in/marc-rojo-gomez/">LinkedIn</a></li>
+  <li>Arnau Leinster Beloqui: <a href="https://github.com/ArnauLeinster">GitHub</a> / <a href="https://www.linkedin.com/in/arnau-leinster-306351209/">LinkedIn</a></li>
+</ul>
+
+<h2>Preview</h2>
+
 ![Home](https://github.com/paul-23/bookmatch-frontend/assets/51365249/a389efef-4c39-4c17-835f-49d08aea04f9)
 This is the home page, where we can see the last 4 updated books
 
