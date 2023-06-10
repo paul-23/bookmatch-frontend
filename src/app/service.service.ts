@@ -56,6 +56,10 @@ export class BookService {
     return this.http.get(BASE + "listbooks?page=" + page + "&size=" + size);
   }
 
+  getLastFourBooks(): Observable<any> {
+    return this.http.get(BASE + "books/latest");
+  }
+
   getBooksByUserID(id_user: any) {
     return this.http.get(BASE + "books/user/" + id_user);
   }
