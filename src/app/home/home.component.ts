@@ -45,11 +45,10 @@ export class HomeComponent implements OnInit{
   }
 
   loadBooks() {
-    this.bookService.getBooks().subscribe(
+    this.bookService.getLastFourBooks().subscribe(
       (response) => {
         this.books = response;
         this.loading = false;
-        this.books = this.getLastFourAvailableBooks().reverse();
       },
       (error) => {
         console.log('Error al cargar datos');
@@ -57,12 +56,4 @@ export class HomeComponent implements OnInit{
       }
     );
   }
-
-  getLastFourAvailableBooks(): any[] {
-    const availableBooks = this.books.filter((book: any) => book.aviable);
-    const lastFourAvailableBooks = availableBooks.slice(-4);
-    return lastFourAvailableBooks;
-  }
-
-
 }
