@@ -172,3 +172,34 @@ a:hover {
 .something-wrong {
   color: red;
 }
+
+.userNotLogged {
+  min-height: 50vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.buttonsUserNotLogged {
+  margin-top: 20px;
+}
+
+.buttonsUserNotLogged button {
+  border-radius: 10px;
+  background-color: #e20074;
+  border-color: #e20074;
+  height: 60px;
+  font-weight: 500;
+  -webkit-box-shadow: 7px 7px 23px -7px rgba(119, 84, 246, 0.5);
+  box-shadow: 7px 7px 23px -7px rgba(119, 84, 246, 0.5);
+  -webkit-transition: 0.3s all ease;
+  transition: 0.3s all ease;
+  font-size: 18px;
+  margin-right: 10px;
+}
+
+.buttonsUserNotLogged button:hover {
+  background-color: #643cf5;
+  border-color: #643cf5;
+}
