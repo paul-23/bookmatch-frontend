@@ -30,6 +30,7 @@ export class ProfileSettingsComponent implements OnInit {
 
   previewImage: SafeUrl | null = null;
   typeFileError: boolean = false;
+  deleteProfileImg: boolean = false;
 
   constructor(
     private router: Router,
@@ -85,14 +86,16 @@ export class ProfileSettingsComponent implements OnInit {
 
     formData.append('user', JSON.stringify(user2));
 
-    if (this.user.profile_image) {
-      formData.append('image',this.user.profile_image);
+    if (!this.deleteProfileImg) {
+      formData.append('image', this.user.profile_image);
+    } else {
+      formData.append('deleteImage', 'true');
     }
 
     this.bookService.editUser(formData, this.user.id_user).subscribe(
       (response) => {
         this.toastr.success('Profile edited correctly');
-        this.router.navigate(["/profile_settings"]);
+        this.router.navigate(["/home"]);
       },
       (error) => {
         this.toastr.error('Error editing Profile');
@@ -149,4 +152,11 @@ export class ProfileSettingsComponent implements OnInit {
       this.passwordNoMatch = true;
     }
   }
+
+  deleteProfileImage() {
+    this.user.profile_image = null;
+    this.previewImage = null;
+    this.deleteProfileImg = true;
+  }
+
 }

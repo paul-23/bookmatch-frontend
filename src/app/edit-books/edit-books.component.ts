@@ -16,6 +16,7 @@ export class EditBooksComponent implements OnInit {
   selected: boolean = false;
   previewImage: SafeUrl | null = null;
   typeFileError: boolean = false;
+  deleteCover: boolean = false;
 
   constructor(
     private router: Router,
@@ -24,7 +25,7 @@ export class EditBooksComponent implements OnInit {
     private sanitizer: DomSanitizer,
     private cdr: ChangeDetectorRef,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -55,8 +56,10 @@ export class EditBooksComponent implements OnInit {
     const formData = new FormData();
     formData.append('book', JSON.stringify(updatedBook));
 
-    if (this.newBook.cover_image) {
+    if (!this.deleteCover) {
       formData.append('image', this.newBook.cover_image);
+    } else {
+      formData.append('deleteCover', 'true');
     }
 
     this.bookService.updateBook(formData, this.id_book).subscribe(
@@ -71,7 +74,6 @@ export class EditBooksComponent implements OnInit {
     );
   }
 
-
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
@@ -82,6 +84,12 @@ export class EditBooksComponent implements OnInit {
     } else {
       this.typeFileError = true;
     }
+  }
+
+  deleteCoverImage() {
+    this.newBook.cover_image = null;
+    this.previewImage = null;
+    this.deleteCover = true;
   }
 
   addImagePrefix(image: string | File): SafeUrl | null {
