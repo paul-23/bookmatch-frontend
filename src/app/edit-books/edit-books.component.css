@@ -171,3 +171,8 @@ a:hover {
   width: auto;
   margin-bottom: 20px;
 }
+
+.delete-btn {
+  margin-left: 10px;
+  position: absolute;
+}

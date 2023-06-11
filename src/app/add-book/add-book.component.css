@@ -186,3 +186,30 @@ button {
 .modal {
   z-index: 1999;
 }
+
+.notlogged {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-height: 50vh;
+  padding-top: 50px;
+}
+
+.notlogged .btn-primary {
+  border-radius: 10px;
+  background-color: #e20074;
+  border-color: #e20074;
+  height: 60px;
+  font-weight: 500;
+  -webkit-box-shadow: 0 15px 30px -7px rgba(119, 84, 246, 0.5);
+  box-shadow: 0 15px 30px -7px rgba(119, 84, 246, 0.5);
+  -webkit-transition: 0.3s all ease;
+  transition: 0.3s all ease;
+  font-size: 18px;
+  margin-top: 20px;
+}
+
+.notlogged .btn-primary:hover {
+  background-color: #643cf5;
+  border-color: #643cf5;
+}

@@ -205,3 +205,8 @@ a:hover {
   background-color: #643cf5;
   border-color: #643cf5;
 }
+
+.delete-btn {
+  margin-left: 10px;
+  position: absolute;
+}

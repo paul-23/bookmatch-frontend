@@ -56,6 +56,10 @@ export class BookService {
     return this.http.get(BASE + "listbooks?page=" + page + "&size=" + size);
   }
 
+  getAvailableBooksPagination(page: number, size: number): Observable<any> {
+    return this.http.get(BASE + "listbooks/available?page=" + page + "&size=" + size);
+  }
+
   getLastFourBooks(): Observable<any> {
     return this.http.get(BASE + "books/latest");
   }

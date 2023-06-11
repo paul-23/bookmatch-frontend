@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 
 export class AddBookComponent {
   constructor(private bookService: BookService, private tokenStorageService: TokenStorageService,
-    private router: Router, private toastr: ToastrService) {}
+    private router: Router, private toastr: ToastrService) { }
 
   editorials: any;
   showPopup = false;
@@ -28,16 +28,20 @@ export class AddBookComponent {
   image: any;
   editorial: any;
 
-  editorialError:boolean = false;
-  bookError:boolean = false;
+  editorialError: boolean = false;
+  bookError: boolean = false;
+  userLogged: boolean = false;
 
   newBook: any = {};
   coverImage: Blob | null = null;
 
   coverImageBlob: Blob | null = null;
 
-  ngOnInit(){
+  ngOnInit() {
     window.scrollTo(0, 0);
+    if (this.tokenStorageService.getToken()) {
+      this.userLogged = true;
+    }
   }
 
   ngAfterViewInit() {
@@ -48,53 +52,53 @@ export class AddBookComponent {
     const selectedEditorialName = this.newBook.editorial;
     const selectedEditorial = this.editorials.find((editorial: any) => editorial.name_editorial === selectedEditorialName);
 
-    if (selectedEditorial){
-    const formData = new FormData();
+    if (selectedEditorial) {
+      const formData = new FormData();
 
-    if (!this.newBook.title || !this.newBook.author || !this.newBook.isbn || !this.newBook.category) {
-      console.error('Error: Los campos deben estar completos.');
-      this.bookError = true;
-      return;
+      if (!this.newBook.title || !this.newBook.author || !this.newBook.isbn || !this.newBook.category) {
+        console.error('Error: Los campos deben estar completos.');
+        this.bookError = true;
+        return;
+      }
+
+      const book = {
+        author: this.newBook.author,
+        title: this.newBook.title,
+        isbn: this.newBook.isbn,
+        category: this.newBook.category,
+        aviable: true,
+        description: this.newBook.description,
+        user: {
+          id_user: this.tokenStorageService.getUser().id
+        },
+        editorial: {
+          id_editorial: selectedEditorial.id_editorial
+
+        }
+
+
+      };
+
+
+      formData.append('image', this.newBook.cover_image);
+      formData.append('book', JSON.stringify(book));
+      this.bookService.createBook(formData).subscribe(
+        (response) => {
+          console.log('Book created successfully', response);
+          this.router.navigate(['/']);
+          // Handle success
+        },
+        (error) => {
+          console.error('Error creating book', error);
+          // Handle error
+        }
+      );
+    } else {
+      console.log("editorial incorrecta, seleccione o cree una editorial");
     }
-
-    const book = {
-      author: this.newBook.author,
-      title: this.newBook.title,
-      isbn: this.newBook.isbn,
-      category: this.newBook.category,
-      aviable: true,
-      description: this.newBook.description,
-      user: {
-        id_user: this.tokenStorageService.getUser().id
-      },
-      editorial: {
-        id_editorial: selectedEditorial.id_editorial
-
-      }
-
-
-    };
-
-
-    formData.append('image', this.newBook.cover_image);
-    formData.append('book', JSON.stringify(book));
-    this.bookService.createBook(formData).subscribe(
-      (response) => {
-        console.log('Book created successfully', response);
-        this.router.navigate(['/']);
-        // Handle success
-      },
-      (error) => {
-        console.error('Error creating book', error);
-        // Handle error
-      }
-    );
-  } else{
-    console.log("editorial incorrecta, seleccione o cree una editorial");
-  }
   }
 
-onFileSelected(event: any) {
+  onFileSelected(event: any) {
     this.newBook.cover_image = event.target.files[0];
 
   }

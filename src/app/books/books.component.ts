@@ -43,12 +43,11 @@ export class BookComponent implements OnInit {
 
 
   loadBooks() {
-    this.bookService.getBooksPagination(this.currentPage, this.pageSize).subscribe(
+    this.bookService.getAvailableBooksPagination(this.currentPage, this.pageSize).subscribe(
       (response) => {
         this.books = response;
         this.totalItems = response.length;
         this.loading = false;
-        this.books = this.getAviableBooks();
       },
       (error) => {
         console.log('Error al cargar los libros');
@@ -65,11 +64,10 @@ export class BookComponent implements OnInit {
       this.currentPage++;
       this.loading = true;
 
-      this.bookService.getBooksPagination(this.currentPage, this.pageSize).subscribe(
+      this.bookService.getAvailableBooksPagination(this.currentPage, this.pageSize).subscribe(
         (response) => {
           this.books = this.books.concat(response);
           this.isLoadingMore = false;
-          this.books = this.getAviableBooks();
           this.loading = false;
         },
         (error) => {
@@ -79,10 +77,6 @@ export class BookComponent implements OnInit {
         }
       );
     }
-  }
-
-  getAviableBooks(): any[] {
-    return this.books.filter((book: any) => book.aviable);
   }
 
   performSearch() {
