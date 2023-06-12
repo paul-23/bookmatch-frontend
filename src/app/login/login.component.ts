@@ -4,6 +4,8 @@ import { TokenStorageService } from '../_services/token-storage.service';
 import { map, pluck } from 'rxjs';
 import { AuthService } from '../services/auth.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -19,10 +21,13 @@ export class LoginComponent implements OnInit {
   userLogged: boolean = false;
   autenticationFailed: boolean = false;
   logiiin: any;
+  submitted: boolean = false;
 
-  constructor(private authService: AuthService,
+  constructor(
+    private authService: AuthService,
     private tokenStorageService: TokenStorageService,
-    private router: Router) {}
+    private router: Router,
+    private toastr: ToastrService) {}
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -31,12 +36,20 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  togglePasswordVisibility(passwordInput: HTMLInputElement) {
+  togglePasswordVisibility() {
     this.showPassword = !this.showPassword;
-    passwordInput.type = this.showPassword ? 'text' : 'password';
+    const passwordElement = document.getElementById('password') as HTMLInputElement;
+    if (passwordElement) {
+      passwordElement.type = this.showPassword ? 'text' : 'password';
+    }
   }
 
-  logIn():void{
+  logIn(loginForm: NgForm):void{
+    if (loginForm.invalid) {
+      this.toastr.error('Enter your email and password');
+      this.submitted = true;
+      return;
+    }
     this.authService.signIn(this.email, this.password).subscribe(
       {
         next: (data: any) => {
@@ -45,10 +58,12 @@ export class LoginComponent implements OnInit {
           this.userLogged = true;
           this.email = '';
           this.password = '';
+          const user = this.tokenStorageService.getUser();
+          this.toastr.success('Welcome back ' + user.username);
           this.router.navigate(["/"]);
         },
         error: (err: any) => {
-          console.error('Error creating post', err);
+          this.toastr.error('Wrong email or password');
           this.autenticationFailed = true;
         }
       }

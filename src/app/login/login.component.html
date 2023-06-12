@@ -5,7 +5,7 @@
       <p class="caption mb-4">Please enter your login details to sign in.</p>
 
 
-        <form (ngSubmit)="logIn()" class="pt-3">
+      <form #loginForm="ngForm" (ngSubmit)="logIn(loginForm)" class="pt-3">
         <div class="form-floating">
           <input
             type="email"
@@ -14,22 +14,35 @@
             id="email"
             placeholder="info@example.com"
             [(ngModel)]="email"
+            required
+            email
+            #emailInput="ngModel"
+            [ngClass]="{'error': emailInput.invalid && (emailInput.dirty || emailInput.touched || submitted)}"
           />
           <label for="email">Email Address</label>
+          <div *ngIf="emailInput?.touched && emailInput?.invalid || submitted" class="error-message">
+            <p *ngIf="emailInput.errors?.['required']">Email is required.</p>
+            <p *ngIf="emailInput.errors?.['email']">Please enter a valid email address.</p>
+          </div>
         </div>
 
         <div class="form-floating password-container">
           <input
-            #passwordInput
+            #passwordInput="ngModel"
             type="password"
             name="password"
             class="form-control"
             id="password"
             placeholder="Password"
             [(ngModel)]="password"
+            required
+            [ngClass]="{'error': passwordInput.invalid && (passwordInput.dirty || passwordInput.touched || submitted)}"
           />
           <label for="password">Password</label>
-          <i class="password-icon" [class]="showPassword ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'" (click)="togglePasswordVisibility(passwordInput)"></i>
+          <i class="password-icon" [class]="showPassword ? 'bi bi-eye-slash-fill' : 'bi bi-eye-fill'" (click)="togglePasswordVisibility()"></i>
+          <div *ngIf="passwordInput?.touched && passwordInput?.invalid  || submitted" class="error-message">
+            <p *ngIf="passwordInput.errors?.['required']">Password is required.</p>
+          </div>
         </div>
 
         <div class="d-grid mb-4 mt-4">
