@@ -2,6 +2,8 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { AuthService } from '../services/auth.service';
+import { NgForm, NgModel } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-register',
@@ -22,10 +24,12 @@ export class RegisterComponent implements OnInit {
   userLogged: boolean = false;
   passwordMatch: boolean = true;
   isChecked: boolean = true;
+  submitted: boolean = false;
 
   constructor(private authService: AuthService,
     private tokenStorageService: TokenStorageService,
-    private router: Router) { }
+    private router: Router,
+    private toastr: ToastrService) { }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -34,21 +38,36 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  togglePasswordVisibility(passwordInput: HTMLInputElement) {
+  togglePasswordVisibility(passwordInput: NgModel) {
     this.showPassword = !this.showPassword;
-    passwordInput.type = this.showPassword ? 'text' : 'password';
+    const passwordElement = document.getElementById('password') as HTMLInputElement;
+    if (passwordElement) {
+      passwordElement.type = this.showPassword ? 'text' : 'password';
+    }
   }
 
-  toggleRepeatPasswordVisibility(passwordInput: HTMLInputElement) {
+  toggleRepeatPasswordVisibility(passwordInput: NgModel) {
     this.showRepeatPassword = !this.showRepeatPassword;
-    passwordInput.type = this.showRepeatPassword ? 'text' : 'password';
+    const repeatPasswordElement = document.getElementById('repeatPassword') as HTMLInputElement;
+    if (repeatPasswordElement) {
+      repeatPasswordElement.type = this.showRepeatPassword ? 'text' : 'password';
+    }
   }
 
-  register() {
-    if (this.password == this.passwordAgain) {
+  checkPasswordMismatch(): boolean {
+    return this.password !== this.passwordAgain;
+  }
+
+  register(registerForm: NgForm): void {
+    if (registerForm.invalid) {
+      this.toastr.error('Error creating user');
+      this.submitted = true;
+      return;
+    }
+    this.submitted = true;
+    if (this.password === this.passwordAgain) {
       if (this.checkBox) {
         this.isChecked = true;
-        this.passwordMatch = true;
         const formData = new FormData();
         const user = {
           username: this.fullName,
@@ -66,7 +85,7 @@ export class RegisterComponent implements OnInit {
           },
           (error) => {
             console.error('Error creating user', error);
-            window.alert('Email already exists!');
+            this.toastr.error('Email already exists!');
              // Handle error
           }
         );
@@ -75,7 +94,8 @@ export class RegisterComponent implements OnInit {
         this.isChecked = false;
       }
     } else {
-      this.passwordMatch = false;
+      this.isChecked = true;
+      this.passwordAgain = '';
     }
   }
 
@@ -88,6 +108,8 @@ export class RegisterComponent implements OnInit {
           this.tokenStorageService.saveUser(data);
           this.email = '';
           this.password = '';
+          const user = this.tokenStorageService.getUser();
+          this.toastr.success('Welcome to BookMatch, ' + user.username);
           this.router.navigate(["/"]);
         },
         error: (err: any) => {
