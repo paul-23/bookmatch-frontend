@@ -155,8 +155,10 @@ a:hover {
 }
 
 .password-icon {
+  color: #7c7c7c;
+  font-size: 23px;
   position: absolute;
-  top: 30px;
+  top: 32px;
   right: 20px;
   transform: translateY(-50%);
   cursor: pointer;

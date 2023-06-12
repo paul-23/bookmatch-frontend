@@ -4,7 +4,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { AuthService } from '../services/auth.service';
-import { ToastrService } from 'ngx-toastr';
+import { GlobalConfig, ToastrService } from 'ngx-toastr';
+import { NgForm, NgModel } from '@angular/forms';
 
 @Component({
   selector: 'app-profile-settings',
@@ -32,6 +33,13 @@ export class ProfileSettingsComponent implements OnInit {
   typeFileError: boolean = false;
   deleteProfileImg: boolean = false;
 
+  submittedProfile: boolean = false;
+  submittedPassword: boolean = false;
+
+  showCurrentPassword: boolean = false;
+  showNewtPassword: boolean = false;
+  showConfirmtPassword: boolean = false;
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -45,16 +53,14 @@ export class ProfileSettingsComponent implements OnInit {
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
-    this.router.events.subscribe(() => {
-      this.user = this.tokenStorageService.getUser();
-      if (this.tokenStorageService.getUser()) {
-        this.getUserByID(this.user.id);
-        this.userId = this.user.id;
-      }
-      if (!this.tokenStorageService.getToken()) {
-        this.loading = false;
-      }
-    });
+    this.user = this.tokenStorageService.getUser();
+    if (this.tokenStorageService.getUser()) {
+      this.getUserByID(this.user.id);
+      this.userId = this.user.id;
+    }
+    if (!this.tokenStorageService.getToken()) {
+      this.loading = false;
+    }
   }
 
   getUserByID(id: any) {
@@ -77,7 +83,14 @@ export class ProfileSettingsComponent implements OnInit {
     }
   }
 
-  editProfile(){
+  editProfile(userForm: NgForm) {
+
+    if (userForm.invalid) {
+      this.toastr.error('There are empty or incorrect fields', 'Error updating profile');
+      this.submittedProfile = true;
+      return;
+    }
+
     const formData = new FormData();
 
     const user2 = {
@@ -95,7 +108,8 @@ export class ProfileSettingsComponent implements OnInit {
     this.bookService.editUser(formData, this.user.id_user).subscribe(
       (response) => {
         this.toastr.success('Profile edited correctly');
-        this.router.navigate(["/home"]);
+        this.getUserByID(this.userId);
+        this.router.navigate(['/profile_settings']);
       },
       (error) => {
         this.toastr.error('Error editing Profile');
@@ -129,25 +143,58 @@ export class ProfileSettingsComponent implements OnInit {
     return null;
   }
 
-  changePassword() {
+  toggleCurrentPasswordVisibility(passwordInput: NgModel) {
+    this.showCurrentPassword = !this.showCurrentPassword;
+    const passwordElement = document.getElementById('currentPassword') as HTMLInputElement;
+    if (passwordElement) {
+      passwordElement.type = this.showCurrentPassword ? 'text' : 'password';
+    }
+  }
+
+  toggleNewPasswordVisibility(passwordInput: NgModel) {
+    this.showNewtPassword = !this.showNewtPassword;
+    const newPasswordElement = document.getElementById('new-password') as HTMLInputElement;
+    if (newPasswordElement) {
+      newPasswordElement.type = this.showNewtPassword ? 'text' : 'password';
+    }
+  }
+
+  toggleConfirmPasswordVisibility(passwordInput: NgModel) {
+    this.showConfirmtPassword = !this.showConfirmtPassword;
+    const confirmPasswordElement = document.getElementById('confirm-password') as HTMLInputElement;
+    if (confirmPasswordElement) {
+      confirmPasswordElement.type = this.showConfirmtPassword ? 'text' : 'password';
+    }
+  }
+
+  changePassword(passwordForm: NgForm) {
+
+    if (passwordForm.invalid) {
+      this.toastr.error('Error, there are empty or incorrect fields');
+      this.submittedPassword = true;
+      return;
+    }
+
     this.passwordNoMatch = false;
-    if(this.newPassword == this.confirmPassword){
+    if (this.newPassword == this.confirmPassword) {
       this.passwordMatch = true;
       this.authService
-      .updatePassword(this.userId, this.currentPassword, this.newPassword)
-      .subscribe(
-        (response) => {
-          console.log('Password changed successfully', response);
-          this.passChangeOk = true;
-          this.currentPassword = '';
-          this.newPassword = '';
-          this.confirmPassword = '';
-        },
-        (error) => {
-          console.error('Error changing password', error);
-          this.passChangeFail = true;
-        }
-      );
+        .updatePassword(this.userId, this.currentPassword, this.newPassword)
+        .subscribe(
+          (response) => {
+            console.log('Password changed successfully', response);
+            this.toastr.success('Password changed successfully');
+            this.passChangeOk = true;
+            passwordForm.resetForm();
+            passwordForm.reset();
+            this.submittedPassword = false;
+          },
+          (error) => {
+            this.toastr.error('Password does not match your current password');
+            console.error('Error changing password', error);
+            this.passChangeFail = true;
+          }
+        );
     } else {
       this.passwordNoMatch = true;
     }
