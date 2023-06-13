@@ -1,4 +1,4 @@
-import { Component, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { BookService } from '../service.service';
 import { Router } from "@angular/router";
 import { TokenStorageService } from "../_services/token-storage.service";
@@ -14,7 +14,7 @@ export class NavbarComponent implements OnInit {
   user: any;
   userLogged: boolean = false;
 
-  constructor(private tokenStorageService: TokenStorageService, private router: Router, private userService: BookService) {
+  constructor(private tokenStorageService: TokenStorageService, private router: Router, private userService: BookService, private cdr: ChangeDetectorRef,) {
 
   }
 
@@ -22,6 +22,7 @@ export class NavbarComponent implements OnInit {
     this.userLogged = false;
     this.router.events.subscribe((event) => {
       this.getUser();
+      this.cdr.detectChanges();
     });
   }
 

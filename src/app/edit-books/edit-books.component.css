@@ -42,8 +42,14 @@ a:hover {
 }
 
 .form-wrap .form-floating .form-control {
-  height: 60px !important;
+  min-height: 60px !important;
   border-radius: 10px !important;
+}
+
+.custom-textarea {
+  height: auto;
+  min-height: 100px;
+  resize: vertical;
 }
 
 .form-wrap .form-floating .form-control:active, .form-wrap .form-floating .form-control:focus {
@@ -175,4 +181,18 @@ a:hover {
 .delete-btn {
   margin-left: 10px;
   position: absolute;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.error-message p {
+  margin-left: 5px;
+}
+
+.error {
+  border: 1px solid red !important;
 }

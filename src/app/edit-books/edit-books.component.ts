@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { BookService } from '../service.service';
 import { ToastrService } from 'ngx-toastr';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-books',
@@ -17,6 +18,7 @@ export class EditBooksComponent implements OnInit {
   previewImage: SafeUrl | null = null;
   typeFileError: boolean = false;
   deleteCover: boolean = false;
+  submitted: boolean = false;
 
   constructor(
     private router: Router,
@@ -43,7 +45,13 @@ export class EditBooksComponent implements OnInit {
     );
   }
 
-  updateBook() {
+  updateBook(registerForm: NgForm): void {
+    if (registerForm.invalid) {
+      this.toastr.error('There are empty or wrong fielnds', 'Error adding book');
+      this.submitted = true;
+      return;
+    }
+
     const updatedBook = {
       title: this.newBook.title,
       author: this.newBook.author,

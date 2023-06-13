@@ -5,56 +5,137 @@
         <h1 class="title">Edit a Book</h1>
         <p class="caption mb-4">Share your book with the other members.</p>
 
-        <form (ngSubmit)="updateBook()" enctype="multipart/form-data" class="pt-3">
+        <form
+          #editBookForm="ngForm"
+          (ngSubmit)="updateBook(editBookForm)"
+          enctype="multipart/form-data"
+          class="pt-3"
+        >
           <div class="form-floating">
-            <input name = "title_name" [(ngModel)]="newBook.title" type="text"
-            class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Title">
+            <input
+              name="title_name"
+              [(ngModel)]="newBook.title"
+              type="text"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder="Enter Title"
+              required
+              #titleInput="ngModel"
+              [ngClass]="{'error': titleInput.invalid && (titleInput.dirty || titleInput.touched || submitted)}"
+            />
             <label for="input_title">Title</label>
+            <div *ngIf="titleInput.invalid && (titleInput.dirty || titleInput.touched || submitted)" class="error-message">
+              <p *ngIf="titleInput.errors?.['required']">Title is required.</p>
+            </div>
           </div>
 
           <div class="form-floating">
-            <input name = "author_name" [(ngModel)]="newBook.author" type="text"
-            class="form-control" id="exampleInputPassword1" placeholder="Enter Author">
+            <input
+              name="author_name"
+              [(ngModel)]="newBook.author"
+              type="text"
+              class="form-control"
+              id="exampleInputPassword1"
+              placeholder="Enter Author"
+              required
+              #authorInput="ngModel"
+              [ngClass]="{'error': authorInput.invalid && (authorInput.dirty || authorInput.touched || submitted)}"
+            />
             <label for="input_author">Author</label>
+            <div *ngIf="authorInput.invalid && (authorInput.dirty || authorInput.touched || submitted)" class="error-message">
+              <p *ngIf="authorInput.errors?.['required']">Author is required.</p>
+            </div>
           </div>
 
           <div class="form-floating">
-            <input name = "description_name" [(ngModel)]="newBook.description" type="text"
-            class="form-control" id="input_category" placeholder="Enter Category">
+            <input
+              [(ngModel)]="newBook.isbn"
+              name="isbn_name"
+              type="text"
+              class="form-control"
+              id="input_ISBN"
+              placeholder="Enter ISBN"
+              required
+              minlength="10"
+              maxlength="13"
+              #isbnInput="ngModel"
+              [ngClass]="{'error': isbnInput.invalid && (isbnInput.dirty || isbnInput.touched || submitted)}"
+            />
+            <label for="input_ISBN">ISBN</label>
+            <div *ngIf="isbnInput.invalid && (isbnInput.dirty || isbnInput.touched || submitted)" class="error-message">
+              <p *ngIf="isbnInput.errors?.['required']">ISBN is required.</p>
+              <p *ngIf="isbnInput.errors?.['minlength']">ISBN must be at least 10 characters long.</p>
+              <p *ngIf="isbnInput.errors?.['maxlength']">ISBN cannot exceed 13 characters.</p>
+            </div>
+          </div>
+
+          <div class="form-floating">
+            <textarea
+              name="description_name"
+              [(ngModel)]="newBook.description"
+              type="text"
+              class="form-control custom-textarea"
+              id="input_category"
+              placeholder="Enter Category"
+              rows="3"
+            ></textarea>
             <label for="input_category">Descripcion</label>
           </div>
 
           <div class="form-floating">
-            <input [(ngModel)]="newBook.isbn" name = "isbn_name" type="text"
-            class="form-control" id="input_ISBN" placeholder="Enter ISBN">
-            <label for="input_ISBN">ISBN</label>
-          </div>
-
-          <div class="form-floating">
-            <input name = "category_name" [(ngModel)]="newBook.category" type="text"
-            class="form-control" id="input_category" placeholder="Enter Category">
+            <input
+              name="category_name"
+              [(ngModel)]="newBook.category"
+              type="text"
+              class="form-control"
+              id="input_category"
+              placeholder="Enter Category"
+            />
             <label for="input_category">Category</label>
           </div>
 
           <div class="form-floating profile-image">
             <label for="formFileSm" class="form-label">
-              Book cover image <span>(If blank, added based on the ISBN)</span></label>
+              Book cover image
+              <span>(If blank, added based on the ISBN)</span></label
+            >
 
-            <input (change)="onFileSelected($event)" [value]="newBook.cover_image" accept="image/jpeg, image/png" name="image" class="form-control form-control-sm" id="formFileSm" type="file">
+            <input
+              (change)="onFileSelected($event)"
+              [value]="newBook.cover_image"
+              accept="image/jpeg, image/png"
+              name="image"
+              class="form-control form-control-sm"
+              id="formFileSm"
+              type="file"
+            />
           </div>
 
-          <p *ngIf="typeFileError" style="color: red;">Type of file isn't accepted</p>
+          <p *ngIf="typeFileError" style="color: red">
+            Type of file isn't accepted
+          </p>
 
-          <img *ngIf="this.newBook.cover_image" [src]="previewImage" class="card-img-top" alt="imagen del libro" />
+          <img
+            *ngIf="this.newBook.cover_image"
+            [src]="previewImage"
+            class="card-img-top"
+            alt="imagen del libro"
+          />
 
-          <button *ngIf="this.newBook.cover_image" type="button" class="btn btn-secondary delete-btn" data-bs-toggle="modal" data-bs-target="#deleteBookConfirmation"><i class="bi bi-trash3"></i></button>
+          <button
+            *ngIf="this.newBook.cover_image"
+            type="button"
+            class="btn btn-secondary delete-btn"
+            data-bs-toggle="modal"
+            data-bs-target="#deleteBookConfirmation"
+          >
+            <i class="bi bi-trash3"></i>
+          </button>
 
-            <div class="d-grid mb-4">
-              <button type="submit" class="btn btn-primary" >
-                Update book
-              </button>
-            </div>
-
+          <div class="d-grid mb-4">
+            <button type="submit" class="btn btn-primary">Update book</button>
+          </div>
         </form>
       </div>
     </div>
@@ -62,19 +143,41 @@
 </section>
 
 <!-- Modal -->
-<div class="modal fade" id="deleteBookConfirmation" tabindex="-1" aria-labelledby="deleteBookConfirmationLabel" aria-hidden="true">
+<div
+  class="modal fade"
+  id="deleteBookConfirmation"
+  tabindex="-1"
+  aria-labelledby="deleteBookConfirmationLabel"
+  aria-hidden="true"
+>
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="deleteBookConfirmationLabel">Delete cover image</h3>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <h3 class="modal-title" id="deleteBookConfirmationLabel">
+          Delete cover image
+        </h3>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
       </div>
       <div class="modal-body">
         <h5>Are you sure you want to delete the cover image?</h5>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteCoverImage()">Delete</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="btn btn-danger"
+          data-bs-dismiss="modal"
+          (click)="deleteCoverImage()"
+        >
+          Delete
+        </button>
       </div>
     </div>
   </div>

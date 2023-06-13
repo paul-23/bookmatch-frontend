@@ -161,8 +161,10 @@ a:hover {
 }
 
 .password-icon {
+  color: #7c7c7c;
+  font-size: 23px;
   position: absolute;
-  top: 50%;
+  top: 32px;
   right: 20px;
   transform: translateY(-50%);
   cursor: pointer;
@@ -209,4 +211,18 @@ a:hover {
 .delete-btn {
   margin-left: 10px;
   position: absolute;
+}
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.error-message p {
+  margin-left: 10px;
+}
+
+.error {
+  border: 1px solid red !important;
 }
