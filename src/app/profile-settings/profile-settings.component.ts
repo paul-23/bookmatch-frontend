@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, HostListener, Input, OnInit } from '@angular/core';
 import { BookService } from '../service.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
@@ -48,7 +48,8 @@ export class ProfileSettingsComponent implements OnInit {
     private tokenStorageService: TokenStorageService,
     private authService: AuthService,
     private cdr: ChangeDetectorRef,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private elementRef: ElementRef
   ) { }
 
   ngOnInit(): void {
@@ -198,6 +199,15 @@ export class ProfileSettingsComponent implements OnInit {
     } else {
       this.passwordNoMatch = true;
     }
+  }
+
+  @HostListener('document:keydown.enter', ['$event'])
+  onEnterKeydown(event: KeyboardEvent) {
+    setTimeout(() => {
+      event.preventDefault();
+      const activeElement = this.elementRef.nativeElement.ownerDocument.activeElement;
+      activeElement.blur();
+    }, 1);
   }
 
   deleteProfileImage() {

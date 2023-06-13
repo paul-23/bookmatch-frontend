@@ -213,3 +213,17 @@ button {
   background-color: #643cf5;
   border-color: #643cf5;
 }
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.error-message p {
+  margin-left: 5px;
+}
+
+.error {
+  border: 1px solid red !important;
+}
