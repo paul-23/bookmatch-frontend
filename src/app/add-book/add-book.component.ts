@@ -61,7 +61,7 @@ export class AddBookComponent {
 
   createBook(registerForm: NgForm): void {
     if (registerForm.invalid) {
-      this.toastr.error('There are empty or wrong fielnds', 'Error adding book');
+      this.toastr.error('There are empty or wrong fields', 'Error adding book');
       this.submitted = true;
       this.bookError = true;
       return;
