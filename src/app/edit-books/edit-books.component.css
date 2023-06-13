@@ -176,3 +176,17 @@ a:hover {
   margin-left: 10px;
   position: absolute;
 }
+
+.error-message {
+  color: red;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+.error-message p {
+  margin-left: 5px;
+}
+
+.error {
+  border: 1px solid red !important;
+}
