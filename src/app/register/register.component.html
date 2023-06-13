@@ -110,8 +110,8 @@
           <div class="form-check">
             <input type="checkbox" name="checkbox" class="form-check-input" id="checkbox" [(ngModel)]="checkBox" required/>
             <label for="remember" class="form-check-label"
-              >I agree to the <a [routerLink]="['/terms-of-service']">Terms of Service</a> and
-              <a [routerLink]="['/privacy-policy']">Privacy Policy</a></label>
+              >I agree to the <a data-bs-toggle="modal" data-bs-target="#termsofserviceModal">Terms of Service</a> and
+              <a data-bs-toggle="modal" data-bs-target="#policyprivacyModal">Privacy Policy</a></label>
 
               <div *ngIf="registerForm.controls['checkbox']?.invalid && (registerForm.controls['checkbox']?.dirty || registerForm.controls['checkbox']?.touched || submitted)" class="error-message">
                 <p *ngIf="registerForm.controls['checkbox'].errors?.['required']">You must accept the terms and conditions.</p>
@@ -161,20 +161,54 @@
   </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal delete profile image on register -->
 <div class="modal fade" id="deleteBookConfirmation" tabindex="-1" aria-labelledby="deleteBookConfirmationLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="deleteBookConfirmationLabel">Delete cover image</h3>
+        <h3 class="modal-title" id="deleteBookConfirmationLabel">Delete profile image</h3>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h5>Are you sure you want to delete the cover image?</h5>
+        <h5>Are you sure you want to delete the profile image?</h5>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteCoverImage()">Delete</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteProfileImage()">Delete</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal open terms of service -->
+<div class="modal modal-lg fade" id="termsofserviceModal" tabindex="-1" aria-labelledby="termsofserviceModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="termsofserviceModalLabel">Terms of Service</h3>
+      </div>
+      <div class="modal-body" style="margin-top: -50px; margin-bottom: -30px;">
+        <app-terms-of-service></app-terms-of-service>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal open policy privacy -->
+<div class="modal modal-lg fade" id="policyprivacyModal" tabindex="-1" aria-labelledby="policyprivacyModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="policyprivacyModalLabel">Policy Privacy</h3>
+      </div>
+      <div class="modal-body" style="margin-top: -50px; margin-bottom: -30px;">
+        <app-privacy-policy></app-privacy-policy>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

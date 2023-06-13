@@ -109,7 +109,6 @@ export class RegisterComponent implements OnInit {
   }
 
   logIn():void{
-
     this.authService.signIn(this.email, this.password).subscribe(
       {
         next: (data: any) => {
@@ -130,6 +129,11 @@ export class RegisterComponent implements OnInit {
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
+    if (file.size > 16 * 1024 * 1024) {
+      this.toastr.error('Error adding image', 'The image cannot exceed 16mb');
+      this.profile_image = null;
+      return;
+    }
     if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
       this.profile_image = file;
       this.selected = true;
@@ -140,7 +144,7 @@ export class RegisterComponent implements OnInit {
     }
   }
 
-  deleteCoverImage() {
+  deleteProfileImage() {
     this.profile_image = null;
     this.previewImage = null;
     this.deleteCover = true;

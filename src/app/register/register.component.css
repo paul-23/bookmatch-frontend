@@ -5,13 +5,14 @@
 a {
   -webkit-transition: .3s all ease;
   transition: .3s all ease;
-  color: #7754F6;
+  color: #7754F6 !important;
   font-weight: 500;
   text-decoration: none;
 }
 
 a:hover {
-  color: #643cf5;
+  color: #643cf5 !important;
+  cursor: pointer;
 }
 
 .form-wrap {

@@ -61,7 +61,7 @@ export class AddBookComponent {
 
   createBook(registerForm: NgForm): void {
     if (registerForm.invalid) {
-      this.toastr.error('There are empty or wrong fielnds', 'Error adding book');
+      this.toastr.error('There are empty or wrong fields', 'Error adding book');
       this.submitted = true;
       this.bookError = true;
       return;
@@ -101,6 +101,11 @@ export class AddBookComponent {
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
+    if (file.size > 16 * 1024 * 1024) {
+      this.toastr.error('Error adding image', 'The image cannot exceed 16mb');
+      this.newBook.cover_image = null;
+      return;
+    }
     if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
       this.newBook.cover_image = file;
       this.selected = true;
@@ -140,11 +145,12 @@ export class AddBookComponent {
           this.loadEditorials();
         },
         error => {
-          this.toastr.error('Error creating Editorial');
+          this.toastr.error('Enter a valid editorial.','Error creating Editorial');
           this.editorialError = true;
         }
       );
     } else {
+      this.toastr.error('Enter a valid editorial.','Error creating Editorial');
       this.editorialError = true;
     }
   }
