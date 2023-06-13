@@ -73,15 +73,16 @@
         </div>
 
         <div class="form-floating">
-          <input
+          <textarea
             type="text"
             id="input_Description"
-            class="form-control"
+            class="form-control custom-textarea"
             id="input_Description"
             placeholder="Enter ISBN"
             [(ngModel)]="newBook.description"
             name="Descriptionname"
-          />
+            rows="3"
+          ></textarea>
           <label for="input_Description">Description</label>
         </div>
 
