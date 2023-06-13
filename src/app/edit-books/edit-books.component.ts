@@ -84,6 +84,11 @@ export class EditBooksComponent implements OnInit {
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
+    if (file.size > 16 * 1024 * 1024) {
+      this.toastr.error('Error adding image', 'The image cannot exceed 16mb');
+      this.newBook.cover_image = null;
+      return;
+    }
     if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
       this.newBook.cover_image = file;
       this.selected = true;
