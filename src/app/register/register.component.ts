@@ -1,9 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { AuthService } from '../services/auth.service';
 import { NgForm, NgModel } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register',
@@ -25,11 +26,19 @@ export class RegisterComponent implements OnInit {
   passwordMatch: boolean = true;
   isChecked: boolean = true;
   submitted: boolean = false;
+  selected: boolean = false;
+  previewImage: SafeUrl | null = null;
+  typeFileError: boolean = false;
+  deleteCover: boolean = false;
 
-  constructor(private authService: AuthService,
+  constructor(
+    private authService: AuthService,
     private tokenStorageService: TokenStorageService,
     private router: Router,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private sanitizer: DomSanitizer,
+    private cdr: ChangeDetectorRef
+  ) { }
 
   ngOnInit(): void {
     window.scrollTo(0, 0);
@@ -119,8 +128,35 @@ export class RegisterComponent implements OnInit {
     );
   }
 
-  onFileChange(event: any) {
-    this.profile_image = event.target.files[0];
+  onFileSelected(event: any) {
+    const file = event.target.files[0];
+    if (file && (file.type === 'image/jpeg' || file.type === 'image/png')) {
+      this.profile_image = file;
+      this.selected = true;
+      this.previewImage = this.addImagePrefix(file);
+      this.cdr.detectChanges();
+    } else {
+      this.typeFileError = true;
+    }
+  }
+
+  deleteCoverImage() {
+    this.profile_image = null;
+    this.previewImage = null;
+    this.deleteCover = true;
+  }
+
+  addImagePrefix(image: string | File): SafeUrl | null {
+    if (image instanceof File) {
+      return this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(image));
+    }
+
+    if (image && !image.startsWith('data:image/')) {
+      const extension = image.substr(0, 5) === '/9j/4' ? 'jpg' : 'png';
+      return this.sanitizer.bypassSecurityTrustUrl('data:image/' + extension + ';base64,' + image);
+    }
+
+    return null;
   }
 
   logout():void{

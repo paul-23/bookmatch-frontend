@@ -219,3 +219,15 @@ a:hover {
 .error {
   border: 1px solid red !important;
 }
+
+.card-img-top {
+  border-radius: 10px;
+  height: 100px;
+  width: auto;
+  margin-bottom: 20px;
+}
+
+.delete-btn {
+  margin-left: 10px;
+  position: absolute;
+}

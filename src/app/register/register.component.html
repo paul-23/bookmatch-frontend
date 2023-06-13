@@ -98,8 +98,13 @@
 
         <div class="form-floating profile-image">
           <label for="formFileSm" class="form-label">Profile image <span>(Optional)</span></label>
-          <input name="profileimage" (change)="onFileChange($event)" type="file" [(ngModel)]="profile_image" class="form-control form-control-sm" id="formFileSm" type="file">
+          <input name="profileimage" (change)="onFileSelected($event)" type="file" [(ngModel)]="profile_image" class="form-control form-control-sm" id="formFileSm" type="file">
         </div>
+
+        <p *ngIf="typeFileError" style="color: red;">Type of file isn't accepted</p>
+        <img *ngIf="profile_image" [src]="previewImage" class="card-img-top" alt="imagen del libro" />
+        <button *ngIf="profile_image" type="button" class="btn btn-secondary delete-btn" data-bs-toggle="modal" data-bs-target="#deleteBookConfirmation"><i class="bi bi-trash3"></i></button>
+
 
         <div class="d-flex justify-content-between">
           <div class="form-check">
@@ -151,6 +156,25 @@
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
         <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="logout()">Logout</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteBookConfirmation" tabindex="-1" aria-labelledby="deleteBookConfirmationLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="deleteBookConfirmationLabel">Delete cover image</h3>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h5>Are you sure you want to delete the cover image?</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteCoverImage()">Delete</button>
       </div>
     </div>
   </div>
