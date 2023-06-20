@@ -69,7 +69,7 @@ export class RegisterComponent implements OnInit {
 
   register(registerForm: NgForm): void {
     if (registerForm.invalid) {
-      this.toastr.error('Error creating user');
+      this.toastr.error('Empty or incorrect fields', 'Failed to register');
       this.submitted = true;
       return;
     }
@@ -90,12 +90,10 @@ export class RegisterComponent implements OnInit {
           (response) => {
             console.log('User registered successfully', response);
             this.logIn();
-             // Handle success
           },
           (error) => {
             console.error('Error creating user', error);
-            this.toastr.error('Email already exists!');
-             // Handle error
+            this.toastr.error( 'Failed to register', 'Email already exists!');
           }
         );
 

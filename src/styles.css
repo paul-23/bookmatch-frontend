@@ -1,3 +1,14 @@
+@import 'node_modules/ngx-toastr/toastr.css';
+
+.toast-success, .toast-error {
+  border-radius: 10px !important;
+  margin-top: 80px;
+}
+
+.toast-top-right {
+  top: 80px !important;
+}
+
 head{
   background-color: aliceblue;
 }

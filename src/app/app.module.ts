@@ -56,7 +56,7 @@ import { PrivacyPolicyComponent } from './privacy-policy/privacy-policy.componen
     HttpClientModule,
     FormsModule,
     BrowserAnimationsModule,
-    ToastNoAnimationModule.forRoot(),
+    ToastrModule.forRoot(),
   ],
   providers: [
     {

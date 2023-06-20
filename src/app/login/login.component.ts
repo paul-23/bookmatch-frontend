@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
 
   logIn(loginForm: NgForm):void{
     if (loginForm.invalid) {
-      this.toastr.error('Enter your email and password');
+      this.toastr.error('Enter your email and password', 'Failed to login');
       this.submitted = true;
       return;
     }
@@ -59,11 +59,11 @@ export class LoginComponent implements OnInit {
           this.email = '';
           this.password = '';
           const user = this.tokenStorageService.getUser();
-          this.toastr.success('Welcome back ' + user.username);
+          this.toastr.success('Login successful', 'Welcome back ' + user.username);
           this.router.navigate(["/"]);
         },
         error: (err: any) => {
-          this.toastr.error('Wrong email or password');
+          this.toastr.error('Wrong email or password', 'Failed to login');
           this.autenticationFailed = true;
         }
       }

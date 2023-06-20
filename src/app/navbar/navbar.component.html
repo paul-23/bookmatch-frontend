@@ -1,7 +1,7 @@
 <header class="header_section">
   <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="navegacion">
     <div class="container">
-      <a class="navbar-brand" routerLink="/"><img src="./../assets/images/T-BookMatch-SF-B.png" class="img-fluid" alt="BookMatch logotipe"></a>
+      <a class="navbar-brand" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" routerLink="/"><img src="./../assets/images/T-BookMatch-SF-B.png" class="img-fluid" alt="BookMatch logotipe"></a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
@@ -26,11 +26,11 @@
             </li>
 
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a class="nav-link dropdown-toggle" id="dropdownMenuButton" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                 Hi, {{ user?.username }}
                 <img *ngIf="user?.profile_image" [src]="'data:image/jpg;base64,' + user?.profile_image" class="card-img-top" alt="Imagen de perfil" />
               </a>
-              <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                 <li><a class="dropdown-item" data-bs-toggle="collapse" data-bs-target=".navbar-collapse.show" [routerLink]="['/user_books/', user?.id_user]">Profile</a></li>
                 <li><a class="dropdown-item" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#LogoutConfirmation">Logout</a></li>
               </ul>
