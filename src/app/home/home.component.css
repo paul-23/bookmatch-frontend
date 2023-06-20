@@ -288,6 +288,7 @@ label {
 
 .card-blur:hover {
   backdrop-filter: blur(5px);
+  cursor: default;
 }
 
 #custom-cards {

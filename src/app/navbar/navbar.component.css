@@ -28,6 +28,14 @@ li > a {
   font-size: 18px;
 }
 
+.dropdown-item {
+  color: #000 !important;
+}
+
+.dropdown-item:focus, .dropdown-item:active {
+  background-color: #e20074 !important;
+}
+
 .footer {
   background-color: #262626;
 }

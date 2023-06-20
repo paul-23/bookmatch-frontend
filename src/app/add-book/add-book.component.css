@@ -247,3 +247,9 @@ button {
   margin-left: 10px;
   position: absolute;
 }
+
+@media only screen and (max-width: 768px) {
+  .new-editorial {
+    margin-bottom: 12px !important;
+  }
+}
