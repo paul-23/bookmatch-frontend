@@ -2,8 +2,8 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, map, pluck } from 'rxjs';
 
-const AUTH_BASE = 'https://api-bookmatch-production.up.railway.app/auth/';
-const BASE = 'https://api-bookmatch-production.up.railway.app/api/';
+const AUTH_BASE = 'https://bookmatch.onrender.com/auth/';
+const BASE = 'https://bookmatch.onrender.com/api/';
 
 @Injectable({
   providedIn: 'root',
