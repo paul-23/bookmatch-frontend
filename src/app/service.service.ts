@@ -3,8 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable, catchError, map, pluck, throwError } from 'rxjs';
 
 //const BASE = "https://rickandmortyapi.com/api/";
-const BASE = "https://api-bookmatch-production.up.railway.app/api/";
-const AUTH_BASE = "https://api-bookmatch-production.up.railway.app/auth/"
+const BASE = "https://bookmatch.onrender.com/api/";
+const AUTH_BASE = "https://bookmatch.onrender.com/auth/"
 const NUM_BOOKS = 8;
 
 @Injectable({
